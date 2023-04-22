@@ -1447,6 +1447,11 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+highlight.js@^11.7.0:
+  version "11.7.0"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-11.7.0.tgz#3ff0165bc843f8c9bce1fd89e2fda9143d24b11e"
+  integrity sha512-1rRqesRFhMO/PRF+G86evnyJkCgaZFOI+Z6kdj15TA18funfoqJXvgPCLSf0SWq3SRfg1j3HlDs8o4s3EGq1oQ==
+
 ignore@^5.2.0:
   version "5.2.4"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.2.4.tgz#a291c0c6178ff1b960befe47fcdec301674a6324"
@@ -1675,6 +1680,13 @@ isexe@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
+
+javascript-time-ago@^2.5.9:
+  version "2.5.9"
+  resolved "https://registry.yarnpkg.com/javascript-time-ago/-/javascript-time-ago-2.5.9.tgz#3c5d8012cd493d764c6b26a0ffe6e8b20afcf1fe"
+  integrity sha512-pQ8mNco/9g9TqWXWWjP0EWl6i/lAQScOyEeXy5AB+f7MfLSdgyV9BJhiOD1zrIac/lrxPYOWNbyl/IW8CW5n0A==
+  dependencies:
+    relative-time-format "^1.1.6"
 
 jiti@^1.17.2:
   version "1.18.2"
@@ -2234,6 +2246,11 @@ regexp.prototype.flags@^1.4.3:
     call-bind "^1.0.2"
     define-properties "^1.1.3"
     functions-have-names "^1.2.2"
+
+relative-time-format@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/relative-time-format/-/relative-time-format-1.1.6.tgz#724a5fbc3794b8e0471b6b61419af2ce699eb9f1"
+  integrity sha512-aCv3juQw4hT1/P/OrVltKWLlp15eW1GRcwP1XdxHrPdZE9MtgqFpegjnTjLhi2m2WI9MT/hQQtE+tjEWG1hgkQ==
 
 resolve-from@^4.0.0:
   version "4.0.0"

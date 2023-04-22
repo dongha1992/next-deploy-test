@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../../../server/db/client";
 
 function titleFromCode(code: string) {
   return code.trim().split("\n")[0].replace("//", "");
