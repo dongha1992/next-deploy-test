@@ -10,11 +10,15 @@ export default function Profile({ user }: any) {
   const router = useRouter();
 
   const handleSubmit = async ({ language, code }: any) => {
-    const { data } = await axios.post("/api/posts", {
-      language,
-      code,
-    });
-    console.log(data);
+    try {
+      const { data } = await axios.post("/api/posts", {
+        language,
+        code,
+      });
+      router.replace("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
