@@ -38,7 +38,7 @@ export default function Post({
             <p className="text-sm font-medium text-gray-100">{user?.name}</p>
             <p className="pl-5 text-sm text-gray-300">
               {/* {formatTimeAgo(post.createdAt)} */}
-              {post.createdAt}
+              {post.createdAt.split("T")[0]}
             </p>
           </div>
           <div className="flex-1 mt-1">

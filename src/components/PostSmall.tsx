@@ -44,7 +44,9 @@ export default function PostSmall({
                   {/* {formatUserName(user?.name)} */}
                   {user?.name}
                 </p>
-                <p className="text-sm text-gray-300">{post.createdAt}</p>
+                <p className="text-sm text-gray-300">
+                  {post.createdAt.split("T")[0]}
+                </p>
               </div>
               <div className="flex-1 mt-1">
                 <p className="text-xl font-semibold text-gray-100">
