@@ -13,10 +13,15 @@ export default function PostSmall({
   user,
   className = "",
 }: any) {
+  const formatUserName = (str: string): string => {
+    const firstChar = str.charAt(0);
+    const maskedStr = firstChar + str.slice(0, -1).replace(/./g, "*");
+    return maskedStr;
+  };
   return (
     <div
       className={
-        "lex flex-col overflow-hidden rounded-lg shadow-lg " + className
+        "flex flex-col overflow-hidden rounded-lg shadow-lg " + className
       }
     >
       <div className="flex flex-1 flex-col justify-between p-6 pb-3">
@@ -25,19 +30,20 @@ export default function PostSmall({
             <div className="flex-shrink-0 text-gray-100">
               {user?.image && (
                 <Image
-                  className="h-12 w-12 rounded-full"
+                  className="h-8 w-8 rounded-full"
                   src={user.image}
-                  width={50}
-                  height={50}
-                  alt=""
+                  width={10}
+                  height={10}
+                  alt="아바타 사진"
                 />
               )}
             </div>
             <div className="ml-4 flex-1">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-medium text-gray-100">
-                  {user?.name}
+                  {formatUserName(user?.name)}
                 </p>
+                {/* <p className="text-sm text-gray-300">{user.email}</p> */}
                 <p className="text-sm text-gray-300">{post.createdAt}</p>
               </div>
               <div className="flex-1 mt-1">

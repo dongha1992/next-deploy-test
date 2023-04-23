@@ -16,9 +16,10 @@ export default function Home({ posts }: any) {
   //     router.push("/auth/signin");
   //   }
   // }, [status]);
+  console.log(posts, "posts");
 
   return (
-    <div className="pt-8 pb-10 mx-auto max-w-7xl px-2">
+    <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-10">
       <div className="max-w-2xl mx-auto">
         <Button onClick={() => router.push("/addPost")}>
           Create A Snippet
@@ -30,6 +31,7 @@ export default function Home({ posts }: any) {
               <PostSmall
                 post={post}
                 href={`/code/${post.id}`}
+                user={post.user}
                 className="my-10"
                 onLike={() => console.log("like post", post.id)}
                 onComment={() => console.log("comment post", post.id)}
@@ -59,6 +61,9 @@ export async function getServerSideProps(context: any) {
   const posts = await prisma?.post.findMany({
     orderBy: {
       createdAt: "desc",
+    },
+    include: {
+      user: true,
     },
   });
 

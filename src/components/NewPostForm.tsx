@@ -49,7 +49,7 @@ export default function NewPostForm({
             id="code"
             name="code"
           />
-          <Button type="submit">Push!</Button>
+          <Button type="submit">제출</Button>
         </div>
       </div>
     </form>
