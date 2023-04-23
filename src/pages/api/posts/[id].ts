@@ -11,23 +11,16 @@ async function get(res: NextApiResponse, req: NextApiRequest) {
 
   const post = await prisma.post.findUnique({ where: { id: Number(id) } });
 
-  if (req.headers.authorization) {
-    const token = parseJwt(req.headers.authorization!);
-
-    const foundEmail = token.id;
-    const user = await prisma.user.findUnique({ where: { email: foundEmail } });
-
-    // 검색 결과가 있는 경우 검색 결과 반환
-    res.status(200).json({ ...post, user: user });
-  }
-
-  // console.log(prismaUser, "prismaUser");
-
   if (!post) {
     // 검색 결과가 없는 경우 404 에러 반환
     res.status(404).json({ message: `해당 포스트를 찾지 못 했습니다.` });
     return;
   }
+
+  const user = await prisma.user.findUnique({ where: { id: post?.userId } });
+
+  // 검색 결과가 있는 경우 검색 결과 반환
+  res.status(200).json({ ...post, user: user });
 }
 
 export default async function handler(

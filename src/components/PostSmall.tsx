@@ -24,7 +24,7 @@ export default function PostSmall({
         "flex flex-col overflow-hidden rounded-lg shadow-lg " + className
       }
     >
-      <div className="flex flex-1 flex-col justify-between p-6 pb-3">
+      <div className="flex flex-1 flex-col justify-between">
         <Link href={href}>
           <div className="mt-2 flex items-center">
             <div className="flex-shrink-0 text-gray-100">

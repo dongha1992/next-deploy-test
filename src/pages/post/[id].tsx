@@ -27,19 +27,9 @@ export default function Code({ post = {} }: any) {
 
 export async function getServerSideProps(context: any) {
   const { id } = context.query;
-  const session: Session | null = await getServerSession(
-    context.req,
-    context.res,
-    options
-  );
 
   const { data } = await axios.get(
-    `${process.env.NEXTAUTH_URL}/api/posts/${id}`,
-    {
-      headers: {
-        Authorization: `bearer ${session?.loggedUser}`,
-      },
-    }
+    `${process.env.NEXTAUTH_URL}/api/posts/${id}`
   );
 
   return {

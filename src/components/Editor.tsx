@@ -1,5 +1,5 @@
 import Editor from "@monaco-editor/react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 // https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.IStandaloneEditorConstructionOptions.html
 const languages = [
@@ -39,8 +39,10 @@ export default function SimpleCodeEditor({
   onChange,
   className,
 }: any) {
+  const height = useMemo(() => (value.length > 0 ? "h-96" : "h-20"), [value]);
+
   return (
-    <div className={twMerge("h-96 overflow-hidden rounded-xl", className)}>
+    <div className={twMerge(`${height} overflow-hidden rounded-xl`, className)}>
       <Editor
         language={language}
         value={value}

@@ -61,7 +61,7 @@ export default function LanguageDropdown({
     <Listbox value={selected} onChange={handleChange}>
       {({ open }: any) => (
         <>
-          <div className="relative mt-1">
+          <div className="relative">
             <Listbox.Button
               className={twMerge(
                 "relative w-full cursor-default rounded-xl border border-gray-300 bg-dark py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm",

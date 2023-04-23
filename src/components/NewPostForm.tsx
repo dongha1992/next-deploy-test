@@ -26,7 +26,7 @@ export default function NewPostForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className={"mt-8 space-y-6 " + className}
+      className={className}
       action="#"
       method="POST"
     >
