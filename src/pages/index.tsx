@@ -30,11 +30,12 @@ export default function Home({ posts, userAgent }: any) {
     }
   };
   useEffect(() => {
+    console.log(window.navigator.userAgent);
     if (typeof window !== undefined) {
       const navigatorClone = Object.assign({}, window.navigator);
       Object.defineProperties(navigatorClone, {
         userAgent: {
-          get: () => 'ExampleApp/1.0 (iPhone)"',
+          get: () => "ExampleApp/1.0 (iPhone)",
         },
       });
       Object.defineProperty(window, "navigator", {

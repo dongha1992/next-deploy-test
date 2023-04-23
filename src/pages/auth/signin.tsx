@@ -10,7 +10,7 @@ function Signin() {
       <button
         className="bg-white text-black p-4 rounded-sm flex"
         type="button"
-        onClick={() => signIn()}
+        onClick={() => signIn("google")}
       >
         <Image
           src="/img/google_logo.png"
