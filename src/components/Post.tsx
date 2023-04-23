@@ -15,7 +15,6 @@ export default function Post({
   post,
   user,
   smallMaxWith,
-  largeMaxWidth,
   className = "",
 }: any) {
   return (
@@ -48,13 +47,8 @@ export default function Post({
         </div>
       </div>
 
-      <div
-        className={twMerge(
-          "flex flex-col items-center margin-auto",
-          largeMaxWidth
-        )}
-      >
-        <div className={"flex flex-col justify-between"}>
+      <div className="flex flex-col items-center margin-auto">
+        <div className="flex flex-col justify-between w-full">
           <pre className="mt-5 mx-5 whitespace-pre-wrap break-words">
             {post.language ? (
               <code

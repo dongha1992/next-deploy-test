@@ -2,13 +2,14 @@ import { getServerSession } from "next-auth";
 import { prisma } from "../../../../server/db/client";
 import { options } from "../../api/auth/[...nextauth]";
 
-interface Session {
+export interface Session {
   user: {
     name: string;
     email: string;
     image: string;
   };
   expires: Date;
+  loggedUser?: string;
 }
 function titleFromCode(code: string) {
   return code.trim().split("\n")[0].replace("//", "");

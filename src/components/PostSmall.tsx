@@ -41,9 +41,9 @@ export default function PostSmall({
             <div className="ml-4 flex-1">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-medium text-gray-100">
-                  {formatUserName(user?.name)}
+                  {/* {formatUserName(user?.name)} */}
+                  {user?.name}
                 </p>
-                {/* <p className="text-sm text-gray-300">{user.email}</p> */}
                 <p className="text-sm text-gray-300">{post.createdAt}</p>
               </div>
               <div className="flex-1 mt-1">

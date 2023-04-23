@@ -14,9 +14,7 @@ export default function Home({ posts }: any) {
   return (
     <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-10">
       <div className="max-w-2xl mx-auto">
-        <Button onClick={() => router.push("/addPost")}>
-          Create A Snippet
-        </Button>
+        <Button onClick={() => router.push("/addPost")}>글쓰기</Button>
 
         <ul className="mt-8">
           {posts?.map((post: any) => (
