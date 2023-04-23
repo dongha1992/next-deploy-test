@@ -3,10 +3,12 @@ import PostSmall from "@/components/PostSmall";
 import router from "next/router";
 import { prisma } from "../../server/db/client";
 import { signIn, useSession, signOut } from "next-auth/react";
+import { useEffect } from "react";
 
 export default function Home({ posts }: any) {
   const { data, status } = useSession();
   console.log(data, "da");
+
   return (
     <>
       <div className="pt-8 pb-10 lg:pt-12 lg:pb-14 mx-auto max-w-7xl px-2">
