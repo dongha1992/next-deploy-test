@@ -2,11 +2,17 @@ import Button from "@/components/Button";
 import PostSmall from "@/components/PostSmall";
 import router from "next/router";
 import { prisma } from "../../server/db/client";
+import { signIn, useSession, signOut } from "next-auth/react";
 
 export default function Home({ posts }: any) {
+  const { data, status } = useSession();
+  console.log(data, "da");
   return (
     <>
       <div className="pt-8 pb-10 lg:pt-12 lg:pb-14 mx-auto max-w-7xl px-2">
+        <button type="button" onClick={() => signIn()}>
+          Google signIn
+        </button>
         <div className="max-w-2xl mx-auto">
           <Button onClick={() => router.push("/addPost")}>
             Create A Snippet

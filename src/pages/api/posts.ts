@@ -15,6 +15,7 @@ export default async function handler(req: any, res: any) {
           title,
           language,
           code,
+          user: {},
         },
       });
       res.status(200).json(post);
