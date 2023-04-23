@@ -3,7 +3,7 @@ import axios from "axios";
 import Head from "next/head";
 import { useEffect } from "react";
 
-export default function Code({ post = {} }) {
+export default function Code({ post = {} }: any) {
   // { id, title, code, language, totalLikes, totalComments, createdAt}
 
   return (
