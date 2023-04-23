@@ -29,16 +29,23 @@ export default function Home({ posts, userAgent }: any) {
       console.error(error);
     }
   };
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      const navigatorClone = Object.assign({}, window.navigator);
+      Object.defineProperties(navigatorClone, {
+        userAgent: {
+          get: () => 'ExampleApp/1.0 (iPhone)"',
+        },
+      });
+      Object.defineProperty(window, "navigator", {
+        value: navigatorClone,
+        configurable: true,
+      });
+    }
+  }, []);
 
   return (
     <>
-      <Head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `navigator.userAgent = "ExampleApp/1.0 (iPhone)"`,
-          }}
-        />
-      </Head>
       <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-10">
         <div className="max-w-2xl mx-auto">
           {!isShowInput && (
