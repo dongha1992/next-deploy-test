@@ -5,7 +5,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "../../../../server/db/client";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
-const options: any = {
+export const options: any = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -19,6 +19,11 @@ const options: any = {
     maxAge: 30 * 24 * 60 * 60, // ** 30 days
   },
   secret: process.env.SECRET,
+  callbacks: {
+    async redirect({ url, baseUrl = "/" }: any) {
+      return baseUrl;
+    },
+  },
 };
 
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
