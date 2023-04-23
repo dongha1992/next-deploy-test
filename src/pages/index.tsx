@@ -10,9 +10,6 @@ export default function Home({ posts }: any) {
   return (
     <>
       <div className="pt-8 pb-10 lg:pt-12 lg:pb-14 mx-auto max-w-7xl px-2">
-        <button type="button" onClick={() => signIn()}>
-          Google signIn
-        </button>
         <div className="max-w-2xl mx-auto">
           <Button onClick={() => router.push("/addPost")}>
             Create A Snippet
