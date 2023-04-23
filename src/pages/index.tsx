@@ -11,13 +11,6 @@ import PostSmall from "@/components/PostSmall";
 export default function Home({ posts }: any) {
   const { data, status } = useSession();
 
-  // useEffect(() => {
-  //   if (status === "unauthenticated") {
-  //     router.push("/auth/signin");
-  //   }
-  // }, [status]);
-  console.log(posts, "posts");
-
   return (
     <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-10">
       <div className="max-w-2xl mx-auto">
@@ -30,7 +23,7 @@ export default function Home({ posts }: any) {
             <li key={post.id}>
               <PostSmall
                 post={post}
-                href={`/code/${post.id}`}
+                href={`/post/${post.id}`}
                 user={post.user}
                 className="my-10"
                 onLike={() => console.log("like post", post.id)}

@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
-import { prisma } from "../../../server/db/client";
-import { options } from "../api/auth/[...nextauth]";
+import { prisma } from "../../../../server/db/client";
+import { options } from "../../api/auth/[...nextauth]";
 
 interface Session {
   user: {
