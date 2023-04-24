@@ -1,7 +1,7 @@
 import { prisma } from "../../../../server/db/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-async function get(res: NextApiResponse, req: NextApiRequest) {
+async function updatePostLike(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
   // TODO: 중복코드
 
@@ -13,10 +13,14 @@ async function get(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  const user = await prisma.user.findUnique({ where: { id: post?.userId } });
+  const updatedPost = await prisma.post.update({
+    where: { id: Number(id) },
+    data: {
+      totalLikes: post.totalLikes + 1, // 기존 likes 값에 1을 더해 업데이트
+    },
+  });
 
-  // 검색 결과가 있는 경우 검색 결과 반환
-  res.status(200).json({ ...post, user: user });
+  res.status(200);
 }
 
 export default async function handler(
@@ -27,11 +31,11 @@ export default async function handler(
 
   switch (method) {
     case "PUT":
-      put(res, req);
+      updatePostLike(res, req);
 
       break;
     default:
-      res.setHeader("Allow", ["GET"]);
+      res.setHeader("Allow", ["PUT"]);
       res.status(405).end("잘못된 호출입니다.");
   }
 }
