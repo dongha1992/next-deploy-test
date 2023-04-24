@@ -10,57 +10,21 @@ import Button from "@/components/Button";
 import PostSmall from "@/components/PostSmall";
 import NewPostForm from "@/components/NewPostForm";
 import axios from "axios";
+import useFormatUserAgent from "@/hooks/useFormatUserAgent";
 
 export default function Home({ posts, userAgent }: any) {
   const { data, status } = useSession();
-  const [isShowInput, setShowInput] = useState(false);
-  const router = useRouter();
 
-  const handleSubmit = async ({ language, code }: any) => {
-    try {
-      await axios.post("/api/posts", {
-        language,
-        code,
-      });
-      // TODO: 수정해야함
-      router.replace("/");
-      setShowInput(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    const USER_AGENT =
-      "Mozilla/5.0 (Linux; Android 4.1.1; Galaxy Nexus Build/JRO03C) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19";
-    if (typeof window !== undefined) {
-      const navigatorClone = Object.assign({}, window.navigator);
-      Object.defineProperties(navigatorClone, {
-        userAgent: {
-          get: () => USER_AGENT,
-        },
-      });
-      Object.defineProperty(window, "navigator", {
-        value: navigatorClone,
-        configurable: true,
-      });
-    }
-  }, []);
+  const router = useRouter();
+  useFormatUserAgent();
 
   return (
     <>
-      <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-10">
+      <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-4">
         <div className="max-w-2xl mx-auto">
-          {!isShowInput && (
-            <input
-              className="relative w-full cursor-default rounded-xl border border-gray-300 bg-dark py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
-              placeholder="코드 작성하기"
-              onFocus={() => setShowInput(true)}
-            />
-          )}
-
-          {isShowInput && (
-            <NewPostForm className="max-w-5xl" onSubmit={handleSubmit} />
-          )}
+          <Button type="submit" onClick={() => router.push("/addPost")}>
+            글쓰기
+          </Button>
 
           <ul className="mt-8">
             {posts?.map((post: any) => (
