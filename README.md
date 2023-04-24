@@ -32,3 +32,4 @@ demo: https://deploy-test-amber-mu.vercel.app/
 
 [ ]컴포넌트
 [ ]axios instance
+[ ]api 중복
