@@ -26,8 +26,8 @@ export default async function handler(
   const { method } = req;
 
   switch (method) {
-    case "GET":
-      get(res, req);
+    case "PUT":
+      put(res, req);
 
       break;
     default:

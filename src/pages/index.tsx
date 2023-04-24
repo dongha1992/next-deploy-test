@@ -18,6 +18,8 @@ export default function Home({ posts, userAgent }: any) {
   const router = useRouter();
   useFormatUserAgent();
 
+  function updateLike(id: number) {}
+
   return (
     <>
       <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-4">
@@ -34,7 +36,7 @@ export default function Home({ posts, userAgent }: any) {
                   href={`/post/${post.id}`}
                   user={post.user}
                   className="my-10"
-                  onLike={() => console.log("like post", post.id)}
+                  onLike={() => updateLike(post.id)}
                   onComment={() => console.log("comment post", post.id)}
                   onShare={() => console.log("share post", post.id)}
                 />
