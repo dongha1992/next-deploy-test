@@ -32,17 +32,19 @@ model Post {
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   userId        String
+  isLiked       Boolean
   user          User        @relation(fields: [userId], references: [id])
-  UserLikes     UserLikes[]
+  userLikes     UserLikes[]
 }
 
 model UserLikes {
-  id      Int     @id @default(autoincrement())
-  post    Post    @relation(fields: [postId], references: [id])
+  isLiked Boolean
   postId  Int
-  user    User    @relation(fields: [userId], references: [id])
   userId  String
-  isLiked Boolean @default(false)
+  post    Post    @relation(fields: [postId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@id([postId, userId])
 }
 
 model Account {

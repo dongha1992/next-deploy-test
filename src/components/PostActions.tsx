@@ -11,7 +11,7 @@ export default function PostActions({
   onShare,
   totalLikes,
   totalComments,
-  liked,
+  isLiked,
   className = "",
 }: any) {
   return (
@@ -28,7 +28,7 @@ export default function PostActions({
         className="flex flex-col items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md hover:outline-none text-gray-400 hover:text-gray-500"
       >
         <span>{totalLikes}</span>
-        {!liked ? (
+        {!isLiked ? (
           <HeartIcon className="h-7 w-7" aria-hidden="true" />
         ) : (
           <HeartIconSolid className="h-7 w-7" aria-hidden="true" />

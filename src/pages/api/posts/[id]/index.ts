@@ -1,7 +1,7 @@
-import { prisma } from "../../../../server/db/client";
+import { prisma } from "../../../../../server/db/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-async function get(res: NextApiResponse, req: NextApiRequest) {
+async function getPost(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
   // TODO: 중복코드
 
@@ -27,7 +27,7 @@ export default async function handler(
 
   switch (method) {
     case "GET":
-      get(res, req);
+      getPost(res, req);
 
       break;
     default:

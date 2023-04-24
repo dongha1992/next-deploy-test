@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { prisma } from "../../../../server/db/client";
 import { options } from "../../api/auth/[...nextauth]";
+import { NextApiRequest, NextApiResponse } from "next";
 
 export interface Session {
   user: {
@@ -15,7 +16,7 @@ function titleFromCode(code: string) {
   return code.trim().split("\n")[0].replace("//", "");
 }
 
-async function post(req: any, res: any) {
+async function createPost(req: any, res: any) {
   const session: Session | null = await getServerSession(req, res, options);
 
   if (!session) {
@@ -40,20 +41,38 @@ async function post(req: any, res: any) {
       language,
       code,
       userId: prismaUser.id,
+      isLiked: false,
     },
   });
   res.status(200).json(post);
+}
+
+async function getPost(req: NextApiRequest, res: NextApiResponse) {
+  const posts = await prisma?.post.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      user: true,
+    },
+  });
+
+  res.status(200).json(posts);
 }
 
 export default async function handler(req: any, res: any) {
   const { method } = req;
   switch (method) {
     case "POST":
-      post(req, res);
-
+      createPost(req, res);
       break;
+
+    case "GET":
+      getPost(req, res);
+      break;
+
     default:
-      res.setHeader("Allow", ["POST"]);
+      res.setHeader("Allow", ["POST", "GET"]);
       res.status(405).end("잘못된 호출입니다.");
   }
 }

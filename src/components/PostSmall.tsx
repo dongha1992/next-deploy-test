@@ -74,7 +74,7 @@ export default function PostSmall({
           onComment={onComment}
           onLike={onLike}
           onShare={onShare}
-          liked={post.liked}
+          isLiked={post.isLiked}
           totalComments={post.totalComments}
           totalLikes={post.totalLikes}
         />

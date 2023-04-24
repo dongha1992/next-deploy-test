@@ -11,7 +11,6 @@ export default function Post({
   onComment,
   onLike,
   onShare,
-  liked,
   post,
   user,
   smallMaxWith,
@@ -67,7 +66,7 @@ export default function Post({
           onComment={onComment}
           onLike={onLike}
           onShare={onShare}
-          liked={liked}
+          isLiked={post.isLiked}
           totalComments={post.totalComments}
           totalLikes={post.totalLikes}
         />
