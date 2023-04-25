@@ -5,9 +5,12 @@ import axios from "axios";
 
 import { useRouter } from "next/router";
 import NewPostForm from "@/components/NewPostForm";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Profile({ user }: any) {
   const router = useRouter();
+
+  // const {} = useQuery();
 
   const handleSubmit = async ({ language, code }: any) => {
     try {
