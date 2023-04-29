@@ -11,26 +11,30 @@ import axios from "axios";
 
 function useUpdateLike(options = {}) {
   const queryClient = useQueryClient();
-  return useMutation((id) => axios.post(`api/posts/${id}/like`), {
-    onSuccess: () => {
-      // cache가 필요하면 실행
-      return queryClient.invalidateQueries([POST_QUERY_KEY]);
-    },
-
-    ...options,
-  });
+  return useMutation(
+    async (id: number) => await axios.post(`api/posts/${id}/like`),
+    {
+      onSuccess: () => {
+        // cache가 필요하면 실행
+        // return queryClient.invalidateQueries([POST_QUERY_KEY]);
+      },
+      ...options,
+    }
+  );
 }
 
 function useDeleteLike(options = {}) {
   const queryClient = useQueryClient();
-  return useMutation((id) => axios.delete(`api/posts/${id}/like`), {
-    onSuccess: () => {
-      // cache가 필요하면 실행
-      return queryClient.invalidateQueries([POST_QUERY_KEY]);
-    },
-
-    ...options,
-  });
+  return useMutation(
+    async (id: number) => await axios.delete(`api/posts/${id}/like`),
+    {
+      onSuccess: () => {
+        // cache가 필요하면 실행
+        // return queryClient.invalidateQueries([POST_QUERY_KEY]);
+      },
+      ...options,
+    }
+  );
 }
 
 export { useUpdateLike, useDeleteLike };

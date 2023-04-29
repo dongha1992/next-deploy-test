@@ -28,7 +28,7 @@ async function updatePostLike(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  const userLikes = await prisma.userLikes.findUnique({
+  let userLikes = await prisma.userLikes.findUnique({
     where: {
       postId_userId: {
         postId: Number(id),
@@ -37,27 +37,26 @@ async function updatePostLike(res: NextApiResponse, req: NextApiRequest) {
     },
   });
 
+  if (userLikes?.isLiked) {
+    res.status(404).json({ message: `이미 좋아요를 눌렀습니다.` });
+    return;
+  }
+
   if (!userLikes) {
-    await prisma.userLikes.create({
+    userLikes = await prisma.userLikes.create({
       data: {
         postId: Number(id),
         userId: user?.id,
         isLiked: true,
       },
     });
-    return;
-  }
-
-  if (userLikes.isLiked) {
-    res.status(404).json({ message: `이미 좋아요를 눌렀습니다.` });
-    return;
   }
 
   await prisma.post.update({
     where: { id: Number(id) },
     data: {
       totalLikes: post.totalLikes + 1,
-      isLiked: !userLikes.isLiked,
+      isLiked: userLikes.isLiked,
     },
   });
 

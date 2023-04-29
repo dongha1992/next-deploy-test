@@ -6,7 +6,11 @@ import { ReactElement, ReactNode, useRef } from "react";
 import "@/styles/globals.css";
 import "highlight.js/styles/stackoverflow-dark.css";
 import Layout from "@/components/Layout";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -31,9 +35,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   }
   return (
     <QueryClientProvider client={queryClient.current}>
-      <SessionProvider session={pageProps.session}>
-        {getLayout(<Component {...pageProps} />)}
-      </SessionProvider>
+      <Hydrate state={pageProps.dehydratedProps}>
+        <SessionProvider session={pageProps.session}>
+          {getLayout(<Component {...pageProps} />)}
+        </SessionProvider>
+      </Hydrate>
     </QueryClientProvider>
   );
 }
