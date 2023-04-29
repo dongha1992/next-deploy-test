@@ -2,6 +2,7 @@ import type { AppProps } from "next/app";
 import { SessionProvider, useSession } from "next-auth/react";
 import { NextPage } from "next";
 import { ReactElement, ReactNode, useRef } from "react";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import "@/styles/globals.css";
 import "highlight.js/styles/stackoverflow-dark.css";
@@ -38,6 +39,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       <Hydrate state={pageProps.dehydratedProps}>
         <SessionProvider session={pageProps.session}>
           {getLayout(<Component {...pageProps} />)}
+          <ReactQueryDevtools initialIsOpen={false} />
         </SessionProvider>
       </Hydrate>
     </QueryClientProvider>

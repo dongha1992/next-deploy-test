@@ -12,53 +12,26 @@ import { prisma } from "../../server/db/client";
 import { options } from "./api/auth/[...nextauth]";
 import Button from "@/components/Button";
 import PostSmall from "@/components/PostSmall";
-import NewPostForm from "@/components/NewPostForm";
 import axios from "axios";
 import useFormatUserAgent from "@/hooks/useFormatUserAgent";
 import { useDeleteLike, useUpdateLike } from "@/query/post";
-import { useIsMutating } from "@tanstack/react-query";
 
 export const POST_QUERY_KEY = "getPost";
-
-// const useSyncMutation = (mutationFn: any, options: any) => {
-//   const mutationResults = useMutation(mutationFn, options);
-
-//   return {
-//     ...mutationResults,
-//     mutate: (...params: any) => {
-//       if (!mutationResults.isLoading) {
-//         mutationResults.mutate(...params);
-//       }
-//     },
-//   };
-// };
 
 export default function Home() {
   const router = useRouter();
 
   useFormatUserAgent();
 
-  const { data } = useQuery([POST_QUERY_KEY], getPost, {
-    staleTime: 10 * 1000,
-  });
-
-  console.log(data, "data");
+  const { data } = useQuery([POST_QUERY_KEY], getPost);
 
   const queryClient = useQueryClient();
-  const isMutating = useIsMutating();
 
-  // const { mutate: mutateLike, isLoading, isSuccess, isIdle } = useUpdateLike();
-  // const { mutate: mutateUnLike, isLoading: isDeleteLoading } = useDeleteLike({
-  //   throwOnError: true,
-  // });
-
-  const { mutate: mutatePostLike, isLoading } = useMutation(
-    async (id: number) => {
-      return await axios.post(`api/posts/${id}/like`);
-    },
+  const { mutate: postListMutation } = useMutation(
+    (id: number) => axios.post(`api/posts/${id}/like`),
     {
       onSuccess: async () => {
-        return await queryClient.invalidateQueries([POST_QUERY_KEY]);
+        queryClient.invalidateQueries([POST_QUERY_KEY]);
       },
       onError: async (error: any) => {
         console.error(error);
@@ -66,11 +39,20 @@ export default function Home() {
     }
   );
 
-  console.log(isLoading, "isLoading");
+  const { mutate: deleteLikeMutation } = useMutation(
+    (id: number) => axios.delete(`api/posts/${id}/like`),
+    {
+      onSuccess: async () => {
+        queryClient.invalidateQueries([POST_QUERY_KEY]);
+      },
+      onError: async (error: any) => {
+        console.error(error);
+      },
+    }
+  );
 
   function onMutateLikeHandler(isLiked: boolean, id: number) {
-    // isLiked ? mutatePostLike(id) : mutateLike(id);
-    mutatePostLike(id);
+    !isLiked ? postListMutation(id) : deleteLikeMutation(id);
   }
   return (
     <>

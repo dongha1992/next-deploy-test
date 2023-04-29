@@ -56,11 +56,11 @@ async function updatePostLike(res: NextApiResponse, req: NextApiRequest) {
     where: { id: Number(id) },
     data: {
       totalLikes: post.totalLikes + 1,
-      isLiked: userLikes.isLiked,
+      isLiked: true,
     },
   });
 
-  res.status(200);
+  res.status(200).json({ message: "성공" });
 }
 
 async function deletePostLike(res: NextApiResponse, req: NextApiRequest) {
@@ -102,11 +102,11 @@ async function deletePostLike(res: NextApiResponse, req: NextApiRequest) {
     where: { id: Number(id) },
     data: {
       totalLikes: post.totalLikes - 1,
-      isLiked: userLikes.isLiked,
+      isLiked: false,
     },
   });
 
-  res.status(200);
+  res.status(200).json({ message: "성공" });
 }
 
 export default async function handler(
