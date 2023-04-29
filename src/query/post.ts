@@ -41,4 +41,21 @@ function useDeleteLike({ options = {}, queryKey }: Props) {
   });
 }
 
-export { useUpdateLike, useDeleteLike };
+function usePostComment({ options = {}, queryKey }: Props) {
+  const queryClient = useQueryClient();
+  return useMutation(
+    ({ data, id }: { data: any; id: number }) =>
+      apiClient.post(`api/posts/${id}/comment`, { data }),
+    {
+      onSuccess: async () => {
+        queryClient.invalidateQueries(queryKey);
+      },
+      onError: async (error: any) => {
+        console.error(error);
+      },
+      ...options,
+    }
+  );
+}
+
+export { useUpdateLike, useDeleteLike, usePostComment };

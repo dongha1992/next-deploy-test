@@ -6,9 +6,14 @@ import {
   POST_DETAIL_QUERY_KEY,
   useDeleteLike,
   useUpdateLike,
+  usePostComment,
 } from "@/query/post";
 import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/utils/api/apiClient";
+
+import Comment from "@/components/Comment";
+import TextArea from "@/components/Common/TextArea";
+import Button from "@/components/Button";
 
 export default function Code({ id }: { id: number }) {
   const {
@@ -26,11 +31,24 @@ export default function Code({ id }: { id: number }) {
     queryKey: [POST_DETAIL_QUERY_KEY, id],
   });
 
+  const { mutate: postCommentMutation } = usePostComment({
+    queryKey: [POST_DETAIL_QUERY_KEY, id],
+  });
+
   function onMutateLikeHandler(isLiked: boolean, id: number) {
     !isLiked ? postListMutation(id) : deleteLikeMutation(id);
   }
 
-  console.log(post);
+  function onSubmitComment(e: any) {
+    e.preventDefault();
+    const { comment } = e.target.elements;
+
+    if (!comment.value.length) {
+      return alert("코멘트를 작성해주세요.");
+    }
+
+    postCommentMutation({ data: comment.value, id: post.id });
+  }
 
   if (isLoading) return <div>로딩</div>;
   if (isError) return <div>에러</div>;
@@ -45,10 +63,23 @@ export default function Code({ id }: { id: number }) {
         user={post.user}
         className="px-6 my-3 mt-10"
         smallMaxWith={"max-w-2xl"}
-        onComment={() => console.log("comment")}
+        onComment={() => {
+          return;
+        }}
         onLike={() => onMutateLikeHandler(post.isLiked, post.id)}
         onShare={() => console.log("share")}
       />
+      <form className="flex flex-col mx-6" onSubmit={onSubmitComment}>
+        <TextArea name="comment" />
+        <Button type="submit" className="w-15 self-end">
+          확인
+        </Button>
+      </form>
+      <div className="mx-6 mt-10">
+        {[1, 2, 3].map((item, index: number) => {
+          return <Comment key={index} user="" post="" />;
+        })}
+      </div>
     </div>
   );
 }

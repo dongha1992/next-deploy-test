@@ -5,10 +5,11 @@ import { Session } from "..";
 import { options } from "../../auth/[...nextauth]";
 import { Prisma } from "@prisma/client";
 
-async function updatePostLike(res: NextApiResponse, req: NextApiRequest) {
+async function updatePostComment(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
   const session: Session | null = await getServerSession(req, res, options);
-
+  const { data } = req.body;
+  console.log(data, id);
   // TODO: 중복코드
 
   const user = await prisma.user.findUnique({
@@ -28,42 +29,44 @@ async function updatePostLike(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  let userLikes = await prisma.userLikes.findUnique({
-    where: {
-      postId_userId: {
-        postId: Number(id),
-        userId: user.id,
-      },
-    },
-  });
+  console.log(data, id);
 
-  if (userLikes?.isLiked) {
-    res.status(404).json({ message: `이미 좋아요를 눌렀습니다.` });
-    return;
-  }
+  // let userLikes = await prisma.userLikes.findUnique({
+  //   where: {
+  //     postId_userId: {
+  //       postId: Number(id),
+  //       userId: user.id,
+  //     },
+  //   },
+  // });
 
-  if (!userLikes) {
-    userLikes = await prisma.userLikes.create({
-      data: {
-        postId: Number(id),
-        userId: user?.id,
-        isLiked: true,
-      },
-    });
-  }
+  // if (userLikes?.isLiked) {
+  //   res.status(404).json({ message: `이미 좋아요를 눌렀습니다.` });
+  //   return;
+  // }
 
-  await prisma.post.update({
-    where: { id: Number(id) },
-    data: {
-      totalLikes: post.totalLikes + 1,
-      isLiked: true,
-    },
-  });
+  // if (!userLikes) {
+  //   userLikes = await prisma.userLikes.create({
+  //     data: {
+  //       postId: Number(id),
+  //       userId: user?.id,
+  //       isLiked: true,
+  //     },
+  //   });
+  // }
+
+  // await prisma.post.update({
+  //   where: { id: Number(id) },
+  //   data: {
+  //     totalLikes: post.totalLikes + 1,
+  //     isLiked: true,
+  //   },
+  // });
 
   res.status(200).json({ message: "성공" });
 }
 
-async function deletePostLike(res: NextApiResponse, req: NextApiRequest) {
+async function deletePostComment(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
   const session: Session | null = await getServerSession(req, res, options);
 
@@ -86,27 +89,27 @@ async function deletePostLike(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  const userLikes = await prisma.userLikes.update({
-    where: {
-      postId_userId: {
-        postId: Number(id),
-        userId: user.id,
-      },
-    },
-    data: {
-      isLiked: false,
-    },
-  });
+  // const userLikes = await prisma.userLikes.update({
+  //   where: {
+  //     postId_userId: {
+  //       postId: Number(id),
+  //       userId: user.id,
+  //     },
+  //   },
+  //   data: {
+  //     isLiked: false,
+  //   },
+  // });
 
-  await prisma.post.update({
-    where: { id: Number(id) },
-    data: {
-      totalLikes: post.totalLikes - 1,
-      isLiked: false,
-    },
-  });
+  // await prisma.post.update({
+  //   where: { id: Number(id) },
+  //   data: {
+  //     totalLikes: post.totalLikes - 1,
+  //     isLiked: false,
+  //   },
+  // });
 
-  res.status(200);
+  res.status(200).json({ message: "성공" });
 }
 
 export default async function handler(
@@ -117,10 +120,10 @@ export default async function handler(
 
   switch (method) {
     case "POST":
-      updatePostLike(res, req);
+      updatePostComment(res, req);
       break;
     case "DELETE":
-      deletePostLike(res, req);
+      deletePostComment(res, req);
       break;
     default:
       res.setHeader("Allow", ["POST", "DELETE"]);

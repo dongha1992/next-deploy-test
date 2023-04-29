@@ -22,8 +22,6 @@ export default function Home() {
 
   const { data } = useQuery([POST_QUERY_KEY], getPost);
 
-  console.log(data, "--");
-
   const { mutate: postListMutation } = useUpdateLike({
     queryKey: [POST_QUERY_KEY],
   });
@@ -52,7 +50,7 @@ export default function Home() {
                   user={post.user}
                   className="my-10"
                   onLike={() => onMutateLikeHandler(post.isLiked, post.id)}
-                  onComment={() => console.log("comment post", post.id)}
+                  onComment={() => router.push(`post/${post.id}`)}
                   onShare={() => console.log("share post", post.id)}
                 />
               </li>
