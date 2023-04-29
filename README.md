@@ -12,7 +12,7 @@ demo: https://deploy-test-amber-mu.vercel.app/
 - [] 글 수정
 - [x] 좋아요
   - []여러 번 호출 시 에러 뱉기
-  - []react-query로 refetch
+  - [x]react-query로 refetch
 - [] 해시태그
 - [] 내 게시글만 보기
 - [] 특정 인물 게시글만 보기

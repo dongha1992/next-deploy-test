@@ -1,5 +1,4 @@
 import router, { useRouter } from "next/router";
-import { signIn, useSession, signOut } from "next-auth/react";
 import { getServerSession } from "next-auth";
 import {
   QueryClient,
@@ -8,15 +7,13 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { prisma } from "../../server/db/client";
 import { options } from "./api/auth/[...nextauth]";
 import Button from "@/components/Button";
 import PostSmall from "@/components/PostSmall";
 import axios from "axios";
 import useFormatUserAgent from "@/hooks/useFormatUserAgent";
-import { useDeleteLike, useUpdateLike } from "@/query/post";
-
-export const POST_QUERY_KEY = "getPost";
+import { POST_QUERY_KEY, useDeleteLike, useUpdateLike } from "@/query/post";
+import { apiClient } from "@/utils/api/apiClient";
 
 export default function Home() {
   const router = useRouter();
@@ -25,31 +22,15 @@ export default function Home() {
 
   const { data } = useQuery([POST_QUERY_KEY], getPost);
 
-  const queryClient = useQueryClient();
+  console.log(data, "--");
 
-  const { mutate: postListMutation } = useMutation(
-    (id: number) => axios.post(`api/posts/${id}/like`),
-    {
-      onSuccess: async () => {
-        queryClient.invalidateQueries([POST_QUERY_KEY]);
-      },
-      onError: async (error: any) => {
-        console.error(error);
-      },
-    }
-  );
+  const { mutate: postListMutation } = useUpdateLike({
+    queryKey: [POST_QUERY_KEY],
+  });
 
-  const { mutate: deleteLikeMutation } = useMutation(
-    (id: number) => axios.delete(`api/posts/${id}/like`),
-    {
-      onSuccess: async () => {
-        queryClient.invalidateQueries([POST_QUERY_KEY]);
-      },
-      onError: async (error: any) => {
-        console.error(error);
-      },
-    }
-  );
+  const { mutate: deleteLikeMutation } = useDeleteLike({
+    queryKey: [POST_QUERY_KEY],
+  });
 
   function onMutateLikeHandler(isLiked: boolean, id: number) {
     !isLiked ? postListMutation(id) : deleteLikeMutation(id);
@@ -84,7 +65,7 @@ export default function Home() {
 }
 
 async function getPost() {
-  const posts = await axios.get("api/posts").then(({ data }) => data);
+  const posts = await apiClient.get("api/posts").then(({ data }) => data);
   return posts;
 }
 

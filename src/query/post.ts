@@ -1,40 +1,44 @@
-import { POST_QUERY_KEY } from "@/pages";
+import { apiClient } from "@/utils/api/apiClient";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 
-// const queryClient = useQueryClient();
+export const POST_DETAIL_QUERY_KEY = "getPostDetail";
+export const POST_QUERY_KEY = "getPost";
+
 // const defaultMutationOptions = {
 //   onError: (err, variables, recover) =>
 //     typeof recover === "function" ? recover() : null,
 //   onSettled: () = queryClient.invalidateQueries("list-items")
 // };
 
-function useUpdateLike(options = {}) {
-  const queryClient = useQueryClient();
-  return useMutation(
-    async (id: number) => await axios.post(`api/posts/${id}/like`),
-    {
-      onSuccess: () => {
-        // cache가 필요하면 실행
-        // return queryClient.invalidateQueries([POST_QUERY_KEY]);
-      },
-      ...options,
-    }
-  );
+interface Props {
+  options?: any;
+  queryKey: any[];
 }
 
-function useDeleteLike(options = {}) {
+function useUpdateLike({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
-  return useMutation(
-    async (id: number) => await axios.delete(`api/posts/${id}/like`),
-    {
-      onSuccess: () => {
-        // cache가 필요하면 실행
-        // return queryClient.invalidateQueries([POST_QUERY_KEY]);
-      },
-      ...options,
-    }
-  );
+  return useMutation((id: number) => apiClient.post(`api/posts/${id}/like`), {
+    onSuccess: async () => {
+      queryClient.invalidateQueries(queryKey);
+    },
+    onError: async (error: any) => {
+      console.error(error);
+    },
+    ...options,
+  });
+}
+
+function useDeleteLike({ options = {}, queryKey }: Props) {
+  const queryClient = useQueryClient();
+  return useMutation((id: number) => apiClient.delete(`api/posts/${id}/like`), {
+    onSuccess: async () => {
+      queryClient.invalidateQueries(queryKey);
+    },
+    onError: async (error: any) => {
+      console.error(error);
+    },
+    ...options,
+  });
 }
 
 export { useUpdateLike, useDeleteLike };
