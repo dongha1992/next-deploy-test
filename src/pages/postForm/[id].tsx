@@ -1,14 +1,8 @@
-import { useState } from "react";
 import Head from "next/head";
 
 import { useRouter } from "next/router";
 import NewPostForm from "@/components/NewPostForm";
-import {
-  POST_DETAIL_QUERY_KEY,
-  POST_QUERY_KEY,
-  useEditPost,
-  usePost,
-} from "@/query/post";
+import { POST_DETAIL_QUERY_KEY, useEditPost } from "@/query/post";
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/utils/api/apiClient";
 import Overlay from "@/components/Common/Overlay";
@@ -18,11 +12,7 @@ export default function PostForm() {
   const router = useRouter();
   const { id } = router.query;
 
-  const {
-    data: post,
-    isLoading,
-    isError,
-  } = useQuery(
+  const { data: post } = useQuery(
     [POST_DETAIL_QUERY_KEY, id],
     () => apiClient.get(`api/posts/${id}`).then(({ data }) => data),
     {
@@ -30,7 +20,7 @@ export default function PostForm() {
     }
   );
 
-  const { mutate: patchPostMutation } = useEditPost({
+  const { mutate: patchPostMutation, isLoading } = useEditPost({
     queryKey: [POST_DETAIL_QUERY_KEY, id],
   });
 

@@ -44,13 +44,13 @@ function TextArea({
 
   return (
     <div
-      className={`${className} relative flex justify-between transition-background-color rounded-12 items-center shadow-inset-0-0-0-1px-rgba-0-0-0-0-02 font-medium text-white border-solid border-1 border-gray-500  ${
+      className={`${className} relative flex justify-between transition-background-color rounded-12 items-center shadow-inset-0-0-0-1px-rgba-0-0-0-0-02 font-medium text-white border-solid border-1 border-gray-500 ${
         hasError ? "bg-red-100" : ""
-      }, ${isFocused ? "" : ""}`}
+      } ${isFocused ? "" : ""}`}
     >
       <textarea
         name={name}
-        className="bg-transparent appearance-none overflow-hidden resize-none box-shadow-0 min-w-0 w-full text-white min-h-80 focus:border-gray-500 focus:ring-0"
+        className="bg-transparent appearance-none overflow-scroll resize-none box-shadow-0 min-w-0 w-full text-white focus:border-gray-500 focus:ring-0 max-h-96 h-24"
         onFocus={(event) => {
           setIsFocused(true);
           onFocus?.(event);
