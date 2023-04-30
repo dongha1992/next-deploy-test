@@ -38,7 +38,7 @@ async function updatePostComment(res: NextApiResponse, req: NextApiRequest) {
   const createComment = await prisma.comment.create({
     data: {
       text,
-      user: { connect: { id: createCommentByUser?.id } },
+      user: { connect: { id: user?.id } },
       post: { connect: { id: post?.id } },
     },
   });

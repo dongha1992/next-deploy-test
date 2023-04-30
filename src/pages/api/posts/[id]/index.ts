@@ -1,8 +1,12 @@
+import { getServerSession } from "next-auth";
 import { prisma } from "../../../../../server/db/client";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { Session } from "..";
+import { options } from "../../auth/[...nextauth]";
 
 async function getPost(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
+
   // TODO: 중복코드
 
   const post = await prisma.post.findUnique({ where: { id: Number(id) } });
@@ -13,7 +17,9 @@ async function getPost(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  const user = await prisma.user.findUnique({ where: { id: post?.userId } });
+  const user = await prisma.user.findUnique({
+    where: { id: post?.userId },
+  });
 
   const comments = await prisma.comment.findMany({
     where: {
