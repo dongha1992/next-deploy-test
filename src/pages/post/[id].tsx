@@ -27,12 +27,13 @@ export default function Code({ id }: { id: number }) {
     apiClient.get(`api/posts/${id}`).then(({ data }) => data)
   );
 
-  const { mutate: postLikeMutation, isLikeLoading } = useUpdateLike({
+  const { mutate: postLikeMutation, isLoading: isLikeLoading } = useUpdateLike({
     queryKey: [POST_DETAIL_QUERY_KEY, id],
   });
-  const { mutate: deleteLikeMutation, isLikeDeleteLoading } = useDeleteLike({
-    queryKey: [POST_DETAIL_QUERY_KEY, id],
-  });
+  const { mutate: deleteLikeMutation, isLoading: isLikeDeleteLoading } =
+    useDeleteLike({
+      queryKey: [POST_DETAIL_QUERY_KEY, id],
+    });
 
   const { mutate: postCommentMutation, isLoading: isCommentLoading } =
     usePostComment({
