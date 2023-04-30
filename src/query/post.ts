@@ -113,12 +113,13 @@ function useDeleteComment({ options = {}, queryKey }: Props) {
 function useEditPost({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
   return useMutation(
-    ({ data, id }: { data: any; id: number }) =>
-      apiClient.patch(`api/posts/${id}`, { data }),
+    ({ data, id }: { data: any; id: number }) => {
+      return apiClient.patch(`api/posts/${id}`, { data });
+    },
+
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries(queryKey);
-        router.replace("/");
+      onSuccess: (id: number) => {
+        queryClient.invalidateQueries(queryKey), router.replace("/");
       },
       onError: (error: any) => {
         console.error(error);

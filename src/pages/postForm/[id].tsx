@@ -31,7 +31,7 @@ export default function PostForm() {
   );
 
   const { mutate: patchPostMutation } = useEditPost({
-    queryKey: [POST_QUERY_KEY],
+    queryKey: [POST_DETAIL_QUERY_KEY, id],
   });
 
   const onEditHandler = (data: any) => {
