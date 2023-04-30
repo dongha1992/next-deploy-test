@@ -15,6 +15,7 @@ import { apiClient } from "@/utils/api/apiClient";
 import Comment from "@/components/Comment";
 import TextArea from "@/components/Common/TextArea";
 import Button from "@/components/Button";
+import Lottie from "@/components/Common/Lottie";
 
 export default function Code({ id }: { id: number }) {
   const {

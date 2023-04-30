@@ -114,7 +114,7 @@ async function deletePostLike(res: NextApiResponse, req: NextApiRequest) {
     },
   });
 
-  res.status(200);
+  res.status(200).json({ message: "성공" });
 }
 
 export default async function handler(

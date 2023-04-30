@@ -1,23 +1,17 @@
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
-import {
-  QueryClient,
-  dehydrate,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
 import { options } from "./api/auth/[...nextauth]";
 import Button from "@/components/Button";
 import PostSmall from "@/components/PostSmall";
-import axios from "axios";
 import useFormatUserAgent from "@/hooks/useFormatUserAgent";
 import { POST_QUERY_KEY, useDeleteLike, useUpdateLike } from "@/query/post";
 import { apiClient } from "@/utils/api/apiClient";
-import { useEffect } from "react";
-import { useSession } from "next-auth/react";
+import Lottie from "@/components/Common/Lottie";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [isShow, setIsShow] = useState(true);
   const router = useRouter();
 
   useFormatUserAgent();
@@ -37,6 +31,13 @@ export default function Home() {
     isLiked ? deleteLikeMutation(id) : postLikeMutation(id);
   }
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsShow(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-4">
@@ -44,7 +45,12 @@ export default function Home() {
           <Button type="submit" onClick={() => router.push("/addPost")}>
             글쓰기
           </Button>
-
+          {isShow && (
+            <Lottie
+              src="https://static.toss.im/lotties/confetti/confetti-explode.json"
+              loop={false}
+            />
+          )}
           <ul className="mt-8">
             {data?.map((post: any) => (
               <li key={post.id}>
