@@ -27,10 +27,10 @@ export default function Code({ id }: { id: number }) {
     apiClient.get(`api/posts/${id}`).then(({ data }) => data)
   );
 
-  const { mutate: postLikeMutation } = useUpdateLike({
+  const { mutate: postLikeMutation, isLikeLoading } = useUpdateLike({
     queryKey: [POST_DETAIL_QUERY_KEY, id],
   });
-  const { mutate: deleteLikeMutation } = useDeleteLike({
+  const { mutate: deleteLikeMutation, isLikeDeleteLoading } = useDeleteLike({
     queryKey: [POST_DETAIL_QUERY_KEY, id],
   });
 
@@ -59,9 +59,9 @@ export default function Code({ id }: { id: number }) {
     comment.value = "";
   }
 
-  function onEditComment() {}
+  function onEditComment(id: number) {}
 
-  if (isLoading || isCommentLoading)
+  if (isLoading || isCommentLoading || isLikeLoading || isLikeDeleteLoading)
     return (
       <Overlay>
         <Lottie className="w-20 h-20" src="/lottie/loading.json" loop={false} />
@@ -100,7 +100,7 @@ export default function Code({ id }: { id: number }) {
               user={comment.user}
               comment={comment}
               onDelete={() => deleteCommentMutation(comment.id)}
-              onEdit={onEditComment}
+              onEdit={() => onEditComment(comment.id)}
             />
           );
         })}
