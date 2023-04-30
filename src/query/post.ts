@@ -86,4 +86,27 @@ function useDeletePost({ options = {}, queryKey }: Props) {
   });
 }
 
-export { useUpdateLike, useDeleteLike, usePostComment, usePost, useDeletePost };
+function useDeleteComment({ options = {}, queryKey }: Props) {
+  const queryClient = useQueryClient();
+  return useMutation(
+    (id: number) => apiClient.delete(`api/posts/${id}/comment`),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(queryKey);
+      },
+      onError: (error: any) => {
+        console.error(error);
+      },
+      ...options,
+    }
+  );
+}
+
+export {
+  useUpdateLike,
+  useDeleteLike,
+  usePostComment,
+  usePost,
+  useDeletePost,
+  useDeleteComment,
+};

@@ -29,13 +29,7 @@ async function updatePostComment(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  const createCommentByUser = await prisma.user.findUnique({
-    where: {
-      id: post?.userId,
-    },
-  });
-
-  const createComment = await prisma.comment.create({
+  await prisma.comment.create({
     data: {
       text,
       user: { connect: { id: user?.id } },
@@ -50,74 +44,6 @@ async function updatePostComment(res: NextApiResponse, req: NextApiRequest) {
     },
   });
 
-  // await prisma.post.update({
-  //   where: { id: Number(id) },
-  //   data: {
-  //     comments: {
-  //       create: createComment,
-  //     },
-  //   },
-  // });
-
-  // let existingComment = await prisma.comment.findUnique({
-  //   where: {
-  //     id: Number(id),
-  //   },
-  // });
-
-  // console.log(existingComment);
-
-  // if (!existingComment) {
-  //   const newComment = await prisma.comment.create({
-  //     data: {
-  //       postId: Number(id),
-  //       userId: user.id,
-  //       text: text,
-  //       post: {
-  //         connect: { id: Number(id) },
-  //       } as any,
-  //     },
-  //     include: {
-  //       user: true,
-  //     },
-  //   });
-
-  //   await prisma.post.update({
-  //     where: { id: Number(id) },
-  //     data: {
-  //       comments: {
-  //         create: [newComment],
-  //       },
-  //     },
-  //   });
-  // } else {
-  //   const updatedComment = await prisma.comment.update({
-  //     where: {
-  //       id: existingComment.id,
-  //     },
-  //     data: {
-  //       text: text,
-  //     },
-  //     include: {
-  //       user: true,
-  //     },
-  //   });
-
-  //   await prisma.post.update({
-  //     where: { id: Number(id) },
-  //     data: {
-  //       comments: {
-  //         create: {
-  //           text: text,
-  //           user: {
-  //             connect: { id: updatedComment.userId },
-  //           },
-  //         },
-  //       },
-  //     },
-  //   });
-  // }
-
   res.status(200).json({ message: "성공" });
 }
 
@@ -130,7 +56,6 @@ async function deletePostComment(res: NextApiResponse, req: NextApiRequest) {
   const user = await prisma.user.findUnique({
     where: { email: session?.user.email },
   });
-  const post = await prisma.post.findUnique({ where: { id: Number(id) } });
 
   if (!user) {
     // 검색 결과가 없는 경우 404 에러 반환
@@ -138,13 +63,29 @@ async function deletePostComment(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  if (!post) {
-    // 검색 결과가 없는 경우 404 에러 반환
-    res.status(404).json({ message: `해당 포스트를 찾지 못 했습니다.` });
+  const comments = await prisma.comment.findUnique({
+    where: {
+      id: Number(id),
+    },
+  });
+
+  if (!comments) {
+    res.status(404).json({ message: `해당 댓글을 찾지 못 했습니다.` });
     return;
   }
 
-  res.status(200).json({ message: "성공" });
+  if (comments.userId === user.id) {
+    await prisma.comment.delete({
+      where: {
+        id: Number(id),
+      },
+    });
+    res.status(200).json({
+      message: "성공",
+    });
+  } else {
+    res.status(404).json({ message: `삭제할 수 없습니다.` });
+  }
 }
 
 export default async function handler(

@@ -7,6 +7,7 @@ import {
   useDeleteLike,
   useUpdateLike,
   usePostComment,
+  useDeleteComment,
 } from "@/query/post";
 import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/utils/api/apiClient";
@@ -35,8 +36,11 @@ export default function Code({ id }: { id: number }) {
     queryKey: [POST_DETAIL_QUERY_KEY, id],
   });
 
+  const { mutate: deleteCommentMutation } = useDeleteComment({
+    queryKey: [POST_DETAIL_QUERY_KEY, id],
+  });
+
   function onMutateLikeHandler(isLiked: boolean, id: number) {
-    console.log(isLiked, "isLiked");
     isLiked ? deleteLikeMutation(id) : postLikeMutation(id);
   }
 
@@ -77,8 +81,15 @@ export default function Code({ id }: { id: number }) {
         </Button>
       </form>
       <div className="mx-6 mt-10">
-        {post.comments.map((item: any, index: number) => {
-          return <Comment key={index} user={item.user} comment={item} />;
+        {post.comments.map((comment: any, index: number) => {
+          return (
+            <Comment
+              key={index}
+              user={comment.user}
+              comment={comment}
+              onDelete={() => deleteCommentMutation(comment.id)}
+            />
+          );
         })}
       </div>
     </div>

@@ -5,7 +5,11 @@ import highlight from "@/utils/highlight";
 
 import formatTimeAgo from "@/utils/formatTimeAgo";
 import Setting from "./Common/Setting";
-import { POST_DETAIL_QUERY_KEY, useDeletePost } from "@/query/post";
+import {
+  POST_DETAIL_QUERY_KEY,
+  POST_QUERY_KEY,
+  useDeletePost,
+} from "@/query/post";
 
 export default function PostSmall({
   onLike,
@@ -23,14 +27,14 @@ export default function PostSmall({
   };
 
   const { mutate } = useDeletePost({
-    queryKey: [POST_DETAIL_QUERY_KEY, post.id],
+    queryKey: [POST_QUERY_KEY],
   });
 
   const onDeleteHandler = (e: any) => {
     e.preventDefault();
     mutate(post.id);
-    return;
   };
+
   const onEditHandler = () => {};
 
   return (

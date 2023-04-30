@@ -7,13 +7,10 @@ interface Props {
   user: any;
   comment: any;
   className?: string;
+  onDelete?: () => void;
 }
 
-function Comment({ user = {}, comment = {}, className }: Props) {
-  const onDeleteHandler = () => {
-    console.log("1");
-    return;
-  };
+function Comment({ user = {}, comment = {}, className, onDelete }: Props) {
   const onEditHandler = () => {};
   return (
     <div className={twMerge("flex items-center m-auto mt-7", className)}>
@@ -40,7 +37,7 @@ function Comment({ user = {}, comment = {}, className }: Props) {
           <p className="text-md font-semibold text-gray-100 break-all">
             {comment?.text}
           </p>
-          <Setting onDelete={onDeleteHandler} onEdit={onEditHandler} />
+          <Setting onDelete={onDelete} onEdit={onEditHandler} />
         </div>
       </div>
     </div>
