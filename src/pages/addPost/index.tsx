@@ -1,16 +1,11 @@
-import { useState } from "react";
 import Head from "next/head";
-
-import axios from "axios";
 
 import { useRouter } from "next/router";
 import NewPostForm from "@/components/NewPostForm";
-import { useQuery, useMutation } from "@tanstack/react-query";
 import { POST_QUERY_KEY, usePost } from "@/query/post";
 
-export default function Profile({ user }: any) {
+export default function PostForm() {
   const router = useRouter();
-
   const { mutate } = usePost({ queryKey: [POST_QUERY_KEY] });
 
   return (

@@ -5,11 +5,8 @@ import highlight from "@/utils/highlight";
 
 import formatTimeAgo from "@/utils/formatTimeAgo";
 import Setting from "./Common/Setting";
-import {
-  POST_DETAIL_QUERY_KEY,
-  POST_QUERY_KEY,
-  useDeletePost,
-} from "@/query/post";
+import { POST_QUERY_KEY, useDeletePost, useEditPost } from "@/query/post";
+import router from "next/router";
 
 export default function PostSmall({
   onLike,
@@ -20,22 +17,19 @@ export default function PostSmall({
   user,
   className = "",
 }: any) {
-  const formatUserName = (str: string): string => {
-    const firstChar = str.charAt(0);
-    const maskedStr = firstChar + str.slice(0, -1).replace(/./g, "*");
-    return maskedStr;
-  };
-
-  const { mutate } = useDeletePost({
+  const { mutate: deletePostMutation } = useDeletePost({
     queryKey: [POST_QUERY_KEY],
   });
 
   const onDeleteHandler = (e: any) => {
     e.preventDefault();
-    mutate(post.id);
+    deletePostMutation(post.id);
   };
 
-  const onEditHandler = () => {};
+  const onEditHandler = (e: any) => {
+    e.preventDefault();
+    router.push(`/postForm/${post.id}`);
+  };
 
   return (
     <div

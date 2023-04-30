@@ -16,6 +16,7 @@ import Comment from "@/components/Comment";
 import TextArea from "@/components/Common/TextArea";
 import Button from "@/components/Button";
 import Lottie from "@/components/Common/Lottie";
+import Overlay from "@/components/Common/Overlay";
 
 export default function Code({ id }: { id: number }) {
   const {
@@ -54,9 +55,16 @@ export default function Code({ id }: { id: number }) {
     }
 
     postCommentMutation({ data: comment.value, id: post.id });
+    comment.value = "";
   }
 
-  if (isLoading) return <div>로딩</div>;
+  if (isLoading)
+    return (
+      <Overlay>
+        <Lottie className="w-20 h-20" src="/lottie/loading.json" loop={false} />
+      </Overlay>
+    );
+
   if (isError) return <div>에러</div>;
 
   return (

@@ -9,9 +9,10 @@ import { POST_QUERY_KEY, useDeleteLike, useUpdateLike } from "@/query/post";
 import { apiClient } from "@/utils/api/apiClient";
 import Lottie from "@/components/Common/Lottie";
 import { useEffect, useState } from "react";
+import { getCookie, setCookie } from "cookies-next";
 
 export default function Home() {
-  const [isShow, setIsShow] = useState(true);
+  const [isShow, setIsShow] = useState(false);
   const router = useRouter();
 
   useFormatUserAgent();
@@ -27,13 +28,17 @@ export default function Home() {
   });
 
   function onMutateLikeHandler(isLiked: boolean, id: number) {
-    console.log(isLiked, "IS LIKED");
     isLiked ? deleteLikeMutation(id) : postLikeMutation(id);
   }
 
   useEffect(() => {
+    // TODO: 리팩토링
+    const isShowLottie = getCookie("start-lottie");
+    if (isShowLottie) return;
+    setIsShow(true);
     const timer = setTimeout(() => {
       setIsShow(false);
+      setCookie("start-lottie", true);
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
