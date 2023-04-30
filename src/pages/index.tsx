@@ -10,6 +10,7 @@ import { apiClient } from "@/utils/api/apiClient";
 import Lottie from "@/components/Common/Lottie";
 import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "cookies-next";
+import Overlay from "@/components/Common/Overlay";
 
 export default function Home() {
   const [isShow, setIsShow] = useState(false);
@@ -19,13 +20,14 @@ export default function Home() {
 
   const { data } = useQuery([POST_QUERY_KEY], getPost);
 
-  const { mutate: postLikeMutation } = useUpdateLike({
+  const { mutate: postLikeMutation, isLoading: likeLoading } = useUpdateLike({
     queryKey: [POST_QUERY_KEY],
   });
 
-  const { mutate: deleteLikeMutation } = useDeleteLike({
-    queryKey: [POST_QUERY_KEY],
-  });
+  const { mutate: deleteLikeMutation, isLoading: deleteLikeLoading } =
+    useDeleteLike({
+      queryKey: [POST_QUERY_KEY],
+    });
 
   function onMutateLikeHandler(isLiked: boolean, id: number) {
     isLiked ? deleteLikeMutation(id) : postLikeMutation(id);
@@ -42,6 +44,14 @@ export default function Home() {
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
+
+  if (likeLoading || deleteLikeLoading) {
+    return (
+      <Overlay>
+        <Lottie className="w-20 h-20" src="/lottie/loading.json" loop={false} />
+      </Overlay>
+    );
+  }
 
   return (
     <>
