@@ -1,6 +1,6 @@
 # 스코프
 
-demo: https://deploy-test-amber-mu.vercel.app/
+demo: https://the-scope.vercel.app/
 
 ## TODO
 
