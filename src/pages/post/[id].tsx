@@ -63,23 +63,28 @@ export default function Code({ id }: { id: number }) {
 
   function onEditComment(id: number) {}
 
-  if (isLoading || isCommentLoading || isLikeLoading || isLikeDeleteLoading)
-    return (
-      <Overlay>
-        <Lottie className="w-20 h-20" src="/lottie/loading.json" loop={false} />
-      </Overlay>
-    );
-
   if (isError) return <div>에러</div>;
 
   return (
     <div className="w-full">
+      {(isLoading ||
+        isCommentLoading ||
+        isLikeLoading ||
+        isLikeDeleteLoading) && (
+        <Overlay>
+          <Lottie
+            className="w-20 h-20"
+            src="/lottie/loading.json"
+            loop={false}
+          />
+        </Overlay>
+      )}
       <Head>
         <title>{post?.title}</title>
       </Head>
       <Post
         post={post}
-        user={post.user}
+        user={post?.user}
         className="px-6 my-3 mt-10"
         smallMaxWith={"max-w-2xl"}
         onComment={() => {
@@ -95,11 +100,11 @@ export default function Code({ id }: { id: number }) {
         </Button>
       </form>
       <div className="mx-6 mt-10">
-        {post.comments.map((comment: any, index: number) => {
+        {post?.comments?.map((comment: any, index: number) => {
           return (
             <Comment
               key={index}
-              user={comment.user}
+              user={comment?.user}
               comment={comment}
               onDelete={() => deleteCommentMutation(comment.id)}
               onEdit={() => onEditComment(comment.id)}

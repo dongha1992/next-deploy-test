@@ -35,11 +35,11 @@ export default function Post({
             <p className="text-sm font-medium text-gray-100">{user?.name}</p>
             <p className="pl-5 text-sm text-gray-300">
               {/* {formatTimeAgo(post.createdAt)} */}
-              {post.createdAt.split("T")[0]}
+              {post?.createdAt.split("T")[0]}
             </p>
           </div>
           <div className="flex-1 mt-1 break-all">
-            <p className="text-xl font-semibold text-gray-100">{post.title}</p>
+            <p className="text-xl font-semibold text-gray-100">{post?.title}</p>
           </div>
         </div>
       </div>
@@ -47,15 +47,15 @@ export default function Post({
       <div className="flex flex-col items-center margin-auto">
         <div className="flex flex-col justify-between w-full">
           <pre className="mt-5 pb-4 mx-5 whitespace-pre-wrap break-words">
-            {post.language ? (
+            {post?.language ? (
               <code
-                className={`language-${post.language}`}
+                className={`language-${post?.language}`}
                 dangerouslySetInnerHTML={{
-                  __html: highlight(post.code, post.language),
+                  __html: highlight(post?.code, post?.language),
                 }}
               ></code>
             ) : (
-              <code>{post.code}</code>
+              <code>{post?.code}</code>
             )}
           </pre>
         </div>
@@ -64,9 +64,9 @@ export default function Post({
           onComment={onComment}
           onLike={onLike}
           onShare={onShare}
-          isLiked={post.isLiked}
-          totalComments={post.totalComments}
-          totalLikes={post.totalLikes}
+          isLiked={post?.isLiked}
+          totalComments={post?.totalComments}
+          totalLikes={post?.totalLikes}
         />
       </div>
     </>

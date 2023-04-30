@@ -58,7 +58,9 @@ async function updatePostLike(res: NextApiResponse, req: NextApiRequest) {
     },
   });
 
-  res.status(200).json({ message: "성공" });
+  setTimeout(() => {
+    res.status(200).json({ message: "성공" });
+  }, 500);
 }
 
 async function deletePostLike(res: NextApiResponse, req: NextApiRequest) {
@@ -114,7 +116,9 @@ async function deletePostLike(res: NextApiResponse, req: NextApiRequest) {
     },
   });
 
-  res.status(200).json({ message: "성공" });
+  setTimeout(() => {
+    res.status(200).json({ message: "성공" });
+  }, 500);
 }
 
 export default async function handler(

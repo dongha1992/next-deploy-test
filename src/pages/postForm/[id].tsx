@@ -7,7 +7,6 @@ import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/utils/api/apiClient";
 import Overlay from "@/components/Common/Overlay";
 import Lottie from "@/components/Common/Lottie";
-import PostSkeleton from "@/components/Layout/PostSkeleton";
 
 export default function PostForm() {
   const router = useRouter();
@@ -29,18 +28,20 @@ export default function PostForm() {
     patchPostMutation({ data, id: Number(id) });
   };
 
-  if (postLoading)
+  if (isLoading || postLoading) {
     return (
       <Overlay>
         <Lottie className="w-20 h-20" src="/lottie/loading.json" loop={false} />
       </Overlay>
     );
+  }
 
   return (
     <>
       <Head>
         <title>코드 작성 테스트</title>
       </Head>
+
       <div className="w-full pt-8 pb-10 lg:pt-12 lg:pb-14 max-w-10xl mx-auto px-6 my-6">
         <h1 className="text-2xl font-bold tracking-tight text-gray-100 sm:text-3xl md:text-4xl mb-6">
           코드 편집하기
@@ -49,8 +50,8 @@ export default function PostForm() {
           <NewPostForm
             className="max-w-5xl"
             onSubmit={onEditHandler}
-            defaultCode={post?.code}
-            defaultLanguage={post?.language}
+            defaultCode={post.code}
+            defaultLanguage={post.language}
           />
         </div>
       </div>

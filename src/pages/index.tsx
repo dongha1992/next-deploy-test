@@ -45,17 +45,9 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  if (likeLoading || deleteLikeLoading) {
-    return (
-      <Overlay>
-        <Lottie className="w-20 h-20" src="/lottie/loading.json" loop={false} />
-      </Overlay>
-    );
-  }
-
   return (
     <>
-      <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-4">
+      <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-4 bg-black">
         <div className="max-w-2xl mx-auto">
           <Button
             className="sticky top-10 z-50"
@@ -69,6 +61,15 @@ export default function Home() {
               src="https://static.toss.im/lotties/confetti/confetti-explode.json"
               loop={false}
             />
+          )}
+          {(likeLoading || deleteLikeLoading) && (
+            <Overlay>
+              <Lottie
+                className="w-20 h-20"
+                src="/lottie/loading.json"
+                loop={false}
+              />
+            </Overlay>
           )}
           <ul className="mt-8">
             {data?.map((post: any) => (

@@ -44,7 +44,9 @@ async function updatePostComment(res: NextApiResponse, req: NextApiRequest) {
     },
   });
 
-  res.status(200).json({ message: "성공" });
+  setTimeout(() => {
+    res.status(200).json({ message: "성공" });
+  }, 500);
 }
 
 async function deletePostComment(res: NextApiResponse, req: NextApiRequest) {
@@ -80,9 +82,9 @@ async function deletePostComment(res: NextApiResponse, req: NextApiRequest) {
         id: Number(id),
       },
     });
-    res.status(200).json({
-      message: "성공",
-    });
+    setTimeout(() => {
+      res.status(200).json({ message: "성공" });
+    }, 500);
   } else {
     res.status(404).json({ message: `삭제할 수 없습니다.` });
   }

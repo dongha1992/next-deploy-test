@@ -49,12 +49,14 @@ async function getPost(res: NextApiResponse, req: NextApiRequest) {
 
   // 검색 결과가 있는 경우 검색 결과 반환
 
-  res.status(200).json({
-    ...post,
-    user: user,
-    comments: comments,
-    isLiked: useLikes?.isLiked ? useLikes?.isLiked : false,
-  });
+  setTimeout(() => {
+    res.status(200).json({
+      ...post,
+      user: user,
+      comments: comments,
+      isLiked: useLikes?.isLiked ? useLikes?.isLiked : false,
+    });
+  }, 500);
 }
 
 async function deletePost(res: NextApiResponse, req: NextApiRequest) {
@@ -84,9 +86,10 @@ async function deletePost(res: NextApiResponse, req: NextApiRequest) {
         id: Number(id),
       },
     });
-    res.status(200).json({
-      message: "성공",
-    });
+
+    setTimeout(() => {
+      res.status(200).json({ message: "성공" });
+    }, 500);
   } else {
     res.status(404).json({ message: `삭제할 수 없습니다.` });
   }
@@ -129,9 +132,9 @@ async function patchPost(res: NextApiResponse, req: NextApiRequest) {
         isLiked: post.isLiked,
       },
     });
-    res.status(200).json({
-      message: "성공",
-    });
+    setTimeout(() => {
+      res.status(200).json({ message: "성공" });
+    }, 1000);
   } else {
     res.status(404).json({ message: `삭제할 수 없습니다.` });
   }
