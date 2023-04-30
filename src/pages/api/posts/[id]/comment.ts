@@ -144,26 +144,6 @@ async function deletePostComment(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  // const userLikes = await prisma.userLikes.update({
-  //   where: {
-  //     postId_userId: {
-  //       postId: Number(id),
-  //       userId: user.id,
-  //     },
-  //   },
-  //   data: {
-  //     isLiked: false,
-  //   },
-  // });
-
-  // await prisma.post.update({
-  //   where: { id: Number(id) },
-  //   data: {
-  //     totalLikes: post.totalLikes - 1,
-  //     isLiked: false,
-  //   },
-  // });
-
   res.status(200).json({ message: "성공" });
 }
 

@@ -77,7 +77,6 @@ export default function Code({ id }: { id: number }) {
       </form>
       <div className="mx-6 mt-10">
         {post.comments.map((item: any, index: number) => {
-          console.log(item);
           return <Comment key={index} user={item.user} comment={item} />;
         })}
       </div>
