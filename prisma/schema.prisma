@@ -17,7 +17,7 @@ model User {
   posts         Post[]
   sessions      Session[]
   userLikes     UserLikes[]
-  Comment       Comment[]
+  comment       Comment[]
 }
 
 model Post {
@@ -33,7 +33,7 @@ model Post {
   isLiked       Boolean
   user          User        @relation(fields: [userId], references: [id])
   userLikes     UserLikes[]
-  comment       Comment[]
+  comments      Comment[]
 }
 
 model UserLikes {
@@ -47,6 +47,7 @@ model UserLikes {
 }
 
 model Comment {
+  id        Int      @id @default(autoincrement())
   text      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -54,8 +55,6 @@ model Comment {
   user      User     @relation(fields: [userId], references: [id])
   postId    Int
   post      Post     @relation(fields: [postId], references: [id])
-
-  @@id([postId, userId])
 }
 
 model Account {

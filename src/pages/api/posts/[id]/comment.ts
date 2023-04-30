@@ -8,14 +8,14 @@ import { Prisma } from "@prisma/client";
 async function updatePostComment(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
   const session: Session | null = await getServerSession(req, res, options);
-  const { data } = req.body;
-  console.log(data, id);
+  const { data: text } = req.body;
+
   // TODO: 중복코드
 
   const user = await prisma.user.findUnique({
     where: { email: session?.user.email },
   });
-  const post = await prisma.post.findUnique({ where: { id: Number(id) } });
+  const post: any = await prisma.post.findUnique({ where: { id: Number(id) } });
 
   if (!user) {
     // 검색 결과가 없는 경우 404 에러 반환
@@ -29,39 +29,93 @@ async function updatePostComment(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  console.log(data, id);
+  const createCommentByPost = await prisma.comment.findUnique({
+    where: {
+      id: Number(id),
+    },
+  });
 
-  // let userLikes = await prisma.userLikes.findUnique({
-  //   where: {
-  //     postId_userId: {
-  //       postId: Number(id),
-  //       userId: user.id,
-  //     },
-  //   },
-  // });
+  const createCommentByUser = await prisma.user.findUnique({
+    where: {
+      id: createCommentByPost?.userId,
+    },
+  });
 
-  // if (userLikes?.isLiked) {
-  //   res.status(404).json({ message: `이미 좋아요를 눌렀습니다.` });
-  //   return;
-  // }
-
-  // if (!userLikes) {
-  //   userLikes = await prisma.userLikes.create({
-  //     data: {
-  //       postId: Number(id),
-  //       userId: user?.id,
-  //       isLiked: true,
-  //     },
-  //   });
-  // }
+  const createComment = await prisma.comment.create({
+    data: {
+      text,
+      user: { connect: { id: createCommentByUser?.id } },
+      post: { connect: { id: createCommentByPost?.id } },
+    },
+  });
 
   // await prisma.post.update({
   //   where: { id: Number(id) },
   //   data: {
-  //     totalLikes: post.totalLikes + 1,
-  //     isLiked: true,
+  //     comments: {
+  //       create: createComment,
+  //     },
   //   },
   // });
+
+  // let existingComment = await prisma.comment.findUnique({
+  //   where: {
+  //     id: Number(id),
+  //   },
+  // });
+
+  // console.log(existingComment);
+
+  // if (!existingComment) {
+  //   const newComment = await prisma.comment.create({
+  //     data: {
+  //       postId: Number(id),
+  //       userId: user.id,
+  //       text: text,
+  //       post: {
+  //         connect: { id: Number(id) },
+  //       } as any,
+  //     },
+  //     include: {
+  //       user: true,
+  //     },
+  //   });
+
+  //   await prisma.post.update({
+  //     where: { id: Number(id) },
+  //     data: {
+  //       comments: {
+  //         create: [newComment],
+  //       },
+  //     },
+  //   });
+  // } else {
+  //   const updatedComment = await prisma.comment.update({
+  //     where: {
+  //       id: existingComment.id,
+  //     },
+  //     data: {
+  //       text: text,
+  //     },
+  //     include: {
+  //       user: true,
+  //     },
+  //   });
+
+  //   await prisma.post.update({
+  //     where: { id: Number(id) },
+  //     data: {
+  //       comments: {
+  //         create: {
+  //           text: text,
+  //           user: {
+  //             connect: { id: updatedComment.userId },
+  //           },
+  //         },
+  //       },
+  //     },
+  //   });
+  // }
 
   res.status(200).json({ message: "성공" });
 }

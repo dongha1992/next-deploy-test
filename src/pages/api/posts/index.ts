@@ -44,7 +44,8 @@ async function createPost(req: any, res: any) {
       isLiked: false,
     },
   });
-  res.status(200).json(post);
+
+  res.status(200).json({ message: "성공" });
 }
 
 async function getPost(req: NextApiRequest, res: NextApiResponse) {

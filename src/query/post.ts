@@ -1,5 +1,6 @@
 import { apiClient } from "@/utils/api/apiClient";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import router from "next/router";
 
 export const POST_DETAIL_QUERY_KEY = "getPostDetail";
 export const POST_QUERY_KEY = "getPost";
@@ -58,4 +59,18 @@ function usePostComment({ options = {}, queryKey }: Props) {
   );
 }
 
-export { useUpdateLike, useDeleteLike, usePostComment };
+function usePost({ options = {}, queryKey }: Props) {
+  const queryClient = useQueryClient();
+  return useMutation((data) => apiClient.post(`/api/posts`, data), {
+    onSuccess: async () => {
+      queryClient.invalidateQueries(queryKey);
+      router.replace("/");
+    },
+    onError: async (error: any) => {
+      console.error(error);
+    },
+    ...options,
+  });
+}
+
+export { useUpdateLike, useDeleteLike, usePostComment, usePost };

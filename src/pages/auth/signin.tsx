@@ -31,6 +31,7 @@ export async function getServerSideProps(context: any) {
 
   if (session) {
     //redirect to login page
+
     return {
       redirect: {
         destination: "/",

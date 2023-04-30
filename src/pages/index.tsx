@@ -14,6 +14,8 @@ import axios from "axios";
 import useFormatUserAgent from "@/hooks/useFormatUserAgent";
 import { POST_QUERY_KEY, useDeleteLike, useUpdateLike } from "@/query/post";
 import { apiClient } from "@/utils/api/apiClient";
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
   const router = useRouter();
@@ -33,6 +35,7 @@ export default function Home() {
   function onMutateLikeHandler(isLiked: boolean, id: number) {
     !isLiked ? postListMutation(id) : deleteLikeMutation(id);
   }
+
   return (
     <>
       <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-4">
@@ -69,6 +72,7 @@ async function getPost() {
 
 export async function getServerSideProps(context: any) {
   const session = await getServerSession(context.req, context.res, options);
+
   const userAgent = context.req
     ? context.req.headers["user-agent"] || ""
     : navigator.userAgent;

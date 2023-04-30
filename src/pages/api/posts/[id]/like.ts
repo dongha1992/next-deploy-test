@@ -101,7 +101,7 @@ async function deletePostLike(res: NextApiResponse, req: NextApiRequest) {
   await prisma.post.update({
     where: { id: Number(id) },
     data: {
-      totalLikes: post.totalLikes - 1,
+      totalLikes: post.totalLikes > 0 ? post.totalLikes - 1 : 0,
       isLiked: false,
     },
   });

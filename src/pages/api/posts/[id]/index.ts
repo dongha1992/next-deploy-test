@@ -15,8 +15,18 @@ async function getPost(res: NextApiResponse, req: NextApiRequest) {
 
   const user = await prisma.user.findUnique({ where: { id: post?.userId } });
 
+  const comments = await prisma.comment.findMany({
+    where: {
+      postId: Number(id),
+    },
+    include: {
+      user: true,
+    },
+  });
+
   // 검색 결과가 있는 경우 검색 결과 반환
-  res.status(200).json({ ...post, user: user });
+
+  res.status(200).json({ ...post, user: user, comments: comments });
 }
 
 export default async function handler(

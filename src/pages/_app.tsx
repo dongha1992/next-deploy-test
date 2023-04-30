@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import { SessionProvider, useSession } from "next-auth/react";
 import { NextPage } from "next";
-import { ReactElement, ReactNode, useRef } from "react";
+import { ReactElement, ReactNode, useEffect, useRef } from "react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import "@/styles/globals.css";
@@ -34,6 +34,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       },
     });
   }
+
   return (
     <QueryClientProvider client={queryClient.current}>
       <Hydrate state={pageProps.dehydratedProps}>

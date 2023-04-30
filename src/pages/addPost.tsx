@@ -5,24 +5,13 @@ import axios from "axios";
 
 import { useRouter } from "next/router";
 import NewPostForm from "@/components/NewPostForm";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { POST_QUERY_KEY, usePost } from "@/query/post";
 
 export default function Profile({ user }: any) {
   const router = useRouter();
 
-  // const {} = useQuery();
-
-  const handleSubmit = async ({ language, code }: any) => {
-    try {
-      const { data } = await axios.post("/api/posts", {
-        language,
-        code,
-      });
-      router.replace("/");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { mutate } = usePost({ queryKey: [POST_QUERY_KEY] });
 
   return (
     <>
@@ -35,7 +24,7 @@ export default function Profile({ user }: any) {
         </h1>
 
         <div className="mt-6">
-          <NewPostForm className="max-w-5xl" onSubmit={handleSubmit} />
+          <NewPostForm className="max-w-5xl" onSubmit={mutate} />
         </div>
       </div>
     </>
