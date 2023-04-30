@@ -29,15 +29,9 @@ async function updatePostComment(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  const createCommentByPost = await prisma.comment.findUnique({
-    where: {
-      id: Number(id),
-    },
-  });
-
   const createCommentByUser = await prisma.user.findUnique({
     where: {
-      id: createCommentByPost?.userId,
+      id: post?.userId,
     },
   });
 
@@ -45,7 +39,7 @@ async function updatePostComment(res: NextApiResponse, req: NextApiRequest) {
     data: {
       text,
       user: { connect: { id: createCommentByUser?.id } },
-      post: { connect: { id: createCommentByPost?.id } },
+      post: { connect: { id: post?.id } },
     },
   });
 
