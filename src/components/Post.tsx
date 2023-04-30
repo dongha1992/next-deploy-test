@@ -46,7 +46,7 @@ export default function Post({
 
       <div className="flex flex-col items-center margin-auto">
         <div className="flex flex-col justify-between w-full">
-          <pre className="mt-5 mx-5 whitespace-pre-wrap break-words">
+          <pre className="mt-5 pb-4 mx-5 whitespace-pre-wrap break-words">
             {post.language ? (
               <code
                 className={`language-${post.language}`}

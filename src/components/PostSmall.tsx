@@ -75,7 +75,7 @@ export default function PostSmall({
               </div>
             </div>
           </div>
-          <pre className="mt-4 mx-5 max-h-52 overflow-hidden border-b border-gray-700 whitespace-pre-wrap break-words">
+          <pre className="mt-4 pb-4 mx-5 max-h-52 overflow-hidden border-b border-gray-700 whitespace-pre-wrap break-words">
             {post.language ? (
               <code
                 className={`language-${post.language}`}

@@ -3,10 +3,19 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import NewPostForm from "@/components/NewPostForm";
 import { POST_QUERY_KEY, usePost } from "@/query/post";
+import Overlay from "@/components/Common/Overlay";
+import Lottie from "@/components/Common/Lottie";
 
 export default function PostForm() {
   const router = useRouter();
-  const { mutate } = usePost({ queryKey: [POST_QUERY_KEY] });
+  const { mutate, isLoading } = usePost({ queryKey: [POST_QUERY_KEY] });
+
+  if (isLoading)
+    return (
+      <Overlay>
+        <Lottie className="w-20 h-20" src="/lottie/loading.json" loop={false} />
+      </Overlay>
+    );
 
   return (
     <>

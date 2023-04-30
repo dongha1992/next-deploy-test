@@ -38,7 +38,12 @@ export default function PostForm() {
     patchPostMutation({ data, id: Number(id) });
   };
 
-  if (isLoading) return <></>;
+  if (isLoading)
+    return (
+      <Overlay>
+        <Lottie className="w-20 h-20" src="/lottie/loading.json" loop={false} />
+      </Overlay>
+    );
 
   return (
     <>
