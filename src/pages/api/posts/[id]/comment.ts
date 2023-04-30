@@ -43,6 +43,13 @@ async function updatePostComment(res: NextApiResponse, req: NextApiRequest) {
     },
   });
 
+  await prisma.post.update({
+    where: { id: Number(id) },
+    data: {
+      totalComments: post.totalComments + 1,
+    },
+  });
+
   // await prisma.post.update({
   //   where: { id: Number(id) },
   //   data: {
