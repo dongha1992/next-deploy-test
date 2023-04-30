@@ -7,12 +7,13 @@ import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/utils/api/apiClient";
 import Overlay from "@/components/Common/Overlay";
 import Lottie from "@/components/Common/Lottie";
+import PostSkeleton from "@/components/Layout/PostSkeleton";
 
 export default function PostForm() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: post } = useQuery(
+  const { data: post, isLoading } = useQuery(
     [POST_DETAIL_QUERY_KEY, id],
     () => apiClient.get(`api/posts/${id}`).then(({ data }) => data),
     {
@@ -20,7 +21,7 @@ export default function PostForm() {
     }
   );
 
-  const { mutate: patchPostMutation, isLoading } = useEditPost({
+  const { mutate: patchPostMutation, isLoading: postLoading } = useEditPost({
     queryKey: [POST_DETAIL_QUERY_KEY, id],
   });
 
@@ -28,7 +29,7 @@ export default function PostForm() {
     patchPostMutation({ data, id: Number(id) });
   };
 
-  if (isLoading)
+  if (postLoading)
     return (
       <Overlay>
         <Lottie className="w-20 h-20" src="/lottie/loading.json" loop={false} />

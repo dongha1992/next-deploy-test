@@ -17,6 +17,7 @@ import TextArea from "@/components/Common/TextArea";
 import Button from "@/components/Button";
 import Lottie from "@/components/Common/Lottie";
 import Overlay from "@/components/Common/Overlay";
+import PostSkeleton from "@/components/Layout/PostSkeleton";
 
 export default function Code({ id }: { id: number }) {
   const {
@@ -62,7 +63,8 @@ export default function Code({ id }: { id: number }) {
 
   function onEditComment(id: number) {}
 
-  if (isLoading || isCommentLoading || isLikeLoading || isLikeDeleteLoading)
+  if (isLoading) return <PostSkeleton />;
+  if (isCommentLoading || isLikeLoading || isLikeDeleteLoading)
     return (
       <Overlay>
         <Lottie className="w-20 h-20" src="/lottie/loading.json" loop={false} />
