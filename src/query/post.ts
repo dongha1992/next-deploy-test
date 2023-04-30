@@ -119,7 +119,8 @@ function useEditPost({ options = {}, queryKey }: Props) {
 
     {
       onSuccess: (id: number) => {
-        queryClient.invalidateQueries(queryKey), router.replace("/");
+        queryClient.invalidateQueries(queryKey);
+        router.replace("/");
       },
       onError: (error: any) => {
         console.error(error);
