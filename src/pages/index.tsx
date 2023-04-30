@@ -47,7 +47,11 @@ export default function Home() {
     <>
       <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-4">
         <div className="max-w-2xl mx-auto">
-          <Button type="submit" onClick={() => router.push("/addPost")}>
+          <Button
+            className="sticky top-10 z-50"
+            type="submit"
+            onClick={() => router.push("/addPost")}
+          >
             글쓰기
           </Button>
           {isShow && (
