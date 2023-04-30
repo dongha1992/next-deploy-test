@@ -1,3 +1,4 @@
+import { useSyncMutation } from "@/hooks/query";
 import { apiClient } from "@/utils/api/apiClient";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import router from "next/router";
@@ -18,28 +19,35 @@ interface Props {
 
 function useUpdateLike({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
-  return useMutation((id: number) => apiClient.post(`api/posts/${id}/like`), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(queryKey);
-    },
-    onError: (error: any) => {
-      console.error(error);
-    },
-    ...options,
-  });
+
+  return useSyncMutation(
+    (id: number) => apiClient.post(`api/posts/${id}/like`),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(queryKey);
+      },
+      onError: (error: any) => {
+        console.error(error);
+      },
+      ...options,
+    }
+  );
 }
 
 function useDeleteLike({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
-  return useMutation((id: number) => apiClient.delete(`api/posts/${id}/like`), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(queryKey);
-    },
-    onError: (error: any) => {
-      console.error(error);
-    },
-    ...options,
-  });
+  return useSyncMutation(
+    (id: number) => apiClient.delete(`api/posts/${id}/like`),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(queryKey);
+      },
+      onError: (error: any) => {
+        console.error(error);
+      },
+      ...options,
+    }
+  );
 }
 
 function usePostComment({ options = {}, queryKey }: Props) {

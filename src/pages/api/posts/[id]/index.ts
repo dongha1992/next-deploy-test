@@ -116,24 +116,27 @@ async function patchPost(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  await prisma.post.update({
-    where: {
-      id: Number(id),
-    },
-    data: {
-      title: data.title,
-      language: data.language,
-      code: data.code,
-      userId: user.id,
-      isLiked: post.isLiked,
-    },
-  });
+  if (post.userId === user.id) {
+    await prisma.post.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        title: data.title,
+        language: data.language,
+        code: data.code,
+        userId: user.id,
+        isLiked: post.isLiked,
+      },
+    });
+    res.status(200).json({
+      message: "성공",
+    });
+  } else {
+    res.status(404).json({ message: `삭제할 수 없습니다.` });
+  }
 
   // 검색 결과가 있는 경우 검색 결과 반환
-
-  res.status(200).json({
-    message: "성공",
-  });
 }
 
 export default async function handler(

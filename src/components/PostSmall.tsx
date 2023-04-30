@@ -6,6 +6,7 @@ import highlight from "@/utils/highlight";
 import formatTimeAgo from "@/utils/formatTimeAgo";
 import Setting from "./Common/Setting";
 import { POST_QUERY_KEY, useDeletePost, useEditPost } from "@/query/post";
+import { useSession } from "next-auth/react";
 import router from "next/router";
 
 export default function PostSmall({
@@ -17,6 +18,7 @@ export default function PostSmall({
   user,
   className = "",
 }: any) {
+  const { status, data } = useSession();
   const { mutate: deletePostMutation } = useDeletePost({
     queryKey: [POST_QUERY_KEY],
   });
@@ -28,6 +30,10 @@ export default function PostSmall({
 
   const onEditHandler = (e: any) => {
     e.preventDefault();
+    if (data?.user?.email !== post.user.email) {
+      alert("해당 포스트의 작성자가 아닙니다.");
+      return;
+    }
     router.push(`/postForm/${post.id}`);
   };
 

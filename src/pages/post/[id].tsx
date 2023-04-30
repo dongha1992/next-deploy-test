@@ -34,9 +34,10 @@ export default function Code({ id }: { id: number }) {
     queryKey: [POST_DETAIL_QUERY_KEY, id],
   });
 
-  const { mutate: postCommentMutation } = usePostComment({
-    queryKey: [POST_DETAIL_QUERY_KEY, id],
-  });
+  const { mutate: postCommentMutation, isLoading: isCommentLoading } =
+    usePostComment({
+      queryKey: [POST_DETAIL_QUERY_KEY, id],
+    });
 
   const { mutate: deleteCommentMutation } = useDeleteComment({
     queryKey: [POST_DETAIL_QUERY_KEY, id],
@@ -58,7 +59,9 @@ export default function Code({ id }: { id: number }) {
     comment.value = "";
   }
 
-  if (isLoading)
+  function onEditComment() {}
+
+  if (isLoading || isCommentLoading)
     return (
       <Overlay>
         <Lottie className="w-20 h-20" src="/lottie/loading.json" loop={false} />
@@ -97,6 +100,7 @@ export default function Code({ id }: { id: number }) {
               user={comment.user}
               comment={comment}
               onDelete={() => deleteCommentMutation(comment.id)}
+              onEdit={onEditComment}
             />
           );
         })}

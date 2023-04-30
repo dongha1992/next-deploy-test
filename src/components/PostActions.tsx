@@ -21,7 +21,7 @@ export default function PostActions({
         className="flex flex-col items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md hover:outline-none text-gray-400 hover:text-gray-500"
       >
         <span>{totalComments}</span>
-        <CommentIcon className="h-7 w-7" aria-hidden="true" />
+        <CommentIcon className="h-5 w-5" aria-hidden="true" />
       </button>
       <button
         onClick={onLike}
@@ -29,9 +29,9 @@ export default function PostActions({
       >
         <span>{totalLikes}</span>
         {!isLiked ? (
-          <HeartIcon className="h-7 w-7" aria-hidden="true" />
+          <HeartIcon className="h-5 w-5" aria-hidden="true" />
         ) : (
-          <HeartIconSolid className="h-7 w-7" aria-hidden="true" />
+          <HeartIconSolid className="h-5 w-5" aria-hidden="true" />
         )}
       </button>
       <button
@@ -39,7 +39,7 @@ export default function PostActions({
         className="flex flex-col items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md hover:outline-none text-gray-400 hover:text-gray-500"
       >
         <span>&nbsp;</span>
-        <ArrowUpTrayIcon className="h-7 w-7" aria-hidden="true" />
+        <ArrowUpTrayIcon className="h-5 w-5" aria-hidden="true" />
       </button>
     </div>
   );

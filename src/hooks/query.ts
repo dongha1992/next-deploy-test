@@ -1,3 +1,5 @@
+import { useMutation } from "@tanstack/react-query";
+
 // const useOnLike = () => {
 //   return prev?.map((preItem: any) => {
 //     if (preItem.id === id) {
@@ -23,15 +25,17 @@
 //   });
 // };
 
-// const useSyncMutation = (mutationFn: any, options: any) => {
-//   const mutationResults = useMutation(mutationFn, options);
+const useSyncMutation = (mutationFn: any, options: any) => {
+  const mutationResults = useMutation(mutationFn, options);
 
-//   return {
-//     ...mutationResults,
-//     mutate: (...params: any) => {
-//       if (!mutationResults.isLoading) {
-//         mutationResults.mutate(...params);
-//       }
-//     },
-//   };
-// };
+  return {
+    ...mutationResults,
+    mutate: (...params: any) => {
+      if (!mutationResults.isLoading) {
+        mutationResults.mutate(...params);
+      }
+    },
+  };
+};
+
+export { useSyncMutation };
