@@ -2,7 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import PostActions from "./PostActions";
 import highlight from "@/utils/highlight";
+
 import formatTimeAgo from "@/utils/formatTimeAgo";
+import Setting from "./Common/Setting";
+import { POST_DETAIL_QUERY_KEY, useDeletePost } from "@/query/post";
 
 export default function PostSmall({
   onLike,
@@ -18,6 +21,18 @@ export default function PostSmall({
     const maskedStr = firstChar + str.slice(0, -1).replace(/./g, "*");
     return maskedStr;
   };
+
+  const { mutate } = useDeletePost({
+    queryKey: [POST_DETAIL_QUERY_KEY, post.id],
+  });
+
+  const onDeleteHandler = (e: any) => {
+    e.preventDefault();
+    mutate(post.id);
+    return;
+  };
+  const onEditHandler = () => {};
+
   return (
     <div
       className={
@@ -48,10 +63,11 @@ export default function PostSmall({
                   {post.createdAt.split("T")[0]}
                 </p>
               </div>
-              <div className="flex-1 mt-1">
-                <p className="text-xl font-semibold text-gray-100">
+              <div className="flex mt-1 items-center justify-between">
+                <p className="text-xl font-semibold text-gray-100 break-all">
                   {post.title.substring(0, 50)}
                 </p>
+                <Setting onDelete={onDeleteHandler} onEdit={onEditHandler} />
               </div>
             </div>
           </div>

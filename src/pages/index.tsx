@@ -24,7 +24,7 @@ export default function Home() {
 
   const { data } = useQuery([POST_QUERY_KEY], getPost);
 
-  const { mutate: postListMutation } = useUpdateLike({
+  const { mutate: postLikeMutation } = useUpdateLike({
     queryKey: [POST_QUERY_KEY],
   });
 
@@ -33,7 +33,8 @@ export default function Home() {
   });
 
   function onMutateLikeHandler(isLiked: boolean, id: number) {
-    !isLiked ? postListMutation(id) : deleteLikeMutation(id);
+    console.log(isLiked, "IS LIKED");
+    isLiked ? deleteLikeMutation(id) : postLikeMutation(id);
   }
 
   return (

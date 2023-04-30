@@ -24,7 +24,7 @@ export default function Code({ id }: { id: number }) {
     apiClient.get(`api/posts/${id}`).then(({ data }) => data)
   );
 
-  const { mutate: postListMutation } = useUpdateLike({
+  const { mutate: postLikeMutation } = useUpdateLike({
     queryKey: [POST_DETAIL_QUERY_KEY, id],
   });
   const { mutate: deleteLikeMutation } = useDeleteLike({
@@ -36,7 +36,8 @@ export default function Code({ id }: { id: number }) {
   });
 
   function onMutateLikeHandler(isLiked: boolean, id: number) {
-    !isLiked ? postListMutation(id) : deleteLikeMutation(id);
+    console.log(isLiked, "isLiked");
+    isLiked ? deleteLikeMutation(id) : postLikeMutation(id);
   }
 
   function onSubmitComment(e: any) {

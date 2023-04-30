@@ -48,7 +48,7 @@ async function createPost(req: any, res: any) {
   res.status(200).json({ message: "성공" });
 }
 
-async function getPost(req: NextApiRequest, res: NextApiResponse) {
+async function getPosts(req: NextApiRequest, res: NextApiResponse) {
   const posts = await prisma?.post.findMany({
     orderBy: {
       createdAt: "desc",
@@ -69,7 +69,7 @@ export default async function handler(req: any, res: any) {
       break;
 
     case "GET":
-      getPost(req, res);
+      getPosts(req, res);
       break;
 
     default:

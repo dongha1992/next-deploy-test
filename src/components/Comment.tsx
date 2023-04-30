@@ -10,7 +10,10 @@ interface Props {
 }
 
 function Comment({ user = {}, comment = {}, className }: Props) {
-  const onDeleteHandler = () => {};
+  const onDeleteHandler = () => {
+    console.log("1");
+    return;
+  };
   const onEditHandler = () => {};
   return (
     <div className={twMerge("flex items-center m-auto mt-7", className)}>

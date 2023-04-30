@@ -3,7 +3,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { Session } from "..";
 import { options } from "../../auth/[...nextauth]";
-import { Prisma } from "@prisma/client";
 
 async function updatePostLike(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
@@ -14,7 +13,9 @@ async function updatePostLike(res: NextApiResponse, req: NextApiRequest) {
   const user = await prisma.user.findUnique({
     where: { email: session?.user.email },
   });
-  const post = await prisma.post.findUnique({ where: { id: Number(id) } });
+  const post = await prisma.post.findUnique({
+    where: { id: Number(id) },
+  });
 
   if (!user) {
     // 검색 결과가 없는 경우 404 에러 반환
@@ -27,8 +28,20 @@ async function updatePostLike(res: NextApiResponse, req: NextApiRequest) {
     res.status(404).json({ message: `해당 포스트를 찾지 못 했습니다.` });
     return;
   }
+  await prisma.userLikes.upsert({
+    where: {
+      postId_userId: {
+        postId: Number(id),
+        userId: user.id,
+      },
+    },
+    update: {
+      isLiked: true,
+    },
+    create: { postId: Number(id), userId: user.id, isLiked: true },
+  });
 
-  let userLikes = await prisma.userLikes.findUnique({
+  const userLikes = await prisma.userLikes.findUnique({
     where: {
       postId_userId: {
         postId: Number(id),
@@ -37,26 +50,11 @@ async function updatePostLike(res: NextApiResponse, req: NextApiRequest) {
     },
   });
 
-  if (userLikes?.isLiked) {
-    res.status(404).json({ message: `이미 좋아요를 눌렀습니다.` });
-    return;
-  }
-
-  if (!userLikes) {
-    userLikes = await prisma.userLikes.create({
-      data: {
-        postId: Number(id),
-        userId: user?.id,
-        isLiked: true,
-      },
-    });
-  }
-
   await prisma.post.update({
     where: { id: Number(id) },
     data: {
       totalLikes: post.totalLikes + 1,
-      isLiked: true,
+      isLiked: userLikes?.isLiked,
     },
   });
 
@@ -86,15 +84,25 @@ async function deletePostLike(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  const userLikes = await prisma.userLikes.update({
+  await prisma.userLikes.upsert({
     where: {
       postId_userId: {
         postId: Number(id),
         userId: user.id,
       },
     },
-    data: {
+    update: {
       isLiked: false,
+    },
+    create: { postId: Number(id), userId: user.id, isLiked: false },
+  });
+
+  const userLikes = await prisma.userLikes.findUnique({
+    where: {
+      postId_userId: {
+        postId: Number(id),
+        userId: user.id,
+      },
     },
   });
 
@@ -102,7 +110,7 @@ async function deletePostLike(res: NextApiResponse, req: NextApiRequest) {
     where: { id: Number(id) },
     data: {
       totalLikes: post.totalLikes > 0 ? post.totalLikes - 1 : 0,
-      isLiked: false,
+      isLiked: userLikes?.isLiked,
     },
   });
 

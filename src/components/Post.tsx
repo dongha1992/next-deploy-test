@@ -38,7 +38,7 @@ export default function Post({
               {post.createdAt.split("T")[0]}
             </p>
           </div>
-          <div className="flex-1 mt-1">
+          <div className="flex-1 mt-1 break-all">
             <p className="text-xl font-semibold text-gray-100">{post.title}</p>
           </div>
         </div>

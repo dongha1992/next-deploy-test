@@ -19,10 +19,10 @@ interface Props {
 function useUpdateLike({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
   return useMutation((id: number) => apiClient.post(`api/posts/${id}/like`), {
-    onSuccess: async () => {
+    onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
     },
-    onError: async (error: any) => {
+    onError: (error: any) => {
       console.error(error);
     },
     ...options,
@@ -32,10 +32,10 @@ function useUpdateLike({ options = {}, queryKey }: Props) {
 function useDeleteLike({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
   return useMutation((id: number) => apiClient.delete(`api/posts/${id}/like`), {
-    onSuccess: async () => {
+    onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
     },
-    onError: async (error: any) => {
+    onError: (error: any) => {
       console.error(error);
     },
     ...options,
@@ -73,4 +73,17 @@ function usePost({ options = {}, queryKey }: Props) {
   });
 }
 
-export { useUpdateLike, useDeleteLike, usePostComment, usePost };
+function useDeletePost({ options = {}, queryKey }: Props) {
+  const queryClient = useQueryClient();
+  return useMutation((id: number) => apiClient.delete(`api/posts/${id}`), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(queryKey);
+    },
+    onError: (error: any) => {
+      console.error(error);
+    },
+    ...options,
+  });
+}
+
+export { useUpdateLike, useDeleteLike, usePostComment, usePost, useDeletePost };

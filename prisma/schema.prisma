@@ -40,7 +40,7 @@ model UserLikes {
   isLiked Boolean
   postId  Int
   userId  String
-  post    Post    @relation(fields: [postId], references: [id])
+  post    Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
   user    User    @relation(fields: [userId], references: [id])
 
   @@id([postId, userId])
@@ -54,7 +54,7 @@ model Comment {
   userId    String
   user      User     @relation(fields: [userId], references: [id])
   postId    Int
-  post      Post     @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
 model Account {
