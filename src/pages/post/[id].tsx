@@ -63,8 +63,7 @@ export default function Code({ id }: { id: number }) {
 
   function onEditComment(id: number) {}
 
-  if (isLoading) return <PostSkeleton />;
-  if (isCommentLoading || isLikeLoading || isLikeDeleteLoading)
+  if (isLoading || isCommentLoading || isLikeLoading || isLikeDeleteLoading)
     return (
       <Overlay>
         <Lottie className="w-20 h-20" src="/lottie/loading.json" loop={false} />
