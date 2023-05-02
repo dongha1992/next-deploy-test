@@ -6,7 +6,7 @@ demo: https://the-scope.vercel.app/
 
 #### api
 
-- [O]댓글
+[x]댓글
 - []댓글 삭제
 - [x] 글 삭제
 - [] 글 수정
