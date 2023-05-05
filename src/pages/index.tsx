@@ -10,6 +10,7 @@ import useFormatUserAgent from "@/hooks/useFormatUserAgent";
 import {
   POST_QUERY_KEY,
   useDeleteLike,
+  useRefetchPostSearchQuery,
   useSearchPost,
   useUpdateLike,
 } from "@/query/post";
@@ -27,15 +28,20 @@ export default function Home() {
   useFormatUserAgent();
   const { isShow } = useLottie();
 
-  const { data, refetch } = useSearchPost({
+  const {
+    data,
+    isLoading: isPostsLoading,
+    isSuccess,
+  } = useSearchPost({
     query: keyword,
   });
+  const refetchPostSearchQuery = useRefetchPostSearchQuery();
 
-  const { mutate: postLikeMutation, isLoading: likeLoading } = useUpdateLike({
+  const { mutate: postLikeMutation, isLoading: isLikeLoading } = useUpdateLike({
     queryKey: [POST_QUERY_KEY],
   });
 
-  const { mutate: deleteLikeMutation, isLoading: deleteLikeLoading } =
+  const { mutate: deleteLikeMutation, isLoading: isDeleteLikeLoading } =
     useDeleteLike({
       queryKey: [POST_QUERY_KEY],
     });
@@ -53,6 +59,12 @@ export default function Home() {
     setKeyword(keyword);
   }
 
+  useEffect(() => {
+    return () => {
+      refetchPostSearchQuery();
+    };
+  }, [refetchPostSearchQuery]);
+
   return (
     <>
       <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-4 bg-black relative">
@@ -68,7 +80,7 @@ export default function Home() {
               loop={false}
             />
           )}
-          {(likeLoading || deleteLikeLoading) && (
+          {(isLikeLoading || isDeleteLikeLoading || isPostsLoading) && (
             <Overlay>
               <Lottie
                 className="w-20 h-20"
@@ -76,6 +88,9 @@ export default function Home() {
                 loop={false}
               />
             </Overlay>
+          )}
+          {isSuccess && data.length === 0 && (
+            <div className="mt-8">포스트가 존재하지 않습니다!</div>
           )}
           <ul className="mt-8">
             {data?.map((post: any) => (

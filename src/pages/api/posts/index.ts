@@ -51,7 +51,7 @@ async function createPost(req: any, res: any) {
 async function getPosts(req: NextApiRequest, res: NextApiResponse) {
   const { search } = req.query;
 
-  let posts = [];
+  let posts: any[] = [];
   // TODO: 중복...
 
   if (search) {
@@ -80,7 +80,9 @@ async function getPosts(req: NextApiRequest, res: NextApiResponse) {
     });
   }
 
-  res.status(200).json(posts);
+  setTimeout(() => {
+    res.status(200).json(posts);
+  }, 500);
 }
 
 export default async function handler(req: any, res: any) {

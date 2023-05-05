@@ -1,7 +1,9 @@
 import { useSyncMutation } from "@/hooks/query";
 import { apiClient } from "@/utils/api/apiClient";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import router from "next/router";
+import { useCallback } from "react";
 
 export const POST_DETAIL_QUERY_KEY = "getPostDetail";
 export const POST_QUERY_KEY = "getPost";
@@ -23,17 +25,26 @@ interface QueryProps {
 }
 
 function useSearchPost({ query, options }: QueryProps) {
-  return useQuery(
-    [POST_QUERY_KEY, query],
-    () => apiClient.get(`api/posts?search=${query}`).then(({ data }) => data),
-    {
-      onSucess: (data: any) => {
-        // return data;
-      },
-      ...options,
-    }
-  );
+  return useQuery(getSearchPostConfig(query, options));
 }
+
+const getSearchPostConfig = (query: string, options = {}) => ({
+  queryKey: [POST_QUERY_KEY, query],
+  queryFn: () =>
+    apiClient.get(`api/posts?search=${query}`).then(({ data }) => data),
+  config: {
+    onSucess: (posts: any) => {
+      // 개별 아이템 캐시 해야함
+      // for (const post of posts) {
+      //   queryCache.setQueryData(
+      //     [POST_DETAIL_QUERY_KEY, {id: post.id}],
+      //     post,
+      //   )
+      // }
+    },
+    ...options,
+  },
+});
 
 function useUpdateLike({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
@@ -148,6 +159,17 @@ function useEditPost({ options = {}, queryKey }: Props) {
   );
 }
 
+function useRefetchPostSearchQuery() {
+  const queryClient = useQueryClient();
+  return useCallback(
+    async function refetchPostSearchQuery() {
+      queryClient.removeQueries([POST_QUERY_KEY]);
+      await queryClient.prefetchQuery(getSearchPostConfig(""));
+    },
+    [queryClient]
+  );
+}
+
 export {
   useSearchPost,
   useUpdateLike,
@@ -157,4 +179,5 @@ export {
   useDeletePost,
   useDeleteComment,
   useEditPost,
+  useRefetchPostSearchQuery,
 };
