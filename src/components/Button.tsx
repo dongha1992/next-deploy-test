@@ -1,4 +1,3 @@
-import { PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
 
 export default function Button({ children, className, type, ...props }: any) {

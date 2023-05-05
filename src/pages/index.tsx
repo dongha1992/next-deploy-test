@@ -1,6 +1,8 @@
+import { useLayoutEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
 import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
+
 import { options } from "./api/auth/[...nextauth]";
 import Button from "@/components/Button";
 import PostSmall from "@/components/PostSmall";
@@ -8,9 +10,10 @@ import useFormatUserAgent from "@/hooks/useFormatUserAgent";
 import { POST_QUERY_KEY, useDeleteLike, useUpdateLike } from "@/query/post";
 import { apiClient } from "@/utils/api/apiClient";
 import Lottie from "@/components/Common/Lottie";
-import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "cookies-next";
 import Overlay from "@/components/Common/Overlay";
+import Input from "@/components/Input";
+import useIsMobile from "@/hooks/useIsMobile";
 
 export default function Home() {
   const [isShow, setIsShow] = useState(false);
@@ -33,7 +36,14 @@ export default function Home() {
     isLiked ? deleteLikeMutation(id) : postLikeMutation(id);
   }
 
-  useEffect(() => {
+  function onSubmitSearch(e: any) {
+    e.preventDefault();
+    const { search } = e.target.elements;
+    const keyword = search.value;
+    console.log(keyword, "--");
+  }
+
+  useLayoutEffect(() => {
     // TODO: 리팩토링
     const isShowLottie = getCookie("start-lottie");
     if (isShowLottie) return;
@@ -47,15 +57,13 @@ export default function Home() {
 
   return (
     <>
-      <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-4 bg-black">
+      <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-4 bg-black relative">
         <div className="max-w-2xl mx-auto">
-          <Button
-            className="sticky top-10 z-50"
-            type="submit"
-            onClick={() => router.push("/addPost")}
-          >
-            글쓰기
-          </Button>
+          <Input
+            onSubmit={onSubmitSearch}
+            name="search"
+            button={<Button className="w-12 p-2 m-0">검색</Button>}
+          />
           {isShow && (
             <Lottie
               src="https://static.toss.im/lotties/confetti/confetti-explode.json"
@@ -88,6 +96,13 @@ export default function Home() {
           </ul>
         </div>
       </div>
+      <Button
+        className="fixed bottom-10 right-10 max-2xl:left-90 z-50 w-15 h-15 rounded-full text-lg"
+        type="submit"
+        onClick={() => router.push("/addPost")}
+      >
+        +
+      </Button>
     </>
   );
 }
