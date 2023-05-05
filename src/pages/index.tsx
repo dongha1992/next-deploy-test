@@ -13,7 +13,6 @@ import Lottie from "@/components/Common/Lottie";
 import { getCookie, setCookie } from "cookies-next";
 import Overlay from "@/components/Common/Overlay";
 import Input from "@/components/Input";
-import useIsMobile from "@/hooks/useIsMobile";
 
 export default function Home() {
   const [isShow, setIsShow] = useState(false);
@@ -62,7 +61,7 @@ export default function Home() {
           <Input
             onSubmit={onSubmitSearch}
             name="search"
-            button={<Button className="w-12 p-2 m-0">검색</Button>}
+            button={<Button className="w-16 p-2 m-0">검색</Button>}
           />
           {isShow && (
             <Lottie
@@ -95,14 +94,16 @@ export default function Home() {
             ))}
           </ul>
         </div>
+        <div className="fixed bottom-10 left-50 z-50">
+          <Button
+            className="w-15 h-15 rounded-full text-lg"
+            type="submit"
+            onClick={() => router.push("/addPost")}
+          >
+            +
+          </Button>
+        </div>
       </div>
-      <Button
-        className="fixed bottom-10 right-10 max-2xl:left-90 z-50 w-15 h-15 rounded-full text-lg"
-        type="submit"
-        onClick={() => router.push("/addPost")}
-      >
-        +
-      </Button>
     </>
   );
 }
@@ -128,6 +129,7 @@ export async function getServerSideProps(context: any) {
       props: {},
     };
   }
+
   // const posts = await axios
   //   .get(`${process.env.NEXTAUTH_URL}/api/posts`)
   //   .then(({ data }) => data);
