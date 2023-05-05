@@ -4,7 +4,7 @@ demo: https://the-scope.vercel.app/
 
 ## SUMMARY
 
-- code를 공유할 수 있는 플랫폼 
+- code를 공유할 수 있는 플랫폼
 
 ## STACK
 
@@ -25,7 +25,7 @@ demo: https://the-scope.vercel.app/
 - [] 해시태그
 - [] 내 게시글만 보기
 - [] 특정 인물 게시글만 보기
-- [] 검색
+- [x] 검색
 - [] 마이페이지 링크 같은 거 입력
 - [] 광고
 - [] 등급

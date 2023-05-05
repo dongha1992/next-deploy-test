@@ -26,7 +26,7 @@ export default function Home() {
   const router = useRouter();
 
   useFormatUserAgent();
-  const { isShow } = useLottie();
+  // const { isShow } = useLottie();
 
   const {
     data,
@@ -74,12 +74,12 @@ export default function Home() {
             name="search"
             button={<Button className="w-16 p-2 m-0">검색</Button>}
           />
-          {isShow && (
+          {/* {isShow && (
             <Lottie
               src="https://static.toss.im/lotties/confetti/confetti-explode.json"
               loop={false}
             />
-          )}
+          )} */}
           {(isLikeLoading || isDeleteLikeLoading || isPostsLoading) && (
             <Overlay>
               <Lottie
@@ -110,7 +110,7 @@ export default function Home() {
         </div>
         <div className="fixed bottom-10 left-50 z-50">
           <Button
-            className="w-15 h-15 rounded-full text-lg"
+            className="w-15 h-15 rounded-full text-lg hover:drop-shadow-2xl hover:animate-bounce duration-300"
             type="submit"
             onClick={() => router.push("/addPost")}
           >
