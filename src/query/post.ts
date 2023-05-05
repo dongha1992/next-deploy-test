@@ -1,6 +1,6 @@
 import { useSyncMutation } from "@/hooks/query";
 import { apiClient } from "@/utils/api/apiClient";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import router from "next/router";
 
 export const POST_DETAIL_QUERY_KEY = "getPostDetail";
@@ -15,6 +15,24 @@ export const POST_QUERY_KEY = "getPost";
 interface Props {
   options?: any;
   queryKey: any[];
+}
+
+interface QueryProps {
+  options?: any;
+  query: string;
+}
+
+function useSearchPost({ query, options }: QueryProps) {
+  return useQuery(
+    [POST_QUERY_KEY, query],
+    () => apiClient.get(`api/posts?search=${query}`).then(({ data }) => data),
+    {
+      onSucess: (data: any) => {
+        // return data;
+      },
+      ...options,
+    }
+  );
 }
 
 function useUpdateLike({ options = {}, queryKey }: Props) {
@@ -131,6 +149,7 @@ function useEditPost({ options = {}, queryKey }: Props) {
 }
 
 export {
+  useSearchPost,
   useUpdateLike,
   useDeleteLike,
   usePostComment,

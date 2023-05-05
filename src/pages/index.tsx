@@ -1,26 +1,35 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
-import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 
 import { options } from "./api/auth/[...nextauth]";
 import Button from "@/components/Button";
 import PostSmall from "@/components/PostSmall";
 import useFormatUserAgent from "@/hooks/useFormatUserAgent";
-import { POST_QUERY_KEY, useDeleteLike, useUpdateLike } from "@/query/post";
+import {
+  POST_QUERY_KEY,
+  useDeleteLike,
+  useSearchPost,
+  useUpdateLike,
+} from "@/query/post";
 import { apiClient } from "@/utils/api/apiClient";
 import Lottie from "@/components/Common/Lottie";
-import { getCookie, setCookie } from "cookies-next";
 import Overlay from "@/components/Common/Overlay";
 import Input from "@/components/Input";
+import useLottie from "@/hooks/useLottie";
 
 export default function Home() {
-  const [isShow, setIsShow] = useState(false);
+  const [keyword, setKeyword] = useState<string>("");
+  const [isSearched, setIsSearched] = useState<boolean>(false);
   const router = useRouter();
 
   useFormatUserAgent();
+  const { isShow } = useLottie();
 
-  const { data } = useQuery([POST_QUERY_KEY], getPost);
+  const { data, refetch } = useSearchPost({
+    query: keyword,
+  });
 
   const { mutate: postLikeMutation, isLoading: likeLoading } = useUpdateLike({
     queryKey: [POST_QUERY_KEY],
@@ -39,20 +48,10 @@ export default function Home() {
     e.preventDefault();
     const { search } = e.target.elements;
     const keyword = search.value;
-    console.log(keyword, "--");
-  }
 
-  useLayoutEffect(() => {
-    // TODO: 리팩토링
-    const isShowLottie = getCookie("start-lottie");
-    if (isShowLottie) return;
-    setIsShow(true);
-    const timer = setTimeout(() => {
-      setIsShow(false);
-      setCookie("start-lottie", true);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
+    setIsSearched(true);
+    setKeyword(keyword);
+  }
 
   return (
     <>

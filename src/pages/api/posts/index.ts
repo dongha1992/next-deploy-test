@@ -49,14 +49,36 @@ async function createPost(req: any, res: any) {
 }
 
 async function getPosts(req: NextApiRequest, res: NextApiResponse) {
-  const posts = await prisma?.post.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-    include: {
-      user: true,
-    },
-  });
+  const { search } = req.query;
+
+  let posts = [];
+  // TODO: 중복...
+
+  if (search) {
+    posts = await prisma.post.findMany({
+      where: {
+        OR: [
+          { code: { contains: search as string } },
+          { title: { contains: search as string } },
+        ],
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        user: true,
+      },
+    });
+  } else {
+    posts = await prisma.post.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        user: true,
+      },
+    });
+  }
 
   res.status(200).json(posts);
 }
