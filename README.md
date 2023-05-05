@@ -2,6 +2,14 @@
 
 demo: https://the-scope.vercel.app/
 
+## SUMMARY
+
+- code를 공유할 수 있는 플랫폼 
+
+## STACK
+
+- Next, Typescript, Tailwind, Prisma
+
 ## TODO
 
 #### api
