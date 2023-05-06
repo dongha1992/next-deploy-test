@@ -57,5 +57,6 @@
     "@types/next-auth": "^3.15.0",
     "dotenv-cli": "^7.2.1",
     "prisma": "^4.13.0"
-  }
+  },
+  "proxy":"https://openapi.naver.com/"
 }

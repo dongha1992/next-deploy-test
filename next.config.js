@@ -14,6 +14,14 @@ const nextConfig = {
   images: {
     domains: ["lh3.googleusercontent.com"],
   },
+  async rewrites() {
+    return [
+      {
+        destination: "https://openapi.naver.com/:path*",
+        source: "/:path*",
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

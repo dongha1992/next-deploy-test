@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
@@ -6,7 +7,6 @@ import Lottie from "@/components/Common/Lottie";
 import NewBookPostForm from "@/components/Book/NewBookPostForm";
 import { BOOK_QUERY_KEY, usePost } from "@/query/book";
 import { getNaverBooksApi } from "@/utils/api/naverBook";
-import { useState } from "react";
 
 export default function AddBookPage() {
   const router = useRouter();
@@ -15,8 +15,8 @@ export default function AddBookPage() {
 
   const onSearchBookHandler = async (e: any) => {
     e.preventDefault();
-    const { book } = e.target.element;
-    const result = await getNaverBooksApi(book);
+    const { book } = e.target.elements;
+    const result = await getNaverBooksApi(book.value);
     console.log(result, "result");
   };
 

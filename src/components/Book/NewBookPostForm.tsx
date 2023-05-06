@@ -16,7 +16,7 @@ export default function NewBookPostForm({
     e.preventDefault();
     const { text } = e.target.elements;
     onSubmit({ body: text.value, text: "" });
-    e.target.elements = "";
+    text.value = "";
   };
 
   const setImageHandler = (image: any) => {
@@ -24,31 +24,31 @@ export default function NewBookPostForm({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={className}
-      action="#"
-      method="POST"
-    >
-      <input type="hidden" name="remember" value="true" />
-      <div className="rounded-md shadow-sm -space-y-px">
+    <>
+      <form onSubmit={onSearch} className={className} action="#" method="POST">
         <Input
           className="mb-6"
           left={<SearchActiveIcon />}
           name="book"
           placeholder="책 제목을 알려주세요."
-          button={
-            <Button className="w-16 p-2 m-0" onSubmit={onSearch}>
-              검색
-            </Button>
-          }
+          button={<Button className="w-16 p-2 m-0">검색</Button>}
         />
-        <TextArea className="h-96" name="text" />
-        <ImageBox setImageValue={setImageHandler} />
-        <div>
-          <Button type="submit">제출</Button>
+      </form>
+      <form
+        onSubmit={handleSubmit}
+        className={className}
+        action="#"
+        method="POST"
+      >
+        <input type="hidden" name="remember" value="true" />
+        <div className="rounded-md shadow-sm -space-y-px">
+          <TextArea className="h-96" name="text" />
+          <ImageBox setImageValue={setImageHandler} />
+          <div>
+            <Button type="submit">제출</Button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </>
   );
 }
