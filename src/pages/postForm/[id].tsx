@@ -1,7 +1,7 @@
 import Head from "next/head";
 
 import { useRouter } from "next/router";
-import NewPostForm from "@/components/NewPostForm";
+import NewPostForm from "@/components/Book/NewPostForm";
 import { POST_DETAIL_QUERY_KEY, useEditPost } from "@/query/post";
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/utils/api/apiClient";

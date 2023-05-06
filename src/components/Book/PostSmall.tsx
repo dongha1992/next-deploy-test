@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import PostActions from "./PostActions";
+import PostActions from "../PostActions";
 import highlight from "@/utils/highlight";
 
 import formatTimeAgo from "@/utils/formatTimeAgo";
-import Setting from "./Common/Setting";
-import { POST_QUERY_KEY, useDeletePost, useEditPost } from "@/query/post";
+import Setting from "../Common/Setting";
+import { POST_QUERY_KEY, useDeletePost } from "@/query/post";
 import { useSession } from "next-auth/react";
 import router from "next/router";
 

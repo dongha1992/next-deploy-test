@@ -5,7 +5,7 @@ import { QueryClient, dehydrate } from "@tanstack/react-query";
 
 import { options } from "./api/auth/[...nextauth]";
 import Button from "@/components/Button";
-import PostSmall from "@/components/PostSmall";
+import PostSmall from "@/components/Book/PostSmall";
 import useFormatUserAgent from "@/hooks/useFormatUserAgent";
 import {
   POST_QUERY_KEY,

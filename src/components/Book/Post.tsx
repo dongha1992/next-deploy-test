@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import PostActions from "./PostActions";
+import PostActions from "../PostActions";
 // import formatTimeAgo from "../../utils/formatTimeAgo";
 import { twMerge } from "tailwind-merge";
 import highlight from "@/utils/highlight";

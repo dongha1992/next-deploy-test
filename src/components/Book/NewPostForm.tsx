@@ -1,6 +1,6 @@
 import { useState } from "react";
-import SimpleCodeEditor from "./Editor";
-import Button from "./Button";
+import SimpleCodeEditor from "../Editor";
+import Button from "../Button";
 import LanguageDropdown from "./LanguageDropdown";
 
 export default function NewPostForm({
