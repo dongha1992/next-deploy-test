@@ -41,7 +41,7 @@ const ImageBox = ({ setImageValue }: IProps) => {
           "bg-gray-500 w-20 h-20 flex justify-center align-center flex-col rounded-md"
         }
       >
-        <span className="text-5xl text-center">+</span>
+        <span className="text-2xl text-center">+</span>
       </div>
       <input
         type="file"

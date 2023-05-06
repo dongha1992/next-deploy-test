@@ -99,7 +99,7 @@ function BookPage() {
           <div className="mt-8">첫 번째 글을 작성해주세요!</div>
         )}
 
-        {data?.length && (
+        {data?.length ? (
           <ul className="mt-8">
             {data?.map((book: any) => (
               <li key={book.id}>
@@ -115,7 +115,7 @@ function BookPage() {
               </li>
             ))}
           </ul>
-        )}
+        ) : null}
       </div>
       <div className="fixed bottom-20 left-50 z-50">
         <Button

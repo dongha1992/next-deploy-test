@@ -5,13 +5,18 @@ import Input from "../Common/Input";
 import { SearchActiveIcon } from "@/utils/svg";
 import ImageBox from "../Common/ImageBox";
 
-export default function NewBookPostForm({ onSubmit, className = "" }: any) {
+export default function NewBookPostForm({
+  onSubmit,
+  onSearch,
+  className = "",
+}: any) {
   const [images, setImages] = useState<Array<string>>([]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const { text } = e.target.elements;
     onSubmit({ body: text.value, text: "" });
+    e.target.elements = "";
   };
 
   const setImageHandler = (image: any) => {
@@ -30,8 +35,13 @@ export default function NewBookPostForm({ onSubmit, className = "" }: any) {
         <Input
           className="mb-6"
           left={<SearchActiveIcon />}
-          name="search"
-          button={<Button className="w-16 p-2 m-0">검색</Button>}
+          name="book"
+          placeholder="책 제목을 알려주세요."
+          button={
+            <Button className="w-16 p-2 m-0" onSubmit={onSearch}>
+              검색
+            </Button>
+          }
         />
         <TextArea className="h-96" name="text" />
         <ImageBox setImageValue={setImageHandler} />

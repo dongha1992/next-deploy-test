@@ -8,6 +8,8 @@ const nextConfig = {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXT_PUBLIC_JWT_SECRET_KEY: process.env.NEXT_PUBLIC_JWT_SECRET_KEY,
+    NAVER_CLIENT_ID: process.env.NAVER_CLIENT_ID,
+    NAVER_CLIENT_SECRET: process.env.NAVER_CLIENT_SECRET,
   },
   images: {
     domains: ["lh3.googleusercontent.com"],

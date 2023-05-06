@@ -9,6 +9,7 @@ function Input({
   onSubmit,
   button,
   left,
+  placeholder = "검색어를 입력해주세요.",
   ...inputProps
 }: any) {
   const value = inputProps.value;
@@ -27,7 +28,7 @@ function Input({
         name={name}
         className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none focus:ring-0"
         type="text"
-        placeholder="검색어를 입력해주세요."
+        placeholder={placeholder}
         aria-label="검색"
         ref={inputRef}
         value={value}

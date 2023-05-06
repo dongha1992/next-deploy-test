@@ -5,10 +5,20 @@ import Overlay from "@/components/Common/Overlay";
 import Lottie from "@/components/Common/Lottie";
 import NewBookPostForm from "@/components/Book/NewBookPostForm";
 import { BOOK_QUERY_KEY, usePost } from "@/query/book";
+import { getNaverBooksApi } from "@/utils/api/naverBook";
+import { useState } from "react";
 
 export default function AddBookPage() {
   const router = useRouter();
+  // const [query, setQuery] = useState("");
   const { mutate, isLoading } = usePost({ queryKey: [BOOK_QUERY_KEY] });
+
+  const onSearchBookHandler = async (e: any) => {
+    e.preventDefault();
+    const { book } = e.target.element;
+    const result = await getNaverBooksApi(book);
+    console.log(result, "result");
+  };
 
   if (isLoading)
     return (
@@ -28,7 +38,11 @@ export default function AddBookPage() {
         </h1>
 
         <div className="mt-6">
-          <NewBookPostForm className="max-w-5xl" onSubmit={mutate} />
+          <NewBookPostForm
+            className="max-w-5xl"
+            onSubmit={mutate}
+            onSearch={onSearchBookHandler}
+          />
         </div>
       </div>
     </>
