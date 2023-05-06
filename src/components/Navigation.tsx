@@ -1,5 +1,7 @@
 import { getZIndex } from "@/utils/getZIndex";
 import {
+  BookActiveIcon,
+  BookUnActiveIcon,
   HomeActiveIcon,
   HomeUnActiveIcon,
   MypageActiveIcon,
@@ -19,8 +21,8 @@ const NAVIGATION = [
   {
     id: 1,
     name: "book",
-    active: <HomeActiveIcon />,
-    unactive: <HomeUnActiveIcon />,
+    active: <BookActiveIcon />,
+    unactive: <BookUnActiveIcon />,
     link: "/book",
   },
   {
@@ -34,7 +36,7 @@ const NAVIGATION = [
 
 function Navigation() {
   const router = useRouter();
-  const [selectedTab, setSelectedTab] = useState<string>("/");
+  const [selectedTab, setSelectedTab] = useState<string>("");
 
   useEffect(() => {
     const queryString = router.asPath;

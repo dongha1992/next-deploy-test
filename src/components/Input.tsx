@@ -1,4 +1,4 @@
-import { SearchUnActiveIcon } from "@/utils/svg";
+import { SearchActiveIcon } from "@/utils/svg";
 import React, { useCallback, useRef } from "react";
 
 function Input({ name, className, onSubmit, button, ...inputProps }: any) {
@@ -13,7 +13,7 @@ function Input({ name, className, onSubmit, button, ...inputProps }: any) {
         className="flex items-center border-b border-indigo-600 py-2"
         onClick={handleClick}
       >
-        <SearchUnActiveIcon />
+        <SearchActiveIcon />
         <input
           {...inputProps}
           name={name}

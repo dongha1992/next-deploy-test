@@ -202,22 +202,52 @@ function SearchActiveIcon() {
   );
 }
 
-function SearchUnActiveIcon() {
+function BookUnActiveIcon() {
   return (
     <svg
-      width="24"
-      height="24"
+      xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"
+      stroke="#242424"
+      width="24"
+      height="24"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="feather feather-book"
+    >
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H19"></path>
+      <path d="M4 6.5C4 4.567 5.567 3 7.5 3h9c1.933 0 3.5 1.567 3.5 3.5v11c0 1.933-1.567 3.5-3.5 3.5h-9c-1.933 0-3.5-1.567-3.5-3.5v-11z"></path>
+    </svg>
+  );
+}
+
+function BookActiveIcon() {
+  return (
+    <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="text-gray-500"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#242424"
+      width="24"
+      height="24"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="feather feather-book"
     >
       <path
-        d="M21 21L16.9862 16.9791M19.2105 11.6053C19.2105 13.6223 18.4093 15.5567 16.983 16.983C15.5567 18.4093 13.6223 19.2105 11.6053 19.2105C9.58822 19.2105 7.65379 18.4093 6.22753 16.983C4.80127 15.5567 4 13.6223 4 11.6053C4 9.58822 4.80127 7.65379 6.22753 6.22753C7.65379 4.80127 9.58822 4 11.6053 4C13.6223 4 15.5567 4.80127 16.983 6.22753C18.4093 7.65379 19.2105 9.58822 19.2105 11.6053Z"
-        stroke="#ffff"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
+        d="M4 6.5C4 4.567 5.567 3 7.5 3h9c1.933 0 3.5 1.567 3.5 3.5v11c0 1.933-1.567 3.5-3.5 3.5h-9c-1.933 0-3.5-1.567-3.5-3.5v-11z"
+        fill="#242424"
+      ></path>
+
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        stroke="white"
+        d="M4 19.5A2.5 2.5 0 0 1 6.5 17H19"
+        mask="url(#path-1-inside-1_1)"
+      ></path>
     </svg>
   );
 }
@@ -232,5 +262,6 @@ export {
   MypageUnActiveIcon,
   MypageActiveIcon,
   SearchActiveIcon,
-  SearchUnActiveIcon,
+  BookActiveIcon,
+  BookUnActiveIcon,
 };
