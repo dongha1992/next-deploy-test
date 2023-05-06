@@ -12,9 +12,6 @@ export interface Session {
   expires: Date;
   loggedUser?: string;
 }
-function titleFromCode(code: string) {
-  return code.trim().split("\n")[0].replace("//", "");
-}
 
 async function createBook(req: any, res: any) {
   const session: Session | null = await getServerSession(req, res, options);
@@ -33,13 +30,12 @@ async function createBook(req: any, res: any) {
     return;
   }
 
-  const { language, code } = req.body;
-  const title = titleFromCode(code);
-  const post = await prisma.post.create({
+  const { title = "임시", body } = req.body.data;
+
+  await prisma.book.create({
     data: {
       title,
-      language,
-      code,
+      body,
       userId: prismaUser.id,
       isLiked: false,
     },

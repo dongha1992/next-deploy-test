@@ -14,7 +14,7 @@ export default function BookPost({
   onComment,
   onShare,
   href,
-  post,
+  book,
   user,
   className = "",
 }: any) {
@@ -25,16 +25,16 @@ export default function BookPost({
 
   const onDeleteHandler = (e: any) => {
     e.preventDefault();
-    deletePostMutation(post.id);
+    deletePostMutation(book.id);
   };
 
   const onEditHandler = (e: any) => {
     e.preventDefault();
-    if (data?.user?.email !== post.user.email) {
+    if (data?.user?.email !== book.user.email) {
       alert("해당 포스트의 작성자가 아닙니다.");
       return;
     }
-    router.push(`/postForm/${post.id}`);
+    router.push(`/bookForm/${book.id}`);
   };
 
   return (
@@ -62,12 +62,12 @@ export default function BookPost({
                 {formatUserName(user?.name)}
               </p>
               <p className="text-sm text-gray-300">
-                {post?.createdAt.split("T")[0]}
+                {book?.createdAt.split("T")[0]}
               </p>
             </div>
             <div className="flex mt-1 items-center justify-between">
               <p className="text-xl font-semibold text-gray-100 break-all">
-                {post?.title.substring(0, 50)}
+                {book?.title.substring(0, 50)}
               </p>
               <Setting onDelete={onDeleteHandler} onEdit={onEditHandler} />
             </div>
@@ -82,9 +82,9 @@ export default function BookPost({
           onComment={onComment}
           onLike={onLike}
           onShare={onShare}
-          isLiked={post?.isLiked}
-          totalComments={post?.totalComments}
-          totalLikes={post?.totalLikes}
+          isLiked={book?.isLiked}
+          totalComments={book?.totalComments}
+          totalLikes={book?.totalLikes}
         />
       </div>
     </div>

@@ -11,7 +11,8 @@ export default function NewBookPostForm({
 }: any) {
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    // onSubmit({ code, language });
+    const { text } = e.target.elements;
+    onSubmit({ body: text.value, text: "" });
   };
 
   const handleChange = (value: any) => {
@@ -33,7 +34,7 @@ export default function NewBookPostForm({
           name="search"
           button={<Button className="w-16 p-2 m-0">검색</Button>}
         />
-        <TextArea className="h-96" />
+        <TextArea className="h-96" name="text" />
         <div>
           <Button type="submit">제출</Button>
         </div>

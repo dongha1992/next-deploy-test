@@ -76,7 +76,11 @@ export default function Home() {
             <Input
               left={<SearchActiveIcon />}
               name="search"
-              button={<Button className="w-16 p-2 m-0">검색</Button>}
+              button={
+                <Button type="submit" className="w-16 p-2 m-0">
+                  검색
+                </Button>
+              }
             />
           </form>
           {/* {isShow && (

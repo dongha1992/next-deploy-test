@@ -2,6 +2,7 @@
 
 import { useSyncMutation } from "@/hooks/query";
 import { apiClient } from "@/utils/api/apiClient";
+import { getBooksApi, postBookApi } from "@/utils/api/book";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import router from "next/router";
 import { useCallback } from "react";
@@ -25,21 +26,34 @@ function useSearchPost({ query, options }: QueryProps) {
 
 const getSearchPostConfig = (query: string, options = {}) => ({
   queryKey: [BOOK_QUERY_KEY, query],
-  queryFn: () =>
-    apiClient.get(`api/posts?search=${query}`).then(({ data }) => data),
+  queryFn: () => getBooksApi(query),
   config: {
-    onSucess: (posts: any) => {
+    onSucess: (books: any) => {
       // 개별 아이템 캐시 해야함
-      // for (const post of posts) {
+      // for (const book of books) {
       //   queryCache.setQueryData(
-      //     [POST_DETAIL_QUERY_KEY, {id: post.id}],
-      //     post,
+      //     [BOOK_DETAIL_QUERY_KEY, {id: book.id}],
+      //     book,
       //   )
       // }
     },
     ...options,
   },
 });
+
+function usePost({ options = {}, queryKey }: Props) {
+  const queryClient = useQueryClient();
+  return useMutation((data) => postBookApi(data), {
+    onSuccess: async () => {
+      queryClient.invalidateQueries(queryKey);
+      router.replace("/book");
+    },
+    onError: async (error: any) => {
+      console.error(error);
+    },
+    ...options,
+  });
+}
 
 function useUpdateLike({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
@@ -89,20 +103,6 @@ function usePostComment({ options = {}, queryKey }: Props) {
       ...options,
     }
   );
-}
-
-function usePost({ options = {}, queryKey }: Props) {
-  const queryClient = useQueryClient();
-  return useMutation((data) => apiClient.post(`/api/posts`, data), {
-    onSuccess: async () => {
-      queryClient.invalidateQueries(queryKey);
-      router.replace("/");
-    },
-    onError: async (error: any) => {
-      console.error(error);
-    },
-    ...options,
-  });
 }
 
 function useDeletePost({ options = {}, queryKey }: Props) {
