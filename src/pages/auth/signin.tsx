@@ -3,7 +3,7 @@ import { signIn, useSession, signOut } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
 import { options } from "../api/auth/[...nextauth]";
 import Image from "next/image";
-import Button from "@/components/Button";
+import Button from "@/components/Common/Button";
 
 function Signin() {
   return (

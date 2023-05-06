@@ -252,6 +252,32 @@ function BookActiveIcon() {
   );
 }
 
+function CancelIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="9" cy="9" r="7" fill="#242424" />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M11.5263 6.47358C11.7879 6.73519 11.7879 7.15934 11.5263 7.42095L7.42106 11.5262C7.15945 11.7878 6.7353 11.7878 6.47369 11.5262C6.21208 11.2646 6.21208 10.8404 6.47369 10.5788L10.5789 6.47358C10.8406 6.21197 11.2647 6.21197 11.5263 6.47358Z"
+        fill="white"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M11.5264 11.5263C11.2648 11.7879 10.8407 11.7879 10.5791 11.5263L6.47379 7.42106C6.21218 7.15945 6.21218 6.7353 6.47379 6.47369C6.7354 6.21208 7.15955 6.21208 7.42116 6.47369L11.5264 10.5789C11.788 10.8406 11.788 11.2647 11.5264 11.5263Z"
+        fill="white"
+      />
+    </svg>
+  );
+}
+
 export {
   EditInactiveIcon,
   EditActiveIcon,
@@ -264,4 +290,5 @@ export {
   SearchActiveIcon,
   BookActiveIcon,
   BookUnActiveIcon,
+  CancelIcon,
 };

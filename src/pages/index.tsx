@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 
 import { options } from "./api/auth/[...nextauth]";
-import Button from "@/components/Button";
+import Button from "@/components/Common/Button";
 import PostSmall from "@/components/Post/PostSmall";
 import useFormatUserAgent from "@/hooks/useFormatUserAgent";
 import {
@@ -17,7 +17,7 @@ import {
 import { apiClient } from "@/utils/api/apiClient";
 import Lottie from "@/components/Common/Lottie";
 import Overlay from "@/components/Common/Overlay";
-import Input from "@/components/Input";
+import Input from "@/components/Common/Input";
 import useLottie from "@/hooks/useLottie";
 import Layout from "@/components/Layout";
 import Navigation from "@/components/Navigation";

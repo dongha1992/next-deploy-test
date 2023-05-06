@@ -2,7 +2,7 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 import Image from "next/image";
 
-import Setting from "./Common/Setting";
+import Setting from "./Setting";
 interface Props {
   user: any;
   comment: any;

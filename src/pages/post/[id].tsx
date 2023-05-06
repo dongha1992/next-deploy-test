@@ -12,9 +12,9 @@ import {
 import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/utils/api/apiClient";
 
-import Comment from "@/components/Comment";
+import Comment from "@/components/Common/Comment";
 import TextArea from "@/components/Common/TextArea";
-import Button from "@/components/Button";
+import Button from "@/components/Common/Button";
 import Lottie from "@/components/Common/Lottie";
 import Overlay from "@/components/Common/Overlay";
 import PostSkeleton from "@/components/Layout/PostSkeleton";

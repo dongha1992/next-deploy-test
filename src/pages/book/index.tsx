@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 
-import Button from "@/components/Button";
+import Button from "@/components/Common/Button";
 import useFormatUserAgent from "@/hooks/useFormatUserAgent";
 import {
   BOOK_QUERY_KEY,
@@ -17,7 +17,7 @@ import {
 import { apiClient } from "@/utils/api/apiClient";
 import Lottie from "@/components/Common/Lottie";
 import Overlay from "@/components/Common/Overlay";
-import Input from "@/components/Input";
+import Input from "@/components/Common/Input";
 import { options } from "../api/auth/[...nextauth]";
 import BookPost from "@/components/Book/BookPost";
 import { getBooksApi } from "@/utils/api/book";
