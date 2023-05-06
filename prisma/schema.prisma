@@ -7,10 +7,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
 model User {
-  id            String      @id @default(cuid())
+  id            String          @id @default(cuid())
   name          String?
-  email         String?     @unique
+  email         String?         @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
@@ -18,8 +52,12 @@ model User {
   sessions      Session[]
   userLikes     UserLikes[]
   comment       Comment[]
+  books         Book[]
+  userBookLikes UserBookLikes[]
+  bookComment   BookComment[]
 }
 
+// Post 관련
 model Post {
   id            Int         @id @default(autoincrement())
   title         String
@@ -57,36 +95,40 @@ model Comment {
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+// Book 관련. 나중에 분리 예정
 
-  @@unique([provider, providerAccountId])
+model Book {
+  id            Int             @id @default(autoincrement())
+  title         String
+  body          String
+  totalLikes    Int             @default(0)
+  totalComments Int             @default(0)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  userId        String
+  isLiked       Boolean
+  user          User            @relation(fields: [userId], references: [id])
+  userBookLikes UserBookLikes[]
+  bookComments  BookComment[]
 }
 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model UserBookLikes {
+  isLiked Boolean
+  bookId  Int
+  userId  String
+  book    Book    @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@id([bookId, userId])
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
+model BookComment {
+  id        Int      @id @default(autoincrement())
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  bookId    Int
+  book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
 }

@@ -1,17 +1,13 @@
+// TODO: post query랑 중복 제거
+
 import { useSyncMutation } from "@/hooks/query";
 import { apiClient } from "@/utils/api/apiClient";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import router from "next/router";
 import { useCallback } from "react";
 
-export const POST_DETAIL_QUERY_KEY = "getPostDetail";
-export const POST_QUERY_KEY = "getPosts";
-
-// const defaultMutationOptions = {
-//   onError: (err, variables, recover) =>
-//     typeof recover === "function" ? recover() : null,
-//   onSettled: () = queryClient.invalidateQueries("list-items")
-// };
+export const BOOK_DETAIL_QUERY_KEY = "getBookDetaill";
+export const BOOK_QUERY_KEY = "getBooks";
 
 interface Props {
   options?: any;
@@ -28,7 +24,7 @@ function useSearchPost({ query, options }: QueryProps) {
 }
 
 const getSearchPostConfig = (query: string, options = {}) => ({
-  queryKey: [POST_QUERY_KEY, query],
+  queryKey: [BOOK_QUERY_KEY, query],
   queryFn: () =>
     apiClient.get(`api/posts?search=${query}`).then(({ data }) => data),
   config: {
@@ -164,7 +160,7 @@ function useRefetchPostSearchQuery() {
   const queryClient = useQueryClient();
   return useCallback(
     async function refetchPostSearchQuery() {
-      queryClient.removeQueries([POST_QUERY_KEY]);
+      queryClient.removeQueries([BOOK_QUERY_KEY]);
       await queryClient.prefetchQuery(getSearchPostConfig(""));
     },
     [queryClient]

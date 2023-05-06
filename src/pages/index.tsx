@@ -5,7 +5,7 @@ import { QueryClient, dehydrate } from "@tanstack/react-query";
 
 import { options } from "./api/auth/[...nextauth]";
 import Button from "@/components/Button";
-import PostSmall from "@/components/Book/PostSmall";
+import PostSmall from "@/components/Post/PostSmall";
 import useFormatUserAgent from "@/hooks/useFormatUserAgent";
 import {
   POST_QUERY_KEY,
@@ -21,6 +21,7 @@ import Input from "@/components/Input";
 import useLottie from "@/hooks/useLottie";
 import Layout from "@/components/Layout";
 import Navigation from "@/components/Navigation";
+import { SearchActiveIcon } from "@/utils/svg";
 
 export default function Home() {
   const [keyword, setKeyword] = useState<string>("");
@@ -71,11 +72,13 @@ export default function Home() {
     <>
       <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-4 bg-black relative">
         <div className="max-w-2xl mx-auto">
-          <Input
-            onSubmit={onSubmitSearch}
-            name="search"
-            button={<Button className="w-16 p-2 m-0">검색</Button>}
-          />
+          <form onSubmit={onSubmitSearch}>
+            <Input
+              left={<SearchActiveIcon />}
+              name="search"
+              button={<Button className="w-16 p-2 m-0">검색</Button>}
+            />
+          </form>
           {/* {isShow && (
             <Lottie
               src="https://static.toss.im/lotties/confetti/confetti-explode.json"

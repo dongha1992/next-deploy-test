@@ -1,4 +1,4 @@
-import Post from "@/components/Book/Post";
+import Post from "@/components/Post/Post";
 import axios from "axios";
 import Head from "next/head";
 

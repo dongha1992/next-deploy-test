@@ -6,7 +6,6 @@ import { getServerSession } from "next-auth";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 
 import Button from "@/components/Button";
-import PostSmall from "@/components/Book/PostSmall";
 import useFormatUserAgent from "@/hooks/useFormatUserAgent";
 import {
   POST_QUERY_KEY,
@@ -28,7 +27,6 @@ function BookPage() {
   const router = useRouter();
 
   useFormatUserAgent();
-  // const { isShow } = useLottie();
 
   const {
     data,
@@ -66,6 +64,7 @@ function BookPage() {
       refetchPostSearchQuery();
     };
   }, [refetchPostSearchQuery]);
+
   return (
     <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-4 bg-black relative">
       <div className="max-w-2xl mx-auto">
@@ -109,7 +108,7 @@ function BookPage() {
         <Button
           className="w-15 h-15 rounded-full text-lg hover:drop-shadow-2xl hover:animate-bounce duration-300"
           type="submit"
-          onClick={() => router.push("/addPost")}
+          onClick={() => router.push("/addBook")}
         >
           +
         </Button>

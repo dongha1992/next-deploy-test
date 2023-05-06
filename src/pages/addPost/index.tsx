@@ -1,12 +1,12 @@
 import Head from "next/head";
 
 import { useRouter } from "next/router";
-import NewPostForm from "@/components/Book/NewPostForm";
+import NewPostForm from "@/components/Post/NewPostForm";
 import { POST_QUERY_KEY, usePost } from "@/query/post";
 import Overlay from "@/components/Common/Overlay";
 import Lottie from "@/components/Common/Lottie";
 
-export default function PostForm() {
+export default function AddPostPage() {
   const router = useRouter();
   const { mutate, isLoading } = usePost({ queryKey: [POST_QUERY_KEY] });
 
