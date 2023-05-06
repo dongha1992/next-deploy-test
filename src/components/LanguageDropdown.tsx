@@ -3,6 +3,7 @@ import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 import { twMerge } from "tailwind-merge";
+import { classnames } from "@/utils/classnames";
 
 const languages = [
   "TypeScript",
@@ -34,10 +35,6 @@ const languages = [
   "R",
   "Objective-C",
 ].sort();
-
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function LanguageDropdown({
   language = "markdown",
@@ -97,7 +94,7 @@ export default function LanguageDropdown({
                     <Listbox.Option
                       key={index}
                       className={({ active }: any) =>
-                        classNames(
+                        classnames(
                           active ? "text-white bg-indigo-600" : "text-gray-100",
                           "relative cursor-default select-none py-2 pl-3 pr-9"
                         )
@@ -109,7 +106,7 @@ export default function LanguageDropdown({
                           <div className="flex items-center">
                             {/* <img src={language.avatar} alt="" className="h-6 w-6 flex-shrink-0 rounded-full" /> */}
                             <span
-                              className={classNames(
+                              className={classnames(
                                 selected ? "font-semibold" : "font-normal",
                                 "ml-3 block truncate"
                               )}
@@ -120,7 +117,7 @@ export default function LanguageDropdown({
 
                           {selected ? (
                             <span
-                              className={classNames(
+                              className={classnames(
                                 active ? "text-white" : "text-indigo-600",
                                 "absolute inset-y-0 right-0 flex items-center pr-4"
                               )}

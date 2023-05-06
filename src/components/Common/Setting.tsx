@@ -50,7 +50,7 @@ function Setting({ onDelete, onEdit }: Props) {
                       aria-hidden="true"
                     />
                   )}
-                  Edit
+                  수정
                 </button>
               )}
             </Menu.Item>
@@ -75,7 +75,7 @@ function Setting({ onDelete, onEdit }: Props) {
                       aria-hidden="true"
                     />
                   )}
-                  Delete
+                  삭제
                 </button>
               )}
             </Menu.Item>

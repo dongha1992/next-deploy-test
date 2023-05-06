@@ -117,6 +117,7 @@ function useDeletePost({ options = {}, queryKey }: Props) {
     },
     onError: (error: any) => {
       console.error(error);
+      alert("해당 포스트의 작성자가 아닙니다.");
     },
     ...options,
   });
@@ -132,6 +133,7 @@ function useDeleteComment({ options = {}, queryKey }: Props) {
       },
       onError: (error: any) => {
         console.error(error);
+        alert("해당 포스트의 작성자가 아닙니다.");
       },
       ...options,
     }

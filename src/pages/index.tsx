@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
@@ -19,6 +19,8 @@ import Lottie from "@/components/Common/Lottie";
 import Overlay from "@/components/Common/Overlay";
 import Input from "@/components/Input";
 import useLottie from "@/hooks/useLottie";
+import Layout from "@/components/Layout";
+import Navigation from "@/components/Navigation";
 
 export default function Home() {
   const [keyword, setKeyword] = useState<string>("");
@@ -90,7 +92,9 @@ export default function Home() {
             </Overlay>
           )}
           {isSuccess && data.length === 0 && (
-            <div className="mt-8">포스트가 존재하지 않습니다!</div>
+            <div className="mt-8">
+              {keyword}에 대한 포스트가 존재하지 않습니다!
+            </div>
           )}
           <ul className="mt-8">
             {data?.map((post: any) => (
@@ -108,7 +112,7 @@ export default function Home() {
             ))}
           </ul>
         </div>
-        <div className="fixed bottom-10 left-50 z-50">
+        <div className="fixed bottom-20 left-50 z-50">
           <Button
             className="w-15 h-15 rounded-full text-lg hover:drop-shadow-2xl hover:animate-bounce duration-300"
             type="submit"
@@ -121,6 +125,10 @@ export default function Home() {
     </>
   );
 }
+
+Home.getLayout = (page: ReactElement) => {
+  return <Layout bottom={<Navigation />}>{page}</Layout>;
+};
 
 async function getPost() {
   const posts = await apiClient.get("api/posts").then(({ data }) => data);
@@ -155,26 +163,3 @@ export async function getServerSideProps(context: any) {
     props: { dehydratedProps: dehydrate(queryClient) },
   };
 }
-
-// /** unmount가 된 컴포넌트에서 상태 업데이트를 하려고 할 때 메모리 릭 에러 나오는데 그거 방지용
-//  *  주로 fetch 후 state 업데이트 하는 컴포넌트에서 state 업데이트 전 router로 컴포넌트 변경할 때 발생
-//  *  사용법 :
-//  *  const safeSetState = useSafeDispatch(unSafeSetState)
-//  *  safeSetState(...)
-//  */
-
-// function useSafeDispatch(dispatch: Dispatch<any>): Dispatch<any> {
-//   const mountedRef = useRef<boolean>(false);
-
-//   useLayoutEffect((): void | any => {
-//     mountedRef.current = true;
-//     return () => (mountedRef.current = false);
-//   }, []);
-
-//   return useCallback(
-//     (action) => {
-//       return mountedRef.current ? dispatch({ ...action }) : 0;
-//     },
-//     [dispatch]
-//   );
-// }
