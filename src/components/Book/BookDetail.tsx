@@ -1,9 +1,9 @@
 import Image from "next/image";
-
-import formatTimeAgo from "@/utils/formatTimeAgo";
-import { POST_QUERY_KEY, useDeletePost } from "@/query/post";
 import { useSession } from "next-auth/react";
 import router from "next/router";
+
+import formatTimeAgo from "@/utils/formatTimeAgo";
+import { BOOK_QUERY_KEY, useDeletePost } from "@/query/book";
 import PostActions from "../PostActions";
 import Setting from "../Common/Setting";
 import { formatUserName } from "@/utils/maskString";
@@ -13,14 +13,13 @@ export default function BookDetail({
   onLike,
   onComment,
   onShare,
-  href,
   book,
   user,
   className = "",
 }: any) {
   const { status, data } = useSession();
   const { mutate: deletePostMutation } = useDeletePost({
-    queryKey: [POST_QUERY_KEY],
+    queryKey: [BOOK_QUERY_KEY],
   });
 
   const onDeleteHandler = (e: any) => {

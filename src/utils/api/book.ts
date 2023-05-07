@@ -13,4 +13,42 @@ const postBookApi = (data: CreateBookData): Promise<any> => {
 const getBookDetailApi = (id: number): Promise<any> => {
   return apiClient.get(`api/books/${id}`).then(({ data }) => data);
 };
-export { getBooksApi, postBookApi, getBookDetailApi };
+
+const deleteBookApi = (id: number): Promise<any> => {
+  return apiClient.delete(`api/books/${id}`);
+};
+
+const editBookApi = (id: number, data: { body: string }): Promise<any> => {
+  return apiClient.patch(`api/posts/${id}`, { data });
+};
+
+const deleteBookCommentApi = (id: number): Promise<any> => {
+  return apiClient.delete(`api/books/${id}/comment`);
+};
+
+const postBookCommentApi = (
+  id: number,
+  data: { comment: string }
+): Promise<any> => {
+  return apiClient.post(`api/posts/${id}/comment`, { data });
+};
+
+const deleteLikeApi = (id: number): Promise<any> => {
+  return apiClient.delete(`api/books/${id}/like`);
+};
+
+const postLikeApi = (id: number): Promise<any> => {
+  return apiClient.post(`api/books/${id}/like`);
+};
+
+export {
+  getBooksApi,
+  postBookApi,
+  getBookDetailApi,
+  deleteBookApi,
+  editBookApi,
+  deleteBookCommentApi,
+  postBookCommentApi,
+  deleteLikeApi,
+  postLikeApi,
+};

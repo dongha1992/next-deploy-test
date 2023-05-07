@@ -2,7 +2,15 @@
 
 import { useSyncMutation } from "@/hooks/query";
 import { apiClient } from "@/utils/api/apiClient";
-import { getBooksApi, postBookApi } from "@/utils/api/book";
+import {
+  deleteBookApi,
+  deleteBookCommentApi,
+  deleteLikeApi,
+  editBookApi,
+  getBooksApi,
+  postBookApi,
+  postLikeApi,
+} from "@/utils/api/book";
 import { NaverBook } from "@/utils/api/type";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import router from "next/router";
@@ -67,41 +75,35 @@ function useBookCreate({ options = {}, queryKey }: Props) {
 function useUpdateLike({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
 
-  return useSyncMutation(
-    (id: number) => apiClient.post(`api/posts/${id}/like`),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(queryKey);
-      },
-      onError: (error: any) => {
-        console.error(error);
-      },
-      ...options,
-    }
-  );
+  return useSyncMutation((id: number) => postLikeApi(id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(queryKey);
+    },
+    onError: (error: any) => {
+      console.error(error);
+    },
+    ...options,
+  });
 }
 
 function useDeleteLike({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
-  return useSyncMutation(
-    (id: number) => apiClient.delete(`api/posts/${id}/like`),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(queryKey);
-      },
-      onError: (error: any) => {
-        console.error(error);
-      },
-      ...options,
-    }
-  );
+  return useSyncMutation((id: number) => deleteLikeApi(id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(queryKey);
+    },
+    onError: (error: any) => {
+      console.error(error);
+    },
+    ...options,
+  });
 }
 
 function usePostComment({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
   return useMutation(
-    ({ data, id }: { data: any; id: number }) =>
-      apiClient.post(`api/posts/${id}/comment`, { data }),
+    ({ data, id }: { data: { data: { comment: string } }; id: number }) =>
+      postBookCommentApi(id, data),
     {
       onSuccess: async () => {
         queryClient.invalidateQueries(queryKey);
@@ -116,7 +118,7 @@ function usePostComment({ options = {}, queryKey }: Props) {
 
 function useDeletePost({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
-  return useMutation((id: number) => apiClient.delete(`api/posts/${id}`), {
+  return useMutation((id: number) => deleteBookApi(id), {
     onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
     },
@@ -130,26 +132,23 @@ function useDeletePost({ options = {}, queryKey }: Props) {
 
 function useDeleteComment({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
-  return useMutation(
-    (id: number) => apiClient.delete(`api/posts/${id}/comment`),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(queryKey);
-      },
-      onError: (error: any) => {
-        console.error(error);
-        alert("해당 포스트의 작성자가 아닙니다.");
-      },
-      ...options,
-    }
-  );
+  return useMutation((id: number) => deleteBookCommentApi(id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(queryKey);
+    },
+    onError: (error: any) => {
+      console.error(error);
+      alert("해당 포스트의 작성자가 아닙니다.");
+    },
+    ...options,
+  });
 }
 
 function useEditPost({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
   return useMutation(
-    ({ data, id }: { data: any; id: number }) => {
-      return apiClient.patch(`api/posts/${id}`, { data });
+    ({ data, id }: { data: { body: string }; id: number }) => {
+      return editBookApi(id, data);
     },
 
     {
@@ -187,3 +186,6 @@ export {
   useEditPost,
   useRefetchPostSearchQuery,
 };
+function postBookCommentApi(id: number, data: any): Promise<unknown> {
+  throw new Error("Function not implemented.");
+}
