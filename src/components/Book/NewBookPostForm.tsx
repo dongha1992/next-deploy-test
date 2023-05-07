@@ -18,7 +18,6 @@ export default function NewBookPostForm({
   const [images, setImages] = useState<Array<string>>([]);
 
   const setImageHandler = (image: any) => {
-    console.log(typeof image);
     alert("아직 개발 중!");
   };
 

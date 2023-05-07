@@ -29,6 +29,8 @@ demo: https://the-scope.vercel.app/
 - [] 마이페이지 링크 같은 거 입력
 - [] 광고
 - [] 등급
+- [] 별점
+- [] 공유기능
 
 #### 최적화
 
@@ -44,3 +46,4 @@ demo: https://the-scope.vercel.app/
 - [] 컴포넌트
 - [] axios instance
 - [] api 중복
+- [] 타입 다 지정하기

@@ -7,7 +7,6 @@ const secret = process.env.NEXT_PUBLIC_JWT_SECRET_KEY;
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
   const session = await getToken({ req, secret, raw: true });
   const { pathname } = req.nextUrl;
-  console.log(pathname, "pathname");
 
   if (pathname.startsWith("/auth/signin")) {
     if (session) {

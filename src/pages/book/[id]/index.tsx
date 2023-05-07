@@ -57,7 +57,10 @@ export default function BookDetailPage({ id }: { id: number }) {
     comment.value = "";
   }
 
-  function onEditComment(id: number) {}
+  function onEditComment(id: number) {
+    alert("개발중!!");
+    return;
+  }
 
   if (isError) return <div>에러</div>;
 
