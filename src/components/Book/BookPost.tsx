@@ -93,7 +93,7 @@ export default function BookPost({
             </span>
           </Link>
         </div>
-        <div className="flex flex-col items-center pb-3">
+        <div className="flex flex-col items-center pb-3 pt-2">
           <PostActions
             onComment={onComment}
             onLike={onLike}
