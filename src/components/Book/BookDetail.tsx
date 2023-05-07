@@ -7,6 +7,7 @@ import router from "next/router";
 import PostActions from "../PostActions";
 import Setting from "../Common/Setting";
 import { formatUserName } from "@/utils/maskString";
+import BookInfo from "./BookInfo";
 
 export default function BookDetail({
   onLike,
@@ -67,13 +68,18 @@ export default function BookDetail({
             </div>
             <div className="flex mt-1 items-center justify-between">
               <p className="text-md font-semibold text-gray-100 break-all">
-                {`<${book?.title}> ${book?.author}`}
+                {book?.title ? `<${book?.title}> ${book?.author}` : ""}
               </p>
               <Setting onDelete={onDeleteHandler} onEdit={onEditHandler} />
             </div>
           </div>
         </div>
-        <span>{book?.body ?? ""}</span>
+        <div className="flex flex-col mt-4">
+          <BookInfo item={book} className="" withTitle={false} />
+          <span className="mt-4 text-sm text-gray-100 whitespace-pre-wrap break-words">
+            {book?.body ?? ""}
+          </span>
+        </div>
       </div>
       <div className="flex flex-col items-center pb-3">
         <PostActions

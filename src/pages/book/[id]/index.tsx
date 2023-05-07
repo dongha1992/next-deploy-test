@@ -79,7 +79,6 @@ export default function BookDetailPage({ id }: { id: number }) {
       <Head>
         <title>{book?.title}</title>
       </Head>
-      <BookInfo item={book} />
       <BookDetail
         book={book}
         user={book?.user}

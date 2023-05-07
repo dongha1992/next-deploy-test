@@ -4,18 +4,29 @@ import Image from "next/image";
 import { NaverBook } from "@/utils/api/type";
 import { classnames } from "@/utils/classnames";
 
+//TODO: 이거 컴포넌트 컴파운도로 리팩토링 진짜 안 하면 코딩 접어야함
+
 interface Props {
   item: NaverBook;
   selectedBook?: NaverBook | null;
   onSelectedBook?: (book: NaverBook) => void;
+  className?: string;
+  withTitle?: boolean;
 }
 
-function BookInfo({ item, selectedBook, onSelectedBook }: Props) {
+function BookInfo({
+  item,
+  selectedBook,
+  onSelectedBook,
+  className = "m-auto p-2",
+  withTitle = true,
+}: Props) {
   return (
     <div
       className={classnames(
         selectedBook && selectedBook?.isbn === item.isbn && "border",
-        "flex m-auto p-2 rounded-md min-h-120 "
+        "flex rounded-md min-h-120",
+        className
       )}
       onClick={() => onSelectedBook && onSelectedBook(item)}
     >
@@ -26,8 +37,13 @@ function BookInfo({ item, selectedBook, onSelectedBook }: Props) {
       </div>
       <div className="ml-2">
         <div className="flex flex-col justify-between ">
-          <p className="text-sm font-semibold text-gray-100 ">{item?.title}</p>
-          <p className="text-xs mt-2 text-gray-100">{item?.author}</p>
+          {withTitle && (
+            <p className="text-sm font-semibold text-gray-100 mb-2">
+              {item?.title}
+            </p>
+          )}
+
+          <p className="text-xs text-gray-100">{item?.author}</p>
           <div className="flex mt-1">
             <p className="text-xs mr-2 text-gray-100">{item?.publisher}</p>
             <p className="text-xs text-gray-100">{item?.pubdate}</p>

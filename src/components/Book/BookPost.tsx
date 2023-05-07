@@ -37,7 +37,6 @@ export default function BookPost({
     router.push(`/bookForm/${book.id}`);
   };
 
-  console.log(book);
   return (
     <div
       className={
@@ -45,7 +44,7 @@ export default function BookPost({
       }
     >
       <div className="flex flex-1 flex-col justify-between">
-        <div className="mt-2 flex items-center">
+        <div className="mt-2 mb-2 flex items-center ">
           <div className="flex-shrink-0 text-gray-100">
             {user?.image && (
               <Image
@@ -69,14 +68,16 @@ export default function BookPost({
             </div>
             <div className="flex mt-1 items-center justify-between">
               <p className="text-md font-semibold text-gray-100 break-all">
-                {`<${book?.title}> ${book?.author}`}
+                {book?.title ? `<${book?.title}> ${book?.author}` : ""}
               </p>
               <Setting onDelete={onDeleteHandler} onEdit={onEditHandler} />
             </div>
           </div>
         </div>
         <Link href={href}>
-          <span>{book?.body}</span>
+          <span className="text-sm text-gray-100 whitespace-pre-wrap break-words">
+            {book?.body.slice(0, 100)}
+          </span>
         </Link>
       </div>
       <div className="flex flex-col items-center pb-3">

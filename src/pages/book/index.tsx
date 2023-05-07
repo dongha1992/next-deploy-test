@@ -134,11 +134,6 @@ BookPage.getLayout = (page: ReactElement) => {
   return <Layout bottom={<Navigation />}>{page}</Layout>;
 };
 
-async function getBooks() {
-  const posts = await apiClient.get("api/books").then(({ data }) => data);
-  return posts;
-}
-
 export async function getServerSideProps(context: any) {
   const session = await getServerSession(context.req, context.res, options);
 
