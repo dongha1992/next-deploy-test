@@ -80,9 +80,7 @@ async function getPosts(req: NextApiRequest, res: NextApiResponse) {
     });
   }
 
-  setTimeout(() => {
-    res.status(200).json(posts);
-  }, 500);
+  res.status(200).json(posts);
 }
 
 export default async function handler(req: any, res: any) {

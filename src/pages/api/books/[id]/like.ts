@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth";
 import { Session } from "..";
 import { options } from "../../auth/[...nextauth]";
 
-async function updatePostLike(res: NextApiResponse, req: NextApiRequest) {
+async function updateBookLike(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
   const session: Session | null = await getServerSession(req, res, options);
 
@@ -13,7 +13,7 @@ async function updatePostLike(res: NextApiResponse, req: NextApiRequest) {
   const user = await prisma.user.findUnique({
     where: { email: session?.user.email },
   });
-  const post = await prisma.post.findUnique({
+  const book = await prisma.book.findUnique({
     where: { id: Number(id) },
   });
 
@@ -23,37 +23,37 @@ async function updatePostLike(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  if (!post) {
+  if (!book) {
     // 검색 결과가 없는 경우 404 에러 반환
     res.status(404).json({ message: `해당 포스트를 찾지 못 했습니다.` });
     return;
   }
-  await prisma.userLikes.upsert({
+  await prisma.userBookLikes.upsert({
     where: {
-      postId_userId: {
-        postId: Number(id),
+      bookId_userId: {
+        bookId: Number(id),
         userId: user.id,
       },
     },
     update: {
       isLiked: true,
     },
-    create: { postId: Number(id), userId: user.id, isLiked: true },
+    create: { bookId: Number(id), userId: user.id, isLiked: true },
   });
 
-  const userLikes = await prisma.userLikes.findUnique({
+  const userLikes = await prisma.userBookLikes.findUnique({
     where: {
-      postId_userId: {
-        postId: Number(id),
+      bookId_userId: {
+        bookId: Number(id),
         userId: user.id,
       },
     },
   });
 
-  await prisma.post.update({
+  await prisma.book.update({
     where: { id: Number(id) },
     data: {
-      totalLikes: post.totalLikes + 1,
+      totalLikes: book.totalLikes + 1,
       isLiked: userLikes?.isLiked,
     },
   });
@@ -61,7 +61,7 @@ async function updatePostLike(res: NextApiResponse, req: NextApiRequest) {
   res.status(200).json({ message: "성공" });
 }
 
-async function deletePostLike(res: NextApiResponse, req: NextApiRequest) {
+async function deleteBookLike(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
   const session: Session | null = await getServerSession(req, res, options);
 
@@ -70,7 +70,7 @@ async function deletePostLike(res: NextApiResponse, req: NextApiRequest) {
   const user = await prisma.user.findUnique({
     where: { email: session?.user.email },
   });
-  const post = await prisma.post.findUnique({ where: { id: Number(id) } });
+  const book = await prisma.book.findUnique({ where: { id: Number(id) } });
 
   if (!user) {
     // 검색 결과가 없는 경우 404 에러 반환
@@ -78,39 +78,39 @@ async function deletePostLike(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  if (!post) {
+  if (!book) {
     // 검색 결과가 없는 경우 404 에러 반환
     res.status(404).json({ message: `해당 포스트를 찾지 못 했습니다.` });
     return;
   }
 
-  await prisma.userLikes.upsert({
+  await prisma.userBookLikes.upsert({
     where: {
-      postId_userId: {
-        postId: Number(id),
+      bookId_userId: {
+        bookId: Number(id),
         userId: user.id,
       },
     },
     update: {
       isLiked: false,
     },
-    create: { postId: Number(id), userId: user.id, isLiked: false },
+    create: { bookId: Number(id), userId: user.id, isLiked: false },
   });
 
-  const userLikes = await prisma.userLikes.findUnique({
+  const userBookLikes = await prisma.userBookLikes.findUnique({
     where: {
-      postId_userId: {
-        postId: Number(id),
+      bookId_userId: {
+        bookId: Number(id),
         userId: user.id,
       },
     },
   });
 
-  await prisma.post.update({
+  await prisma.book.update({
     where: { id: Number(id) },
     data: {
-      totalLikes: post.totalLikes > 0 ? post.totalLikes - 1 : 0,
-      isLiked: userLikes?.isLiked,
+      totalLikes: book.totalLikes > 0 ? book.totalLikes - 1 : 0,
+      isLiked: userBookLikes?.isLiked,
     },
   });
 
@@ -125,10 +125,10 @@ export default async function handler(
 
   switch (method) {
     case "POST":
-      updatePostLike(res, req);
+      updateBookLike(res, req);
       break;
     case "DELETE":
-      deletePostLike(res, req);
+      deleteBookLike(res, req);
       break;
     default:
       res.setHeader("Allow", ["POST", "DELETE"]);

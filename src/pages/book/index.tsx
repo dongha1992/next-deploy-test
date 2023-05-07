@@ -14,7 +14,6 @@ import {
   useSearchPost,
   useUpdateLike,
 } from "@/query/book";
-import { apiClient } from "@/utils/api/apiClient";
 import Lottie from "@/components/Common/Lottie";
 import Overlay from "@/components/Common/Overlay";
 import Input from "@/components/Common/Input";

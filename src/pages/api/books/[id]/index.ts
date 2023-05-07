@@ -55,14 +55,12 @@ async function getBook(res: NextApiResponse, req: NextApiRequest) {
 
   // 검색 결과가 있는 경우 검색 결과 반환
 
-  setTimeout(() => {
-    res.status(200).json({
-      ...book,
-      user: user,
-      comments: comments,
-      isLiked: useLikes?.isLiked ? useLikes?.isLiked : false,
-    });
-  }, 500);
+  res.status(200).json({
+    ...book,
+    user: user,
+    comments: comments,
+    isLiked: useLikes?.isLiked ? useLikes?.isLiked : false,
+  });
 }
 
 async function deleteBook(res: NextApiResponse, req: NextApiRequest) {
@@ -87,15 +85,13 @@ async function deleteBook(res: NextApiResponse, req: NextApiRequest) {
   }
 
   if (book.userId === user.id) {
-    await prisma.post.delete({
+    await prisma.book.delete({
       where: {
         id: Number(id),
       },
     });
 
-    setTimeout(() => {
-      res.status(200).json({ message: "성공" });
-    }, 500);
+    res.status(200).json({ message: "성공" });
   } else {
     res.status(404).json({ message: `삭제할 수 없습니다.` });
   }
@@ -109,7 +105,7 @@ async function patchBook(res: NextApiResponse, req: NextApiRequest) {
   const session: Session | null = await getServerSession(req, res, options);
   // TODO: 중복코드
 
-  const post = await prisma.post.findUnique({ where: { id: Number(id) } });
+  const book = await prisma.book.findUnique({ where: { id: Number(id) } });
   const user = await prisma.user.findUnique({
     where: { email: session?.user.email },
   });
@@ -119,28 +115,23 @@ async function patchBook(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  if (!post) {
+  if (!book) {
     // 검색 결과가 없는 경우 404 에러 반환
     res.status(404).json({ message: `해당 포스트를 찾지 못 했습니다.` });
     return;
   }
 
-  if (post.userId === user.id) {
-    await prisma.post.update({
+  if (book.userId === user.id) {
+    await prisma.book.update({
       where: {
         id: Number(id),
       },
       data: {
-        title: data.title,
-        language: data.language,
-        code: data.code,
-        userId: user.id,
-        isLiked: post.isLiked,
+        body: data.body,
       },
     });
-    setTimeout(() => {
-      res.status(200).json({ message: "성공" });
-    }, 1000);
+
+    res.status(200).json({ message: "성공" });
   } else {
     res.status(404).json({ message: `삭제할 수 없습니다.` });
   }

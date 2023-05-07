@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import formatTimeAgo from "@/utils/formatTimeAgo";
-import { POST_QUERY_KEY, useDeletePost } from "@/query/post";
+import { BOOK_QUERY_KEY, useDeletePost } from "@/query/book";
 import { useSession } from "next-auth/react";
 import router from "next/router";
 import PostActions from "../PostActions";
@@ -20,7 +20,7 @@ export default function BookPost({
 }: any) {
   const { status, data } = useSession();
   const { mutate: deletePostMutation } = useDeletePost({
-    queryKey: [POST_QUERY_KEY],
+    queryKey: [BOOK_QUERY_KEY],
   });
 
   const onDeleteHandler = (e: any) => {

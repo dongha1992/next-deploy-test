@@ -84,9 +84,7 @@ async function getBooks(req: NextApiRequest, res: NextApiResponse) {
     });
   }
 
-  setTimeout(() => {
-    res.status(200).json(books);
-  }, 500);
+  res.status(200).json(books);
 }
 
 export default async function handler(req: any, res: any) {

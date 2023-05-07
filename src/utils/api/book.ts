@@ -30,7 +30,7 @@ const postBookCommentApi = (
   id: number,
   data: { comment: string }
 ): Promise<any> => {
-  return apiClient.post(`api/posts/${id}/comment`, { data });
+  return apiClient.post(`api/books/${id}/comment`, { data });
 };
 
 const deleteLikeApi = (id: number): Promise<any> => {

@@ -3,9 +3,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { Session } from "..";
 import { options } from "../../auth/[...nextauth]";
-import { Prisma } from "@prisma/client";
 
-async function updatePostComment(res: NextApiResponse, req: NextApiRequest) {
+async function updateBookComment(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
   const session: Session | null = await getServerSession(req, res, options);
   const { data: text } = req.body;
@@ -15,7 +14,7 @@ async function updatePostComment(res: NextApiResponse, req: NextApiRequest) {
   const user = await prisma.user.findUnique({
     where: { email: session?.user.email },
   });
-  const post: any = await prisma.post.findUnique({ where: { id: Number(id) } });
+  const book: any = await prisma.book.findUnique({ where: { id: Number(id) } });
 
   if (!user) {
     // 검색 결과가 없는 경우 404 에러 반환
@@ -23,31 +22,31 @@ async function updatePostComment(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  if (!post) {
+  if (!book) {
     // 검색 결과가 없는 경우 404 에러 반환
     res.status(404).json({ message: `해당 포스트를 찾지 못 했습니다.` });
     return;
   }
 
-  await prisma.comment.create({
+  await prisma.bookComment.create({
     data: {
       text,
       user: { connect: { id: user?.id } },
-      post: { connect: { id: post?.id } },
+      book: { connect: { id: book?.id } },
     },
   });
 
-  await prisma.post.update({
+  await prisma.book.update({
     where: { id: Number(id) },
     data: {
-      totalComments: post.totalComments + 1,
+      totalComments: book.totalComments + 1,
     },
   });
 
   res.status(200).json({ message: "성공" });
 }
 
-async function deletePostComment(res: NextApiResponse, req: NextApiRequest) {
+async function deleteBookComment(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
   const session: Session | null = await getServerSession(req, res, options);
 
@@ -56,6 +55,7 @@ async function deletePostComment(res: NextApiResponse, req: NextApiRequest) {
   const user = await prisma.user.findUnique({
     where: { email: session?.user.email },
   });
+  const book: any = await prisma.book.findUnique({ where: { id: Number(id) } });
 
   if (!user) {
     // 검색 결과가 없는 경우 404 에러 반환
@@ -63,24 +63,30 @@ async function deletePostComment(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  const comments = await prisma.comment.findUnique({
+  const bookComment = await prisma.bookComment.findUnique({
     where: {
       id: Number(id),
     },
   });
 
-  if (!comments) {
+  if (!bookComment) {
     res.status(404).json({ message: `해당 댓글을 찾지 못 했습니다.` });
     return;
   }
 
-  if (comments.userId === user.id) {
-    await prisma.comment.delete({
+  if (bookComment.userId === user.id) {
+    await prisma.bookComment.delete({
       where: {
         id: Number(id),
       },
     });
 
+    await prisma.book.update({
+      where: { id: Number(id) },
+      data: {
+        totalComments: book.totalComments - 1,
+      },
+    });
     res.status(200).json({ message: "성공" });
   } else {
     res.status(404).json({ message: `삭제할 수 없습니다.` });
@@ -95,10 +101,10 @@ export default async function handler(
 
   switch (method) {
     case "POST":
-      updatePostComment(res, req);
+      updateBookComment(res, req);
       break;
     case "DELETE":
-      deletePostComment(res, req);
+      deleteBookComment(res, req);
       break;
     default:
       res.setHeader("Allow", ["POST", "DELETE"]);
