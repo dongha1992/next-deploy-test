@@ -127,7 +127,7 @@ async function patchBook(res: NextApiResponse, req: NextApiRequest) {
         id: Number(id),
       },
       data: {
-        body: data.body,
+        body: data,
       },
     });
 

@@ -13,7 +13,7 @@ import { NaverBook, NaverBooks } from "@/utils/api/type";
 import { SearchActiveIcon } from "@/utils/svg";
 import Input from "@/components/Common/Input";
 import Button from "@/components/Common/Button";
-import Book from "@/components/Book/BookInfo";
+import BookInfo from "@/components/Book/BookInfo";
 import { getNaverBooksApi } from "@/utils/api/naver";
 
 export default function AddBookPage() {
@@ -79,7 +79,7 @@ export default function AddBookPage() {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const { text } = e.target.elements;
-    if (!text) {
+    if (!text.value) {
       alert("내용을 입력해주세요.");
       return;
     }
@@ -118,7 +118,7 @@ export default function AddBookPage() {
         <div className="mt-6">
           {selectedBook ? (
             <div className="relative">
-              <Book item={selectedBook} />
+              <BookInfo item={selectedBook} />
               <button
                 className="absolute right-0 top-0 text-lg"
                 onClick={() => setSelectedBook(null)}
@@ -147,11 +147,7 @@ export default function AddBookPage() {
             </>
           )}
 
-          <NewBookPostForm
-            className="max-w-5xl mt-4"
-            onSubmit={handleSubmit}
-            onSearch={onSearchBookHandler}
-          />
+          <NewBookPostForm className="max-w-5xl mt-4" onSubmit={handleSubmit} />
         </div>
       </div>
     </>

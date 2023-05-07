@@ -19,17 +19,20 @@ const deleteBookApi = (id: number): Promise<any> => {
 };
 
 const editBookApi = (id: number, data: { body: string }): Promise<any> => {
-  return apiClient.patch(`api/posts/${id}`, { data });
+  return apiClient.patch(`api/books/${id}`, { data });
 };
 
 const deleteBookCommentApi = (id: number): Promise<any> => {
   return apiClient.delete(`api/books/${id}/comment`);
 };
 
-const postBookCommentApi = (
-  id: number,
-  data: { comment: string }
-): Promise<any> => {
+const postBookCommentApi = ({
+  id,
+  data,
+}: {
+  id: number;
+  data: string;
+}): Promise<any> => {
   return apiClient.post(`api/books/${id}/comment`, { data });
 };
 

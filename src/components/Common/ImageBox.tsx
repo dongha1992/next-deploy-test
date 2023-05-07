@@ -20,6 +20,7 @@ const ImageBox = ({ setImageValue }: IProps) => {
         );
       }
       const formData = new FormData();
+      setImageValue();
     } catch (error) {
     } finally {
       e.target.value = "";

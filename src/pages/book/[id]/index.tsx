@@ -15,7 +15,6 @@ import Button from "@/components/Common/Button";
 import Lottie from "@/components/Common/Lottie";
 import Overlay from "@/components/Common/Overlay";
 import { getBookDetailApi } from "@/utils/api/book";
-import BookInfo from "@/components/Book/BookInfo";
 import BookDetail from "@/components/Book/BookDetail";
 
 export default function BookDetailPage({ id }: { id: number }) {

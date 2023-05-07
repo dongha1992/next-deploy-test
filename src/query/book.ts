@@ -9,6 +9,7 @@ import {
   editBookApi,
   getBooksApi,
   postBookApi,
+  postBookCommentApi,
   postLikeApi,
 } from "@/utils/api/book";
 import { NaverBook } from "@/utils/api/type";
@@ -102,8 +103,8 @@ function useDeleteLike({ options = {}, queryKey }: Props) {
 function usePostComment({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
   return useMutation(
-    ({ data, id }: { data: { data: { comment: string } }; id: number }) =>
-      postBookCommentApi(id, data),
+    ({ data, id }: { data: string; id: number }) =>
+      postBookCommentApi({ id, data }),
     {
       onSuccess: async () => {
         queryClient.invalidateQueries(queryKey);
@@ -154,7 +155,7 @@ function useEditPost({ options = {}, queryKey }: Props) {
     {
       onSuccess: (id: number) => {
         queryClient.invalidateQueries(queryKey);
-        router.replace("/");
+        router.replace("/book");
       },
       onError: (error: any) => {
         console.error(error);
@@ -186,6 +187,3 @@ export {
   useEditPost,
   useRefetchPostSearchQuery,
 };
-function postBookCommentApi(id: number, data: any): Promise<unknown> {
-  throw new Error("Function not implemented.");
-}

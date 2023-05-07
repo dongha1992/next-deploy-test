@@ -18,13 +18,18 @@ export default function BookDetail({
   className = "",
 }: any) {
   const { status, data } = useSession();
-  const { mutate: deletePostMutation } = useDeletePost({
+  const { mutateAsync: deletePostMutation } = useDeletePost({
     queryKey: [BOOK_QUERY_KEY],
   });
 
   const onDeleteHandler = (e: any) => {
     e.preventDefault();
-    deletePostMutation(book.id);
+
+    deletePostMutation(book.id).then((res) => {
+      if (res.status === 200) {
+        router.push("/book");
+      }
+    });
   };
 
   const onEditHandler = (e: any) => {

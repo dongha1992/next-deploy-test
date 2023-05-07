@@ -38,6 +38,8 @@ function TextArea({
   name,
   onFocus,
   onBlur,
+  // onChange,
+  value = "",
   ...textareaAttrs
 }: Props) {
   const [isFocused, setIsFocused] = useState(false);
@@ -59,6 +61,8 @@ function TextArea({
           setIsFocused(false);
           onBlur?.(event);
         }}
+        // onChange={onChange}
+        defaultValue={value}
         {...textareaAttrs}
       />
     </div>
