@@ -28,6 +28,10 @@ export default function BookPost({
 
   const onDeleteHandler = (e: any) => {
     e.preventDefault();
+    if (!data?.user?.email !== book.user.email) {
+      alert("해당 포스트의 작성자가 아닙니다.");
+      return;
+    }
     setIsOpen(true);
   };
 

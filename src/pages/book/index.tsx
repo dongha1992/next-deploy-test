@@ -22,6 +22,8 @@ import BookPost from "@/components/Book/BookPost";
 import { getBooksApi } from "@/utils/api/book";
 import { useSession } from "next-auth/react";
 
+//TODO: auth 바르는 거 노가다로 한 거 실화?
+
 function BookPage() {
   const [keyword, setKeyword] = useState<string>("");
   const [isSearched, setIsSearched] = useState<boolean>(false);
@@ -114,8 +116,16 @@ function BookPage() {
                     }
                     user={book.user}
                     className="my-10"
-                    onLike={() => onMutateLikeHandler(book.isLiked, book.id)}
-                    onComment={() => router.push(`book/${book.id}`)}
+                    onLike={() =>
+                      isUnauthenticated
+                        ? router.push("/auth/signin")
+                        : onMutateLikeHandler(book.isLiked, book.id)
+                    }
+                    onComment={() =>
+                      router.push(
+                        isUnauthenticated ? "/auth/signin" : `book/${book.id}`
+                      )
+                    }
                     onShare={() => console.log("share books", book.id)}
                   />
                 </li>

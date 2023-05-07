@@ -115,8 +115,16 @@ export default function Home() {
                   href={isUnauthenticated ? "/auth/signin" : `/post/${post.id}`}
                   user={post.user}
                   className="my-10"
-                  onLike={() => onMutateLikeHandler(post.isLiked, post.id)}
-                  onComment={() => router.push(`post/${post.id}`)}
+                  onLike={() =>
+                    isUnauthenticated
+                      ? router.push("/auth/signin")
+                      : onMutateLikeHandler(post.isLiked, post.id)
+                  }
+                  onComment={() =>
+                    isUnauthenticated
+                      ? router.push("/auth/signin")
+                      : router.push(`post/${post.id}`)
+                  }
                   onShare={() => console.log("share post", post.id)}
                 />
               </li>

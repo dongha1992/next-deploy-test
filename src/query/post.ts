@@ -1,6 +1,7 @@
 import { useSyncMutation } from "@/hooks/query";
 import { apiClient } from "@/utils/api/apiClient";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import router from "next/router";
 import { useCallback } from "react";
 
@@ -56,6 +57,8 @@ function useUpdateLike({ options = {}, queryKey }: Props) {
       },
       onError: (error: any) => {
         console.error(error);
+        alert("해당 포스트의 작성자가 아닙니다.");
+        return;
       },
       ...options,
     }
@@ -72,6 +75,8 @@ function useDeleteLike({ options = {}, queryKey }: Props) {
       },
       onError: (error: any) => {
         console.error(error);
+        alert("해당 포스트의 작성자가 아닙니다.");
+        return;
       },
       ...options,
     }
@@ -89,6 +94,8 @@ function usePostComment({ options = {}, queryKey }: Props) {
       },
       onError: async (error: any) => {
         console.error(error);
+        alert("해당 포스트의 작성자가 아닙니다.");
+        return;
       },
       ...options,
     }
@@ -104,6 +111,8 @@ function usePost({ options = {}, queryKey }: Props) {
     },
     onError: async (error: any) => {
       console.error(error);
+      alert("해당 포스트의 작성자가 아닙니다.");
+      return;
     },
     ...options,
   });
@@ -118,6 +127,7 @@ function useDeletePost({ options = {}, queryKey }: Props) {
     onError: (error: any) => {
       console.error(error);
       alert("해당 포스트의 작성자가 아닙니다.");
+      return;
     },
     ...options,
   });
@@ -154,6 +164,8 @@ function useEditPost({ options = {}, queryKey }: Props) {
       },
       onError: (error: any) => {
         console.error(error);
+        alert("해당 포스트의 작성자가 아닙니다.");
+        return;
       },
       ...options,
     }
