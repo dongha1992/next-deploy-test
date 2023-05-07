@@ -51,7 +51,6 @@ async function getBook(res: NextApiResponse, req: NextApiRequest) {
     include: {
       user: true,
     },
-    orderBy: { createdAt: "desc" },
   });
 
   // 검색 결과가 있는 경우 검색 결과 반환
