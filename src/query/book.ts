@@ -133,16 +133,19 @@ function useDeletePost({ options = {}, queryKey }: Props) {
 
 function useDeleteComment({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
-  return useMutation((id: number) => deleteBookCommentApi(id), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(queryKey);
-    },
-    onError: (error: any) => {
-      console.error(error);
-      alert("해당 포스트의 작성자가 아닙니다.");
-    },
-    ...options,
-  });
+  return useMutation(
+    ({ commentId }: { commentId: number }) => deleteBookCommentApi(commentId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(queryKey);
+      },
+      onError: (error: any) => {
+        console.error(error);
+        alert("해당 포스트의 작성자가 아닙니다.");
+      },
+      ...options,
+    }
+  );
 }
 
 function useEditPost({ options = {}, queryKey }: Props) {

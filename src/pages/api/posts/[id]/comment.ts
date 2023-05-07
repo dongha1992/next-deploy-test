@@ -69,6 +69,10 @@ async function deletePostComment(res: NextApiResponse, req: NextApiRequest) {
     },
   });
 
+  const post: any = await prisma.post.findUnique({
+    where: { id: Number(comments?.postId) },
+  });
+
   if (!comments) {
     res.status(404).json({ message: `해당 댓글을 찾지 못 했습니다.` });
     return;
@@ -78,6 +82,15 @@ async function deletePostComment(res: NextApiResponse, req: NextApiRequest) {
     await prisma.comment.delete({
       where: {
         id: Number(id),
+      },
+    });
+
+    await prisma.post.update({
+      where: {
+        id: Number(comments.postId),
+      },
+      data: {
+        totalComments: post.totalComments > 0 ? post.totalComments - 1 : 0,
       },
     });
 

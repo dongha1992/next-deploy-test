@@ -57,6 +57,10 @@ export default function BookDetailPage({ id }: { id: number }) {
     comment.value = "";
   }
 
+  function onDeleteComment(commentId: number) {
+    deleteCommentMutation({ commentId });
+  }
+
   function onEditComment(id: number) {
     alert("개발중!!");
     return;
@@ -104,7 +108,7 @@ export default function BookDetailPage({ id }: { id: number }) {
               key={index}
               user={comment?.user}
               comment={comment}
-              onDelete={() => deleteCommentMutation(comment.id)}
+              onDelete={() => onDeleteComment(comment.id)}
               onEdit={() => onEditComment(comment.id)}
             />
           );

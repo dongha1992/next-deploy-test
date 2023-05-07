@@ -55,7 +55,6 @@ async function deleteBookComment(res: NextApiResponse, req: NextApiRequest) {
   const user = await prisma.user.findUnique({
     where: { email: session?.user.email },
   });
-  const book: any = await prisma.book.findUnique({ where: { id: Number(id) } });
 
   if (!user) {
     // 검색 결과가 없는 경우 404 에러 반환
@@ -74,6 +73,10 @@ async function deleteBookComment(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
+  const book: any = await prisma.book.findUnique({
+    where: { id: Number(bookComment.bookId) },
+  });
+
   if (bookComment.userId === user.id) {
     await prisma.bookComment.delete({
       where: {
@@ -82,9 +85,9 @@ async function deleteBookComment(res: NextApiResponse, req: NextApiRequest) {
     });
 
     await prisma.book.update({
-      where: { id: Number(id) },
+      where: { id: Number(bookComment.bookId) },
       data: {
-        totalComments: book.totalComments - 1,
+        totalComments: book.totalComments > 0 ? book.totalComments - 1 : 0,
       },
     });
     res.status(200).json({ message: "성공" });

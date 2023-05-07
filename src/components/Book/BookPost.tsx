@@ -8,6 +8,8 @@ import router from "next/router";
 import PostActions from "../PostActions";
 import Setting from "../Common/Setting";
 import { formatUserName } from "@/utils/maskString";
+import { useState } from "react";
+import Popup from "../Popup";
 
 export default function BookPost({
   onLike,
@@ -18,6 +20,7 @@ export default function BookPost({
   user,
   className = "",
 }: any) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const { status, data } = useSession();
   const { mutate: deletePostMutation } = useDeletePost({
     queryKey: [BOOK_QUERY_KEY],
@@ -25,7 +28,7 @@ export default function BookPost({
 
   const onDeleteHandler = (e: any) => {
     e.preventDefault();
-    deletePostMutation(book.id);
+    setIsOpen(true);
   };
 
   const onEditHandler = (e: any) => {
@@ -37,59 +40,74 @@ export default function BookPost({
     router.push(`/bookForm/${book.id}`);
   };
 
+  const onClickConfirm = () => {
+    deletePostMutation(book.id);
+    setIsOpen(false);
+  };
+
   return (
-    <div
-      className={
-        "flex flex-col overflow-hidden rounded-lg shadow-lg " + className
-      }
-    >
-      <div className="flex flex-1 flex-col justify-between">
-        <div className="mt-2 mb-2 flex items-center ">
-          <div className="flex-shrink-0 text-gray-100">
-            {user?.image && (
-              <Image
-                className="h-8 w-8 rounded-full"
-                src={user.image}
-                width={10}
-                height={10}
-                alt="아바타 사진"
-              />
-            )}
-          </div>
-          <div className="ml-4 flex-1">
-            <div className="flex items-center justify-between">
-              <p className="text-xs font-medium text-gray-100">
-                {/* {formatUserName(user?.name)} */}
-                {user?.name}
-              </p>
-              <p className="text-xs text-gray-300">
-                {book?.createdAt.split("T")[0]}
-              </p>
+    <>
+      <div
+        className={
+          "flex flex-col overflow-hidden rounded-lg shadow-lg " + className
+        }
+      >
+        <div className="flex flex-1 flex-col justify-between">
+          <div className="mt-2 mb-2 flex items-center ">
+            <div className="flex-shrink-0 text-gray-100">
+              {user?.image && (
+                <Image
+                  className="h-8 w-8 rounded-full"
+                  src={user.image}
+                  width={10}
+                  height={10}
+                  alt="아바타 사진"
+                />
+              )}
             </div>
-            <div className="flex mt-1 items-center justify-between">
-              <p className="text-md font-semibold text-gray-100 break-all">
-                {book?.title ? `<${book?.title}> ${book?.author}` : ""}
-              </p>
-              <Setting onDelete={onDeleteHandler} onEdit={onEditHandler} />
+            <div className="ml-4 flex-1">
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-medium text-gray-100">
+                  {/* {formatUserName(user?.name)} */}
+                  {user?.name}
+                </p>
+                <p className="text-xs text-gray-300">
+                  {book?.createdAt.split("T")[0]}
+                </p>
+              </div>
+              <div className="flex mt-1 items-center justify-between">
+                <p className="text-md font-semibold text-gray-100 break-all">
+                  {book?.title ? `<${book?.title}> ${book?.author}` : ""}
+                </p>
+                <Setting onDelete={onDeleteHandler} onEdit={onEditHandler} />
+              </div>
             </div>
           </div>
+          <Link href={href}>
+            <span className="text-sm text-gray-100 whitespace-pre-wrap break-words">
+              {book?.body.slice(0, 100)}
+            </span>
+          </Link>
         </div>
-        <Link href={href}>
-          <span className="text-sm text-gray-100 whitespace-pre-wrap break-words">
-            {book?.body.slice(0, 100)}
-          </span>
-        </Link>
+        <div className="flex flex-col items-center pb-3">
+          <PostActions
+            onComment={onComment}
+            onLike={onLike}
+            onShare={onShare}
+            isLiked={book?.isLiked}
+            totalComments={book?.totalComments}
+            totalLikes={book?.totalLikes}
+          />
+        </div>
       </div>
-      <div className="flex flex-col items-center pb-3">
-        <PostActions
-          onComment={onComment}
-          onLike={onLike}
-          onShare={onShare}
-          isLiked={book?.isLiked}
-          totalComments={book?.totalComments}
-          totalLikes={book?.totalLikes}
+      {isOpen && (
+        <Popup
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          onClickConfirm={onClickConfirm}
+          text="정말 삭제하시겠어요?"
         />
-      </div>
-    </div>
+      )}
+    </>
   );
 }

@@ -8,6 +8,8 @@ import PostActions from "../PostActions";
 import Setting from "../Common/Setting";
 import { formatUserName } from "@/utils/maskString";
 import BookInfo from "./BookInfo";
+import Popup from "../Popup";
+import { useState } from "react";
 
 export default function BookDetail({
   onLike,
@@ -18,18 +20,14 @@ export default function BookDetail({
   className = "",
 }: any) {
   const { status, data } = useSession();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const { mutateAsync: deletePostMutation } = useDeletePost({
     queryKey: [BOOK_QUERY_KEY],
   });
 
   const onDeleteHandler = (e: any) => {
     e.preventDefault();
-
-    deletePostMutation(book.id).then((res) => {
-      if (res.status === 200) {
-        router.push("/book");
-      }
-    });
+    setIsOpen(true);
   };
 
   const onEditHandler = (e: any) => {
@@ -39,6 +37,14 @@ export default function BookDetail({
       return;
     }
     router.push(`/bookForm/${book.id}`);
+  };
+
+  const onClickConfirm = () => {
+    deletePostMutation(book.id).then((res) => {
+      if (res.status === 200) {
+        router.push("/book");
+      }
+    });
   };
 
   return (
@@ -95,6 +101,14 @@ export default function BookDetail({
           totalLikes={book?.totalLikes}
         />
       </div>
+      {isOpen && (
+        <Popup
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          onClickConfirm={onClickConfirm}
+          text="정말 삭제하시겠어요?"
+        />
+      )}
     </div>
   );
 }
