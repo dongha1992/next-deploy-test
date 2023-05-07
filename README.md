@@ -4,7 +4,7 @@ demo: https://the-scope.vercel.app/
 
 ## SUMMARY
 
-- code를 공유할 수 있는 플랫폼
+- 내가 좋아하는 것을 공유할 수 있는 플랫폼
 
 ## STACK
 
