@@ -20,11 +20,14 @@ import Input from "@/components/Common/Input";
 import { options } from "../api/auth/[...nextauth]";
 import BookPost from "@/components/Book/BookPost";
 import { getBooksApi } from "@/utils/api/book";
+import { useSession } from "next-auth/react";
 
 function BookPage() {
   const [keyword, setKeyword] = useState<string>("");
   const [isSearched, setIsSearched] = useState<boolean>(false);
+  const { status } = useSession();
 
+  const isUnauthenticated = status === "unauthenticated";
   const router = useRouter();
 
   useFormatUserAgent();
@@ -106,7 +109,9 @@ function BookPage() {
                 <li key={book.id}>
                   <BookPost
                     book={book}
-                    href={`/book/${book.id}`}
+                    href={
+                      isUnauthenticated ? "/auth/signin" : `/book/${book.id}`
+                    }
                     user={book.user}
                     className="my-10"
                     onLike={() => onMutateLikeHandler(book.isLiked, book.id)}
@@ -122,7 +127,9 @@ function BookPage() {
           <Button
             className="w-15 h-15 rounded-full text-lg hover:drop-shadow-2xl hover:animate-bounce duration-300"
             type="submit"
-            onClick={() => router.push("/addBook")}
+            onClick={() =>
+              router.push(isUnauthenticated ? "/auth/signin" : "/addBook")
+            }
           >
             +
           </Button>
@@ -143,15 +150,15 @@ export async function getServerSideProps(context: any) {
     ? context.req.headers["user-agent"] || ""
     : navigator.userAgent;
 
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/auth/signin",
-      },
-      props: {},
-    };
-  }
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       permanent: false,
+  //       destination: "/auth/signin",
+  //     },
+  //     props: {},
+  //   };
+  // }
 
   // const books = await axios
   //   .get(`${process.env.NEXTAUTH_URL}/api/books`)

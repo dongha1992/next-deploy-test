@@ -10,13 +10,19 @@ async function getPost(res: NextApiResponse, req: NextApiRequest) {
   // TODO: 중복코드
 
   const post = await prisma.post.findUnique({ where: { id: Number(id) } });
-  const prismaUser = await prisma.user.findUnique({
-    where: { email: session?.user.email },
-  });
+  let prismaUser;
 
-  if (!prismaUser) {
+  try {
+    prismaUser = await prisma.user.findUnique({
+      where: { email: session?.user.email },
+    });
+
+    if (!prismaUser) {
+      res.status(401).json({ error: "인증 되지 않은 회원입니다." });
+      return;
+    }
+  } catch (error) {
     res.status(401).json({ error: "인증 되지 않은 회원입니다." });
-    return;
   }
 
   if (!post) {
@@ -33,7 +39,7 @@ async function getPost(res: NextApiResponse, req: NextApiRequest) {
     where: {
       postId_userId: {
         postId: Number(id),
-        userId: prismaUser.id,
+        userId: prismaUser?.id!,
       },
     },
   });

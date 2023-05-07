@@ -22,10 +22,14 @@ import useLottie from "@/hooks/useLottie";
 import Layout from "@/components/Layout";
 import Navigation from "@/components/Common/Navigation";
 import { SearchActiveIcon } from "@/utils/svg";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
   const [keyword, setKeyword] = useState<string>("");
   const [isSearched, setIsSearched] = useState<boolean>(false);
+  const { status } = useSession();
+
+  const isUnauthenticated = status === "unauthenticated";
   const router = useRouter();
 
   useFormatUserAgent();
@@ -108,7 +112,7 @@ export default function Home() {
               <li key={post.id}>
                 <PostSmall
                   post={post}
-                  href={`/post/${post.id}`}
+                  href={isUnauthenticated ? "/auth/signin" : `/post/${post.id}`}
                   user={post.user}
                   className="my-10"
                   onLike={() => onMutateLikeHandler(post.isLiked, post.id)}
@@ -123,7 +127,9 @@ export default function Home() {
           <Button
             className="w-15 h-15 rounded-full text-lg hover:drop-shadow-2xl hover:animate-bounce duration-300"
             type="submit"
-            onClick={() => router.push("/addPost")}
+            onClick={() =>
+              router.push(isUnauthenticated ? "/auth/signin" : "/addPost")
+            }
           >
             +
           </Button>
@@ -149,15 +155,15 @@ export async function getServerSideProps(context: any) {
     ? context.req.headers["user-agent"] || ""
     : navigator.userAgent;
 
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/auth/signin",
-      },
-      props: {},
-    };
-  }
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       permanent: false,
+  //       destination: "/auth/signin",
+  //     },
+  //     props: {},
+  //   };
+  // }
 
   // const posts = await axios
   //   .get(`${process.env.NEXTAUTH_URL}/api/posts`)

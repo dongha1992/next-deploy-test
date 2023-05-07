@@ -58,16 +58,16 @@ export default function PostSmall({
           </div>
           <div className="ml-4 flex-1">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-100">
+              <p className="text-xs font-medium text-gray-100">
                 {/* {formatUserName(user?.name)} */}
                 {user?.name}
               </p>
-              <p className="text-sm text-gray-300">
+              <p className="text-xs text-gray-300">
                 {post.createdAt.split("T")[0]}
               </p>
             </div>
             <div className="flex mt-1 items-center justify-between">
-              <p className="text-xl font-semibold text-gray-100 break-all">
+              <p className="text-md font-semibold text-gray-100 break-all">
                 {post.title.substring(0, 50)}
               </p>
               <Setting onDelete={onDeleteHandler} onEdit={onEditHandler} />
@@ -75,7 +75,7 @@ export default function PostSmall({
           </div>
         </div>
         <Link href={href}>
-          <pre className="mt-4 pb-4 mx-5 max-h-52 overflow-hidden border-b border-gray-700 whitespace-pre-wrap break-words">
+          <pre className="mt-4 text-sm pb-4 mx-5 max-h-52 overflow-hidden border-b border-gray-700 whitespace-pre-wrap break-words">
             {post.language ? (
               <code
                 className={`language-${post.language}`}

@@ -4,7 +4,6 @@ import GoogleProvider from "next-auth/providers/google";
 
 import { prisma } from "../../../../server/db/client";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import axios from "axios";
 import SignToken from "@/utils/token";
 
 export const options: any = {

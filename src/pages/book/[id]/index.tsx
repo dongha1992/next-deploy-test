@@ -16,13 +16,18 @@ import Lottie from "@/components/Common/Lottie";
 import Overlay from "@/components/Common/Overlay";
 import { getBookDetailApi } from "@/utils/api/book";
 import BookDetail from "@/components/Book/BookDetail";
+import router from "next/router";
 
 export default function BookDetailPage({ id }: { id: number }) {
   const {
     data: book,
     isLoading,
     isError,
-  } = useQuery([BOOK_DETAIL_QUERY_KEY, id], () => getBookDetailApi(id));
+  } = useQuery([BOOK_DETAIL_QUERY_KEY, id], () => getBookDetailApi(id), {
+    onError: () => {
+      router.push("/");
+    },
+  });
 
   const { mutate: postLikeMutation, isLoading: isLikeLoading } = useUpdateLike({
     queryKey: [BOOK_DETAIL_QUERY_KEY, id],

@@ -18,14 +18,21 @@ import Button from "@/components/Common/Button";
 import Lottie from "@/components/Common/Lottie";
 import Overlay from "@/components/Common/Overlay";
 import PostSkeleton from "@/components/Layout/PostSkeleton";
+import router from "next/router";
 
 export default function PostDetailPage({ id }: { id: number }) {
   const {
     data: post,
     isLoading,
     isError,
-  } = useQuery([POST_DETAIL_QUERY_KEY, id], () =>
-    apiClient.get(`api/posts/${id}`).then(({ data }) => data)
+  } = useQuery(
+    [POST_DETAIL_QUERY_KEY, id],
+    () => apiClient.get(`api/posts/${id}`).then(({ data }) => data),
+    {
+      onError: () => {
+        router.push("/");
+      },
+    }
   );
 
   const { mutate: postLikeMutation, isLoading: isLikeLoading } = useUpdateLike({
