@@ -80,7 +80,7 @@ export default function BookPost({
                 </p>
               </div>
               <div className="flex mt-1 items-center justify-between">
-                <p className="text-md font-semibold text-gray-100 break-all">
+                <p className="text-sm font-semibold text-gray-100 break-all">
                   {book?.title ? `<${book?.title}> ${book?.author}` : ""}
                 </p>
                 <Setting onDelete={onDeleteHandler} onEdit={onEditHandler} />
