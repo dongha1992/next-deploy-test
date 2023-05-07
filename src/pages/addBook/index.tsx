@@ -1,3 +1,4 @@
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
@@ -8,20 +9,20 @@ import { BOOK_QUERY_KEY, usePost } from "@/query/book";
 import { getNaverBooksApi } from "@/utils/api/naverBook";
 import { useAsync } from "@/hooks/useAsync";
 import SearchBookList from "@/components/Book/SearchBookList";
-import { NaverBooks } from "@/utils/api/type";
+import { NaverBook, NaverBooks } from "@/utils/api/type";
 import { SearchActiveIcon } from "@/utils/svg";
 import Input from "@/components/Common/Input";
 import Button from "@/components/Common/Button";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import Book from "@/components/Book/Book";
 
 export default function AddBookPage() {
   const router = useRouter();
-  const { data, run, isLoading } = useAsync<NaverBooks, Error>();
+  const { data, run, isLoading, setReset } = useAsync<NaverBooks, Error>();
   const { mutate, isLoading: isPostLoading } = usePost({
     queryKey: [BOOK_QUERY_KEY],
   });
 
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selectedBook, setSelectedBook] = useState<NaverBook | null>(null);
   const [start, setStart] = useState<number>(1);
   const [query, setQuery] = useState<string>("");
 
@@ -31,7 +32,7 @@ export default function AddBookPage() {
 
   useLayoutEffect(() => {
     scrollToTop();
-  });
+  }, [start]);
 
   useEffect(() => {
     if (start >= 1 && query) {
@@ -54,6 +55,8 @@ export default function AddBookPage() {
       return;
     }
     setQuery(book.value);
+    setStart(1);
+    setSelectedBook(null);
     run(getNaverBooksApi(book.value, start));
   };
 
@@ -65,9 +68,12 @@ export default function AddBookPage() {
       if (start === 1) return;
       setStart((prev) => prev - 10);
     }
+    setSelectedBook(null);
   };
 
-  console.log(start);
+  const onSelectedBook = (book: NaverBook) => {
+    setSelectedBook(book);
+  };
 
   if (isPostLoading)
     return (
@@ -86,22 +92,37 @@ export default function AddBookPage() {
           어떤 책을 읽으셨나요?
         </h1>
         <div className="mt-6">
-          <form onSubmit={onSearchBookHandler} action="#" method="POST">
-            <Input
-              className="mb-6"
-              left={<SearchActiveIcon />}
-              name="book"
-              placeholder="책 제목을 알려주세요."
-              button={<Button className="w-16 p-2 m-0">검색</Button>}
-            />
-          </form>
-          <SearchBookList
-            ref={containerRef}
-            bookList={data?.items}
-            selected={selected}
-            setSelected={setSelected}
-            onPagination={onPagination}
-          />
+          {selectedBook ? (
+            <div className="relative">
+              <Book item={selectedBook} />
+              <button
+                className="absolute right-0 top-0 text-lg"
+                onClick={() => setSelectedBook(null)}
+              >
+                X
+              </button>
+            </div>
+          ) : (
+            <>
+              <form onSubmit={onSearchBookHandler} action="#" method="POST">
+                <Input
+                  className="mb-6"
+                  left={<SearchActiveIcon />}
+                  name="book"
+                  placeholder="책 제목을 알려주세요."
+                  button={<Button className="w-16 p-2 m-0">검색</Button>}
+                />
+              </form>
+              <SearchBookList
+                ref={containerRef}
+                bookList={data?.items}
+                selectedBook={selectedBook}
+                onSelectedBook={onSelectedBook}
+                onPagination={onPagination}
+              />
+            </>
+          )}
+
           <NewBookPostForm
             className="max-w-5xl mt-4"
             onSubmit={mutate}
