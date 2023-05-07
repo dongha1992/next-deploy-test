@@ -18,7 +18,10 @@ import { getNaverBooksApi } from "@/utils/api/naver";
 
 export default function AddBookPage() {
   const router = useRouter();
-  const { data, run, isLoading, setReset } = useAsync<NaverBooks, Error>();
+  const { data, run, isLoading, setReset, isSuccess } = useAsync<
+    NaverBooks,
+    Error
+  >();
   const { mutate, isLoading: isPostLoading } = useBookCreate({
     queryKey: [BOOK_QUERY_KEY],
   });
@@ -62,14 +65,14 @@ export default function AddBookPage() {
   };
 
   const onPagination = (step: string) => {
-    if (totalBooksRef?.current - 10 < start) return;
     if (step === "다음") {
+      if (totalBooksRef?.current - 10 <= start) return;
       setStart((prev) => prev + 10);
     } else {
       if (start === 1) return;
       setStart((prev) => prev - 10);
     }
-    setSelectedBook(null);
+    // setSelectedBook(null);
   };
 
   const onSelectedBook = (book: NaverBook) => {
@@ -146,7 +149,9 @@ export default function AddBookPage() {
               />
             </>
           )}
-
+          {isSuccess && data?.items.length == 0 && (
+            <div>결과가 없습니다! 다시 검색 해주세요.</div>
+          )}
           <NewBookPostForm className="max-w-5xl mt-4" onSubmit={handleSubmit} />
         </div>
       </div>

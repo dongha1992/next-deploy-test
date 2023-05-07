@@ -41,7 +41,6 @@ function SearchBookList(
           </button>
         </div>
       )}
-      {!hasList && <div>결과가 없습니다! 다시 검색 해주세요.</div>}
     </div>
   );
 }
