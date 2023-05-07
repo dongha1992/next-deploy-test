@@ -8,7 +8,7 @@ import {
   MypageUnActiveIcon,
 } from "@/utils/svg";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 
 const NAVIGATION = [
   {
@@ -38,7 +38,7 @@ function Navigation() {
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState<string>("");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const queryString = router.asPath;
     setSelectedTab(queryString);
   }, [router]);

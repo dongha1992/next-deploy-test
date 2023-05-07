@@ -53,10 +53,11 @@ function useSafeDispatch<D, E>(
   );
 }
 
+//TODO: 타입 지정 제대로 해야함
 const asyncReducer = <D, E>(
   state: AsyncState<D, E>,
   action: AsyncAction<D, E>
-): AsyncState<D, E> => ({
+): any => ({
   ...state,
   ...action,
 });

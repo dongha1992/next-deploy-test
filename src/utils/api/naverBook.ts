@@ -1,4 +1,5 @@
 import axios from "axios";
+import { NaverBooks } from "./type";
 
 const naverBookApi = axios.create({
   headers: {
@@ -8,9 +9,16 @@ const naverBookApi = axios.create({
   },
 });
 
-const getNaverBooksApi = (query: string = ""): Promise<any[]> => {
+const getNaverBooksApi = (
+  query: string = "",
+  start: number = 1
+): Promise<NaverBooks> => {
   return naverBookApi
-    .get(`v1/search/book.json?query=${encodeURIComponent(query)}`)
+    .get(
+      `v1/search/book.json?query=${encodeURIComponent(
+        query
+      )}&display=10&start=${start}`
+    )
     .then(({ data }) => data);
 };
 

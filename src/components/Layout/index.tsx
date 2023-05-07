@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import router from "next/router";
 import React, { ReactNode } from "react";
-import Navigation from "../Navigation";
+import Navigation from "../Common/Navigation";
 
 function Layout({
   children,

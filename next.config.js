@@ -12,7 +12,7 @@ const nextConfig = {
     NAVER_CLIENT_SECRET: process.env.NAVER_CLIENT_SECRET,
   },
   images: {
-    domains: ["lh3.googleusercontent.com"],
+    domains: ["lh3.googleusercontent.com", "shopping-phinf.pstatic.net"],
   },
   async rewrites() {
     return [

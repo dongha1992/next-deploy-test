@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout";
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/Common/Navigation";
 import { ReactElement, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getServerSession } from "next-auth";

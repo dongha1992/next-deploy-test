@@ -20,7 +20,7 @@ import Overlay from "@/components/Common/Overlay";
 import Input from "@/components/Common/Input";
 import useLottie from "@/hooks/useLottie";
 import Layout from "@/components/Layout";
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/Common/Navigation";
 import { SearchActiveIcon } from "@/utils/svg";
 
 export default function Home() {
