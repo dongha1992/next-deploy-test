@@ -2,10 +2,10 @@ import axios from "axios";
 import { NaverBooks } from "./type";
 
 const naverBookApi = axios.create({
+  // baseURL: process.env.NEXTAUTH_URL,
   headers: {
     "X-Naver-Client-Id": process.env.NAVER_CLIENT_ID,
     "X-Naver-Client-Secret": process.env.NAVER_CLIENT_SECRET,
-    "Access-Control-Allow-Origin": "https://openapi.naver.com/",
   },
 });
 

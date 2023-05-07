@@ -5,20 +5,21 @@ import { useRouter } from "next/router";
 import Overlay from "@/components/Common/Overlay";
 import Lottie from "@/components/Common/Lottie";
 import NewBookPostForm from "@/components/Book/NewBookPostForm";
-import { BOOK_QUERY_KEY, usePost } from "@/query/book";
-import { getNaverBooksApi } from "@/utils/api/naverBook";
+import { BOOK_QUERY_KEY, useBookCreate } from "@/query/book";
+
 import { useAsync } from "@/hooks/useAsync";
 import SearchBookList from "@/components/Book/SearchBookList";
 import { NaverBook, NaverBooks } from "@/utils/api/type";
 import { SearchActiveIcon } from "@/utils/svg";
 import Input from "@/components/Common/Input";
 import Button from "@/components/Common/Button";
-import Book from "@/components/Book/Book";
+import Book from "@/components/Book/BookInfo";
+import { getNaverBooksApi } from "@/utils/api/naver";
 
 export default function AddBookPage() {
   const router = useRouter();
   const { data, run, isLoading, setReset } = useAsync<NaverBooks, Error>();
-  const { mutate, isLoading: isPostLoading } = usePost({
+  const { mutate, isLoading: isPostLoading } = useBookCreate({
     queryKey: [BOOK_QUERY_KEY],
   });
 
@@ -75,6 +76,29 @@ export default function AddBookPage() {
     setSelectedBook(book);
   };
 
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    const { text } = e.target.elements;
+    if (!text) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
+
+    let book;
+    if (selectedBook) {
+      const { title, ...rest } = selectedBook;
+      book = rest;
+    }
+
+    const data = {
+      body: text.value,
+      title: selectedBook?.title ?? "",
+      book,
+    };
+    mutate(data);
+    text.value = "";
+  };
+
   if (isPostLoading)
     return (
       <Overlay>
@@ -125,7 +149,7 @@ export default function AddBookPage() {
 
           <NewBookPostForm
             className="max-w-5xl mt-4"
-            onSubmit={mutate}
+            onSubmit={handleSubmit}
             onSearch={onSearchBookHandler}
           />
         </div>

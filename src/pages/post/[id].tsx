@@ -19,7 +19,7 @@ import Lottie from "@/components/Common/Lottie";
 import Overlay from "@/components/Common/Overlay";
 import PostSkeleton from "@/components/Layout/PostSkeleton";
 
-export default function Code({ id }: { id: number }) {
+export default function PostDetailPage({ id }: { id: number }) {
   const {
     data: post,
     isLoading,

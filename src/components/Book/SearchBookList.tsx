@@ -1,6 +1,6 @@
 import { NaverBook } from "@/utils/api/type";
 import React from "react";
-import Book from "./Book";
+import Book from "./BookInfo";
 
 interface Props {
   bookList: NaverBook[];

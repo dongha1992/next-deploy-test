@@ -3,6 +3,7 @@
 import { useSyncMutation } from "@/hooks/query";
 import { apiClient } from "@/utils/api/apiClient";
 import { getBooksApi, postBookApi } from "@/utils/api/book";
+import { NaverBook } from "@/utils/api/type";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import router from "next/router";
 import { useCallback } from "react";
@@ -41,9 +42,17 @@ const getSearchPostConfig = (query: string, options = {}) => ({
   },
 });
 
-function usePost({ options = {}, queryKey }: Props) {
+type Book = Omit<NaverBook, "title">;
+export interface CreateBookData {
+  title: string;
+  body: string;
+  book?: Book;
+  image?: string;
+}
+
+function useBookCreate({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
-  return useMutation((data) => postBookApi(data), {
+  return useMutation(({ ...data }: CreateBookData) => postBookApi(data), {
     onSuccess: async () => {
       queryClient.invalidateQueries(queryKey);
       router.replace("/book");
@@ -172,7 +181,7 @@ export {
   useUpdateLike,
   useDeleteLike,
   usePostComment,
-  usePost,
+  useBookCreate,
   useDeletePost,
   useDeleteComment,
   useEditPost,

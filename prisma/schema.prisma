@@ -43,8 +43,8 @@ model VerificationToken {
 
 model User {
   id            String          @id @default(cuid())
-  name          String?
-  email         String?         @unique
+  name          String
+  email         String          @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
@@ -101,6 +101,14 @@ model Book {
   id            Int             @id @default(autoincrement())
   title         String
   body          String
+  author        String?
+  description   String?
+  discount      String?
+  image         String?
+  isbn          String?
+  link          String?
+  pubdate       String?
+  publisher     String?
   totalLikes    Int             @default(0)
   totalComments Int             @default(0)
   createdAt     DateTime        @default(now())

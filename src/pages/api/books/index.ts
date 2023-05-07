@@ -30,14 +30,22 @@ async function createBook(req: any, res: any) {
     return;
   }
 
-  const { title = "임시", body } = req.body.data;
+  const { title, body, book } = req.body.data;
 
   await prisma.book.create({
     data: {
-      title,
       body,
+      title,
       userId: prismaUser.id,
       isLiked: false,
+      author: book?.author,
+      description: book?.description,
+      discount: book?.discount,
+      image: book?.image,
+      isbn: book?.isbn,
+      link: book?.link,
+      pubdate: book?.pubdate,
+      publisher: book?.publisher,
     },
   });
 

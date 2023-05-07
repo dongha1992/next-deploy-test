@@ -10,11 +10,11 @@ interface Props {
   onSelectedBook?: (book: NaverBook) => void;
 }
 
-function Book({ item, selectedBook, onSelectedBook }: Props) {
+function BookInfo({ item, selectedBook, onSelectedBook }: Props) {
   return (
     <div
       className={classnames(
-        selectedBook?.isbn === item.isbn && "border",
+        selectedBook && selectedBook?.isbn === item.isbn && "border",
         "flex m-auto p-2 rounded-md min-h-120 "
       )}
       onClick={() => onSelectedBook && onSelectedBook(item)}
@@ -38,4 +38,4 @@ function Book({ item, selectedBook, onSelectedBook }: Props) {
   );
 }
 
-export default Book;
+export default BookInfo;

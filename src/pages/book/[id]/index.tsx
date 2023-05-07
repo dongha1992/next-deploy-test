@@ -1,7 +1,131 @@
-import React from "react";
+import Head from "next/head";
 
-function BookDetailPage() {
-  return <div>BookDetailPage</div>;
+import {
+  BOOK_DETAIL_QUERY_KEY,
+  useDeleteLike,
+  useUpdateLike,
+  usePostComment,
+  useDeleteComment,
+} from "@/query/book";
+import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
+
+import Comment from "@/components/Common/Comment";
+import TextArea from "@/components/Common/TextArea";
+import Button from "@/components/Common/Button";
+import Lottie from "@/components/Common/Lottie";
+import Overlay from "@/components/Common/Overlay";
+import { getBookDetailApi } from "@/utils/api/book";
+import BookInfo from "@/components/Book/BookInfo";
+import BookDetail from "@/components/Book/BookDetail";
+
+export default function BookDetailPage({ id }: { id: number }) {
+  const {
+    data: book,
+    isLoading,
+    isError,
+  } = useQuery([BOOK_DETAIL_QUERY_KEY, id], () => getBookDetailApi(id));
+
+  const { mutate: postLikeMutation, isLoading: isLikeLoading } = useUpdateLike({
+    queryKey: [BOOK_DETAIL_QUERY_KEY, id],
+  });
+  const { mutate: deleteLikeMutation, isLoading: isLikeDeleteLoading } =
+    useDeleteLike({
+      queryKey: [BOOK_DETAIL_QUERY_KEY, id],
+    });
+
+  const { mutate: postCommentMutation, isLoading: isCommentLoading } =
+    usePostComment({
+      queryKey: [BOOK_DETAIL_QUERY_KEY, id],
+    });
+
+  const { mutate: deleteCommentMutation } = useDeleteComment({
+    queryKey: [BOOK_DETAIL_QUERY_KEY, id],
+  });
+
+  function onMutateLikeHandler(isLiked: boolean, id: number) {
+    isLiked ? deleteLikeMutation(id) : postLikeMutation(id);
+  }
+
+  function onSubmitComment(e: any) {
+    e.preventDefault();
+    const { comment } = e.target.elements;
+
+    if (!comment.value.length) {
+      return alert("코멘트를 작성해주세요.");
+    }
+
+    postCommentMutation({ data: comment.value, id: book.id });
+    comment.value = "";
+  }
+
+  function onEditComment(id: number) {}
+
+  if (isError) return <div>에러</div>;
+
+  return (
+    <div className="w-full">
+      {(isLoading ||
+        isCommentLoading ||
+        isLikeLoading ||
+        isLikeDeleteLoading) && (
+        <Overlay>
+          <Lottie
+            className="w-20 h-20"
+            src="/lottie/loading.json"
+            loop={false}
+          />
+        </Overlay>
+      )}
+      <Head>
+        <title>{book?.title}</title>
+      </Head>
+      <BookInfo item={book} />
+      <BookDetail
+        book={book}
+        user={book?.user}
+        className="px-6 my-3 mt-10"
+        onComment={() => {
+          return;
+        }}
+        onLike={() => onMutateLikeHandler(book.isLiked, book.id)}
+        onShare={() => console.log("share")}
+      />
+      <form className="flex flex-col mx-6" onSubmit={onSubmitComment}>
+        <TextArea name="comment" />
+        <Button type="submit" className="w-15 self-end">
+          확인
+        </Button>
+      </form>
+      <div className="mx-6 mt-10">
+        {book?.comments?.map((comment: any, index: number) => {
+          return (
+            <Comment
+              key={index}
+              user={comment?.user}
+              comment={comment}
+              onDelete={() => deleteCommentMutation(comment.id)}
+              onEdit={() => onEditComment(comment.id)}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
-export default BookDetailPage;
+export async function getServerSideProps(context: any) {
+  const { id } = context.query;
+
+  // const { data } = await axios.get(
+  //   `${process.env.NEXTAUTH_URL}/api/books/${id}`
+  // );
+
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery([BOOK_DETAIL_QUERY_KEY, id], () =>
+    getBookDetailApi(id)
+  );
+
+  return {
+    props: { dehydratedProps: dehydrate(queryClient), id: id },
+  };
+}

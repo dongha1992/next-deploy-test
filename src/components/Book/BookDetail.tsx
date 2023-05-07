@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 
 import formatTimeAgo from "@/utils/formatTimeAgo";
@@ -9,7 +8,7 @@ import PostActions from "../PostActions";
 import Setting from "../Common/Setting";
 import { formatUserName } from "@/utils/maskString";
 
-export default function BookPost({
+export default function BookDetail({
   onLike,
   onComment,
   onShare,
@@ -37,7 +36,6 @@ export default function BookPost({
     router.push(`/bookForm/${book.id}`);
   };
 
-  console.log(book);
   return (
     <div
       className={
@@ -75,9 +73,7 @@ export default function BookPost({
             </div>
           </div>
         </div>
-        <Link href={href}>
-          <span>{book?.body}</span>
-        </Link>
+        <span>{book?.body ?? ""}</span>
       </div>
       <div className="flex flex-col items-center pb-3">
         <PostActions
