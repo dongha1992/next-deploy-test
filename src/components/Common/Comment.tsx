@@ -33,16 +33,14 @@ function Comment({
       </div>
       <div className="ml-4 flex-1">
         <div className="flex items-center justify-between">
-          <p className="text-sm font-medium text-gray-100">{user?.name}</p>
-          <p className="pl-5 text-sm text-gray-300">
+          <p className="text-xs font-medium text-gray-100">{user?.name}</p>
+          <p className="pl-5 text-xs text-gray-300">
             {/* {formatTimeAgo(post.createdAt)} */}
             {comment?.createdAt?.split("T")[0] ?? ""}
           </p>
         </div>
         <div className="flex mt-1 items-center justify-between">
-          <p className="text-md font-semibold text-gray-100 break-all">
-            {comment?.text}
-          </p>
+          <p className="text-xs text-gray-100 break-all">{comment?.text}</p>
           <Setting onDelete={onDelete} onEdit={onEdit} />
         </div>
       </div>
