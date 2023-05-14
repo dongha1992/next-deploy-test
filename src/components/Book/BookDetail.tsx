@@ -93,11 +93,11 @@ export default function BookDetail({
         </div>
       </div>
       <Spacing size={30} />
-      <section className="flex align-items-center gap-4 overflow-scroll">
+      <section className="flex align-items-center gap-4">
         {book?.userImages.length > 0 &&
           book?.userImages.map((src: string, index: number) => {
             return (
-              <div key={index} className="relative object-contain w-40 h-40">
+              <div key={index} className="relative w-40 h-40 object-contain">
                 <Image src={src} alt="스크린샷" fill className="rounded" />
               </div>
             );

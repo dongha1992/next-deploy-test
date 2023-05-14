@@ -100,7 +100,7 @@ export default function NewBookPostForm({
                   </div>
                 );
               })}
-            {images && images?.length < 4 && (
+            {images && images?.length < 3 && (
               <ImageBox setImageValue={setImageHandler} />
             )}
           </section>

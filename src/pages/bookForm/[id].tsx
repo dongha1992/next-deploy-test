@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 
@@ -20,9 +20,7 @@ export default function PostForm() {
     [BOOK_DETAIL_QUERY_KEY, id],
     () => getBookDetailApi(Number(id)),
     {
-      onSuccess: (data) => {
-        setImages(data.userImages);
-      },
+      onSuccess: (data) => {},
       enabled: !!id,
     }
   );
@@ -52,6 +50,10 @@ export default function PostForm() {
       id: Number(id),
     });
   };
+
+  useEffect(() => {
+    setImages(book?.userImages);
+  }, [setImages, book]);
 
   if (isLoading || postLoading) {
     return (
