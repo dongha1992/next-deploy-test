@@ -16,15 +16,6 @@ import Button from "@/components/Common/Button";
 import BookInfo from "@/components/Book/BookInfo";
 import { getNaverBooksApi } from "@/utils/api/naver";
 
-import AWS from "aws-sdk";
-
-// TODO: aws 분리
-
-const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-});
-
 export default function AddBookPage() {
   const router = useRouter();
   const { data, run, isLoading, setReset, isSuccess } = useAsync<
@@ -39,7 +30,6 @@ export default function AddBookPage() {
   const [start, setStart] = useState<number>(1);
   const [query, setQuery] = useState<string>("");
   const [images, setImages] = useState<any>([]);
-  const [isImageLoading, setImageLoading] = useState<boolean>(false);
 
   const totalBooksRef = useRef<number>(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -90,29 +80,10 @@ export default function AddBookPage() {
     setSelectedBook(book);
   };
 
-  // TODO: 이미지 모듈 분리
-  const setImageHandler = async (image: any) => {
-    if (!image) return;
-
-    setImageLoading(true);
-    const uploadParams = {
-      Bucket: process.env.AWS_S3_BUCKET_NAME!,
-      Key: image.name,
-      Body: image,
-      ACL: "public-read",
-    };
-    await s3
-      .upload(uploadParams)
-      .promise()
-      .then((res) => {
-        setImages((prev: any) => [...prev, res.Location]);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setImageLoading(false);
-      });
+  const removeImageHandler = (index: number) => {
+    setImages((prev: any) =>
+      prev.filter((_: string, idx: number) => idx !== index)
+    );
   };
 
   const handleSubmit = async (e: any) => {
@@ -195,9 +166,9 @@ export default function AddBookPage() {
           <NewBookPostForm
             className="max-w-5xl mt-4"
             onSubmit={handleSubmit}
-            setImageHandler={setImageHandler}
+            setImages={setImages}
+            removeImageHandler={removeImageHandler}
             images={images}
-            isLoading={isImageLoading}
           />
         </div>
       </div>
