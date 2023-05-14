@@ -10,6 +10,7 @@ import { formatUserName } from "@/utils/maskString";
 import BookInfo from "./BookInfo";
 import Popup from "../Popup";
 import { useState } from "react";
+import Spacing from "../Common/Spacing";
 
 export default function BookDetail({
   onLike,
@@ -91,7 +92,19 @@ export default function BookDetail({
           </span>
         </div>
       </div>
-      <div className="flex flex-col items-center pb-3">
+      <Spacing size={30} />
+      <section className="flex align-items-center gap-4 overflow-scroll">
+        {book?.userImages.length > 0 &&
+          book?.userImages.map((src: string, index: number) => {
+            return (
+              <div key={index} className="relative object-contain w-40 h-40">
+                <Image src={src} alt="스크린샷" fill className="rounded" />
+              </div>
+            );
+          })}
+      </section>
+      <Spacing size={10} />
+      <div className="flex flex-col items-center">
         <PostActions
           onComment={onComment}
           onLike={onLike}
@@ -101,6 +114,7 @@ export default function BookDetail({
           totalLikes={book?.totalLikes}
         />
       </div>
+      <Spacing size={10} />
       {isOpen && (
         <Popup
           isOpen={isOpen}
