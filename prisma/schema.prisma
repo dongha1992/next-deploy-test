@@ -118,16 +118,7 @@ model Book {
   user          User            @relation(fields: [userId], references: [id])
   userBookLikes UserBookLikes[]
   bookComments  BookComment[]
-  images        BookImage[]
-}
-
-model BookImage {
-  id        Int      @id @default(autoincrement())
-  url       String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  bookId    Int
-  book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  userImages    String[]
 }
 
 model UserBookLikes {

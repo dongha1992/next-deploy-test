@@ -16,7 +16,11 @@ const nextConfig = {
     AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
   },
   images: {
-    domains: ["lh3.googleusercontent.com", "shopping-phinf.pstatic.net"],
+    domains: [
+      "lh3.googleusercontent.com",
+      "shopping-phinf.pstatic.net",
+      "scope-book-image.s3.amazonaws.com",
+    ],
   },
   async rewrites() {
     return [

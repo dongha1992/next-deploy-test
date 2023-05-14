@@ -10,6 +10,9 @@ import Setting from "../Common/Setting";
 import { formatUserName } from "@/utils/maskString";
 import { useState } from "react";
 import Popup from "../Popup";
+import Spacing from "../Common/Spacing";
+
+//TODO: 서버에서 받은 이미지 포맷 함수
 
 export default function BookPost({
   onLike,
@@ -49,6 +52,7 @@ export default function BookPost({
     setIsOpen(false);
   };
 
+  console.log(book);
   return (
     <>
       <div
@@ -93,6 +97,19 @@ export default function BookPost({
             </span>
           </Link>
         </div>
+        <Spacing size={20} />
+        {book.userImages.length > 0 &&
+          book.userImages.map((src: string, index: number) => {
+            return (
+              <Image
+                key={index}
+                src={src}
+                alt="스크린샷"
+                width={150}
+                height={150}
+              />
+            );
+          })}
         <div className="flex flex-col items-center pb-3 pt-2">
           <PostActions
             onComment={onComment}

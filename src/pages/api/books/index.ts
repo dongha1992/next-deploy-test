@@ -30,7 +30,7 @@ async function createBook(req: any, res: any) {
     return;
   }
 
-  const { title, body, book } = req.body.data;
+  const { title, body, book, userImages } = req.body.data;
 
   await prisma.book.create({
     data: {
@@ -46,6 +46,7 @@ async function createBook(req: any, res: any) {
       link: book?.link,
       pubdate: book?.pubdate,
       publisher: book?.publisher,
+      userImages: userImages,
     },
   });
 

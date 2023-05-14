@@ -133,10 +133,12 @@ export default function AddBookPage() {
         });
     }
 
+    console.log(imageUrl, "---");
     const data = {
+      book,
       body: text.value,
       title: selectedBook?.title ?? "",
-      book,
+      userImages: [imageUrl],
     };
     mutate(data);
     text.value = "";
