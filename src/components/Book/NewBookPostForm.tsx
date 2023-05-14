@@ -21,9 +21,9 @@ interface Props {
   onSubmit: any;
   className: string;
   value?: string;
-  images: string[];
-  setImages: Dispatch<SetStateAction<any>>;
-  removeImageHandler: (index: number) => void;
+  images?: string[];
+  setImages?: Dispatch<SetStateAction<any>>;
+  removeImageHandler?: (index: number) => void;
   isLoading?: boolean;
 }
 
@@ -51,7 +51,7 @@ export default function NewBookPostForm({
       .upload(uploadParams)
       .promise()
       .then((res) => {
-        setImages((prev: any) => [...prev, res.Location]);
+        setImages && setImages((prev: any) => [...prev, res.Location]);
       })
       .catch((error) => {
         console.log(error);
@@ -77,8 +77,9 @@ export default function NewBookPostForm({
             </Overlay>
           )}
           <section className="flex align-center pt-4 gap-3">
-            {images.length > 0 &&
-              images.map((src, index) => {
+            {images &&
+              images?.length > 0 &&
+              images?.map((src, index) => {
                 return (
                   <div
                     key={index}
@@ -90,14 +91,18 @@ export default function NewBookPostForm({
                     <Image src={src} alt="스크린샷" fill className="rounded" />
                     <div
                       className="absolute z-100 right-0 cursor-pointer"
-                      onClick={() => removeImageHandler(index)}
+                      onClick={() =>
+                        removeImageHandler && removeImageHandler(index)
+                      }
                     >
                       <CancelIcon width="30" height="30" />
                     </div>
                   </div>
                 );
               })}
-            {images.length < 4 && <ImageBox setImageValue={setImageHandler} />}
+            {images && images?.length < 4 && (
+              <ImageBox setImageValue={setImageHandler} />
+            )}
           </section>
           <div>
             <Button type="submit">제출</Button>

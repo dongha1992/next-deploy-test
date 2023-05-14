@@ -101,7 +101,7 @@ async function deleteBook(res: NextApiResponse, req: NextApiRequest) {
 
 async function patchBook(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
-  const { data } = req.body;
+  const { data, userImages } = req.body;
   const session: Session | null = await getServerSession(req, res, options);
   // TODO: 중복코드
 
@@ -109,7 +109,7 @@ async function patchBook(res: NextApiResponse, req: NextApiRequest) {
   const user = await prisma.user.findUnique({
     where: { email: session?.user.email },
   });
-
+  console.log(req.body);
   if (!user) {
     res.status(401).json({ error: "인증 되지 않은 회원입니다." });
     return;
@@ -127,7 +127,8 @@ async function patchBook(res: NextApiResponse, req: NextApiRequest) {
         id: Number(id),
       },
       data: {
-        body: data,
+        body: data.body,
+        userImages: data.userImages,
       },
     });
 

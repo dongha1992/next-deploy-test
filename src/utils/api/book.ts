@@ -18,7 +18,10 @@ const deleteBookApi = (id: number): Promise<any> => {
   return apiClient.delete(`api/books/${id}`);
 };
 
-const editBookApi = (id: number, data: { body: string }): Promise<any> => {
+const editBookApi = (
+  id: number,
+  data: { body: string; userImages: string[] }
+): Promise<any> => {
   return apiClient.patch(`api/books/${id}`, { data });
 };
 

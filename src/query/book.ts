@@ -151,7 +151,13 @@ function useDeleteComment({ options = {}, queryKey }: Props) {
 function useEditPost({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
   return useMutation(
-    ({ data, id }: { data: { body: string }; id: number }) => {
+    ({
+      data,
+      id,
+    }: {
+      data: { body: string; userImages: string[] };
+      id: number;
+    }) => {
       return editBookApi(id, data);
     },
 

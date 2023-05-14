@@ -16,6 +16,8 @@ import Button from "@/components/Common/Button";
 import BookInfo from "@/components/Book/BookInfo";
 import { getNaverBooksApi } from "@/utils/api/naver";
 
+// BookForm page와 중복임
+
 export default function AddBookPage() {
   const router = useRouter();
   const { data, run, isLoading, setReset, isSuccess } = useAsync<

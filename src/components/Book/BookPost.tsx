@@ -52,7 +52,6 @@ export default function BookPost({
     setIsOpen(false);
   };
 
-  console.log(book);
   return (
     <>
       <div
@@ -98,18 +97,16 @@ export default function BookPost({
           </Link>
         </div>
         <Spacing size={20} />
-        {book.userImages.length > 0 &&
-          book.userImages.map((src: string, index: number) => {
-            return (
-              <Image
-                key={index}
-                src={src}
-                alt="스크린샷"
-                width={150}
-                height={150}
-              />
-            );
-          })}
+        <section className="flex align-items-center gap-4 overflow-scroll">
+          {book?.userImages.length > 0 &&
+            book?.userImages.map((src: string, index: number) => {
+              return (
+                <div key={index} className="relative object-contain w-40 h-40">
+                  <Image src={src} alt="스크린샷" fill className="rounded" />
+                </div>
+              );
+            })}
+        </section>
         <div className="flex flex-col items-center pb-3 pt-2">
           <PostActions
             onComment={onComment}

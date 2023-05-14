@@ -1,8 +1,9 @@
 import Head from "next/head";
-
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { BOOK_DETAIL_QUERY_KEY, useEditPost } from "@/query/book";
 import { useQuery } from "@tanstack/react-query";
+
+import { BOOK_DETAIL_QUERY_KEY, useEditPost } from "@/query/book";
 import Overlay from "@/components/Common/Overlay";
 import Lottie from "@/components/Common/Lottie";
 import { getBookDetailApi } from "@/utils/api/book";
@@ -10,13 +11,18 @@ import NewBookPostForm from "@/components/Book/NewBookPostForm";
 import BookInfo from "@/components/Book/BookInfo";
 
 export default function PostForm() {
+  const [images, setImages] = useState<any>([]);
   const router = useRouter();
+
   const { id } = router.query;
 
   const { data: book, isLoading } = useQuery(
     [BOOK_DETAIL_QUERY_KEY, id],
     () => getBookDetailApi(Number(id)),
     {
+      onSuccess: (data) => {
+        setImages(data.userImages);
+      },
       enabled: !!id,
     }
   );
@@ -24,6 +30,12 @@ export default function PostForm() {
   const { mutate: patchPostMutation, isLoading: postLoading } = useEditPost({
     queryKey: [BOOK_DETAIL_QUERY_KEY, id],
   });
+
+  const removeImageHandler = (index: number) => {
+    setImages((prev: any) =>
+      prev.filter((_: string, idx: number) => idx !== index)
+    );
+  };
 
   const onEditHandler = (e: any) => {
     e.preventDefault();
@@ -33,7 +45,12 @@ export default function PostForm() {
       return;
     }
 
-    patchPostMutation({ data: text.value, id: Number(id) });
+    // userImages: images,
+
+    patchPostMutation({
+      data: { body: text.value, userImages: images },
+      id: Number(id),
+    });
   };
 
   if (isLoading || postLoading) {
@@ -60,6 +77,9 @@ export default function PostForm() {
             className="max-w-5xl mt-4"
             onSubmit={onEditHandler}
             value={book.body}
+            setImages={setImages}
+            removeImageHandler={removeImageHandler}
+            images={images}
           />
         </div>
       </div>
