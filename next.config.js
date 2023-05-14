@@ -10,6 +10,10 @@ const nextConfig = {
     NEXT_PUBLIC_JWT_SECRET_KEY: process.env.NEXT_PUBLIC_JWT_SECRET_KEY,
     NAVER_CLIENT_ID: process.env.NAVER_CLIENT_ID,
     NAVER_CLIENT_SECRET: process.env.NAVER_CLIENT_SECRET,
+
+    AWS_S3_BUCKET_NAME: process.env.AWS_S3_BUCKET_NAME,
+    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
   },
   images: {
     domains: ["lh3.googleusercontent.com", "shopping-phinf.pstatic.net"],

@@ -16,6 +16,13 @@ import Button from "@/components/Common/Button";
 import BookInfo from "@/components/Book/BookInfo";
 import { getNaverBooksApi } from "@/utils/api/naver";
 
+import AWS from "aws-sdk";
+
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+});
+
 export default function AddBookPage() {
   const router = useRouter();
   const { data, run, isLoading, setReset, isSuccess } = useAsync<
@@ -29,6 +36,8 @@ export default function AddBookPage() {
   const [selectedBook, setSelectedBook] = useState<NaverBook | null>(null);
   const [start, setStart] = useState<number>(1);
   const [query, setQuery] = useState<string>("");
+  const [image, setImage] = useState<any>();
+  const [isImageLoading, setImageLoading] = useState<boolean>(false);
 
   const totalBooksRef = useRef<number>(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -79,7 +88,11 @@ export default function AddBookPage() {
     setSelectedBook(book);
   };
 
-  const handleSubmit = (e: any) => {
+  const setImageHandler = (e: any) => {
+    setImage(e);
+  };
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const { text } = e.target.elements;
     if (!text.value) {
@@ -88,9 +101,36 @@ export default function AddBookPage() {
     }
 
     let book;
+
     if (selectedBook) {
       const { title, ...rest } = selectedBook;
       book = rest;
+    }
+
+    // TODO: 이미지 최적화 하려면 여기서 key를 통일해줘야 함
+    let imageUrl;
+    if (image) {
+      setImageLoading(true);
+
+      const uploadParams = {
+        Bucket: process.env.AWS_S3_BUCKET_NAME!,
+        Key: image.name,
+        Body: image,
+        ACL: "public-read",
+      };
+
+      await s3
+        .upload(uploadParams)
+        .promise()
+        .then((res) => {
+          imageUrl = res.Location;
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setImageLoading(false);
+        });
     }
 
     const data = {
@@ -152,7 +192,12 @@ export default function AddBookPage() {
           {isSuccess && data?.items.length == 0 && (
             <div>결과가 없습니다! 다시 검색 해주세요.</div>
           )}
-          <NewBookPostForm className="max-w-5xl mt-4" onSubmit={handleSubmit} />
+          <NewBookPostForm
+            className="max-w-5xl mt-4"
+            onSubmit={handleSubmit}
+            setImageHandler={setImageHandler}
+            isLoading={isImageLoading}
+          />
         </div>
       </div>
     </>

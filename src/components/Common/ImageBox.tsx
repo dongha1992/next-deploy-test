@@ -19,8 +19,8 @@ const ImageBox = ({ setImageValue }: IProps) => {
           "사진은 1장 당 20MB 이하 (jpg, png), 파일명은 255자 이하만 등록 가능해요."
         );
       }
-      const formData = new FormData();
-      setImageValue();
+      // const formData = new FormData();
+      setImageValue(imageFile);
     } catch (error) {
     } finally {
       e.target.value = "";
