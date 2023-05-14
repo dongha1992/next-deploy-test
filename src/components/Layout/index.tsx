@@ -1,7 +1,9 @@
 import { useSession } from "next-auth/react";
-import router from "next/router";
 import React, { ReactNode } from "react";
-import Navigation from "../Common/Navigation";
+
+import { useRecoilState } from "recoil";
+import { imageZoomState } from "@/store/common";
+import ImageViewer from "../ImageViewer";
 
 function Layout({
   children,
@@ -13,12 +15,17 @@ function Layout({
   top?: ReactNode;
 }) {
   const { status, data } = useSession();
+  const [srcs, setSrcs] = useRecoilState(imageZoomState);
+  console.log(srcs);
 
   return (
     <div className="flex flex-col items-center max-w-[540px] w-full min-h-full h-screen mx-auto bg-black overflow-y-scroll">
       {top && top}
       {children}
       {bottom && bottom}
+      {srcs && srcs?.srcs?.length > 0 && (
+        <ImageViewer images={srcs?.srcs!} startIndex={srcs?.startIndex} />
+      )}
     </div>
   );
 }

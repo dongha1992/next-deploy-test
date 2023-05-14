@@ -8,7 +8,7 @@ import PostActions from "../PostActions";
 import Setting from "../Common/Setting";
 import { formatUserName } from "@/utils/maskString";
 import BookInfo from "./BookInfo";
-import Popup from "../Popup";
+import Popup from "../Common/Popup";
 import { useState } from "react";
 import Spacing from "../Common/Spacing";
 

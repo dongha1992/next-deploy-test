@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRecoilState } from "recoil";
 import Image from "next/image";
 
 import formatTimeAgo from "@/utils/formatTimeAgo";
@@ -9,8 +10,10 @@ import PostActions from "../PostActions";
 import Setting from "../Common/Setting";
 import { formatUserName } from "@/utils/maskString";
 import { useState } from "react";
-import Popup from "../Popup";
+import Popup from "../Common/Popup";
 import Spacing from "../Common/Spacing";
+
+import { imageZoomState } from "@/store/common";
 
 //TODO: 서버에서 받은 이미지 포맷 함수
 
@@ -24,7 +27,11 @@ export default function BookPost({
   className = "",
 }: any) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const [srcs, setSrcs] = useRecoilState(imageZoomState);
+
   const { status, data } = useSession();
+
   const { mutate: deletePostMutation } = useDeletePost({
     queryKey: [BOOK_QUERY_KEY],
   });
@@ -104,6 +111,12 @@ export default function BookPost({
                   <div
                     key={index}
                     className="relative object-contain w-48 h-48"
+                    onClick={() =>
+                      setSrcs({
+                        srcs: book?.userImages,
+                        startIndex: index,
+                      })
+                    }
                   >
                     <Image src={src} alt="스크린샷" fill className="rounded" />
                   </div>
