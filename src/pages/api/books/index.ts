@@ -46,7 +46,7 @@ async function createBook(req: any, res: any) {
       link: book?.link,
       pubdate: book?.pubdate,
       publisher: book?.publisher,
-      userImages: userImages,
+      userImages: userImages ? userImages : [],
     },
   });
 

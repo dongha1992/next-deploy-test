@@ -18,6 +18,8 @@ import { getNaverBooksApi } from "@/utils/api/naver";
 
 import AWS from "aws-sdk";
 
+// TODO: aws 분리
+
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -36,7 +38,7 @@ export default function AddBookPage() {
   const [selectedBook, setSelectedBook] = useState<NaverBook | null>(null);
   const [start, setStart] = useState<number>(1);
   const [query, setQuery] = useState<string>("");
-  const [image, setImage] = useState<any>();
+  const [images, setImages] = useState<any>([]);
   const [isImageLoading, setImageLoading] = useState<boolean>(false);
 
   const totalBooksRef = useRef<number>(0);
@@ -88,8 +90,29 @@ export default function AddBookPage() {
     setSelectedBook(book);
   };
 
-  const setImageHandler = (e: any) => {
-    setImage(e);
+  // TODO: 이미지 모듈 분리
+  const setImageHandler = async (image: any) => {
+    if (!image) return;
+
+    setImageLoading(true);
+    const uploadParams = {
+      Bucket: process.env.AWS_S3_BUCKET_NAME!,
+      Key: image.name,
+      Body: image,
+      ACL: "public-read",
+    };
+    await s3
+      .upload(uploadParams)
+      .promise()
+      .then((res) => {
+        setImages((prev: any) => [...prev, res.Location]);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setImageLoading(false);
+      });
   };
 
   const handleSubmit = async (e: any) => {
@@ -108,37 +131,12 @@ export default function AddBookPage() {
     }
 
     // TODO: 이미지 최적화 하려면 여기서 key를 통일해줘야 함
-    let imageUrl;
-    if (image) {
-      setImageLoading(true);
 
-      const uploadParams = {
-        Bucket: process.env.AWS_S3_BUCKET_NAME!,
-        Key: image.name,
-        Body: image,
-        ACL: "public-read",
-      };
-
-      await s3
-        .upload(uploadParams)
-        .promise()
-        .then((res) => {
-          imageUrl = res.Location;
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          setImageLoading(false);
-        });
-    }
-
-    console.log(imageUrl, "---");
     const data = {
       book,
       body: text.value,
       title: selectedBook?.title ?? "",
-      userImages: [imageUrl],
+      userImages: images,
     };
     mutate(data);
     text.value = "";
@@ -198,6 +196,7 @@ export default function AddBookPage() {
             className="max-w-5xl mt-4"
             onSubmit={handleSubmit}
             setImageHandler={setImageHandler}
+            images={images}
             isLoading={isImageLoading}
           />
         </div>

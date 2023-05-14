@@ -33,7 +33,7 @@ const ImageBox = ({ setImageValue }: IProps) => {
   };
 
   return (
-    <article className="pt-4">
+    <article>
       <div
         role="button"
         tabIndex={0}
