@@ -93,15 +93,20 @@ export default function BookDetail({
         </div>
       </div>
       <Spacing size={30} />
-      <section className="flex align-items-center gap-4">
-        {book?.userImages.length > 0 &&
-          book?.userImages.map((src: string, index: number) => {
-            return (
-              <div key={index} className="relative w-40 h-40 object-contain">
-                <Image src={src} alt="스크린샷" fill className="rounded" />
-              </div>
-            );
-          })}
+      <section className="overflow-x-scroll max-w-96 w-auto">
+        <div
+          className="flex align-items-center gap-4"
+          style={{ width: "800px" }}
+        >
+          {book?.userImages.length > 0 &&
+            book?.userImages.map((src: string, index: number) => {
+              return (
+                <div key={index} className="relative w-48 h-48 object-contain">
+                  <Image src={src} alt="스크린샷" fill className="rounded" />
+                </div>
+              );
+            })}
+        </div>
       </section>
       <Spacing size={10} />
       <div className="flex flex-col items-center">

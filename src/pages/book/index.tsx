@@ -106,9 +106,9 @@ function BookPage() {
           )}
 
           {data?.length ? (
-            <ul className="mt-8">
+            <ul className="mt-8 w-full">
               {data?.map((book: any) => (
-                <li key={book.id}>
+                <li key={book.id} className="w-full">
                   <BookPost
                     book={book}
                     href={

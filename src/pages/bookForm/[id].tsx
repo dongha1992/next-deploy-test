@@ -52,6 +52,7 @@ export default function PostForm() {
   };
 
   useEffect(() => {
+    //FIXME: 이게 맞나.?
     setImages(book?.userImages);
   }, [setImages, book]);
 
