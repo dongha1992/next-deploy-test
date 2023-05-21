@@ -15,6 +15,7 @@ import Input from "@/components/Common/Input";
 import Button from "@/components/Common/Button";
 import BookInfo from "@/components/Book/BookInfo";
 import { getNaverBooksApi } from "@/utils/api/naver";
+import useRating from "@/hooks/useRating";
 
 // BookForm page와 중복임
 
@@ -37,6 +38,9 @@ export default function AddBookPage() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   totalBooksRef.current = data?.total;
 
+  const { ratingGenerator, onRating, rating } = useRating();
+
+  console.log(rating, "rating");
   useLayoutEffect(() => {
     scrollToTop();
   }, [start]);
@@ -165,6 +169,7 @@ export default function AddBookPage() {
           {isSuccess && data?.items.length == 0 && (
             <div>결과가 없습니다! 다시 검색 해주세요.</div>
           )}
+          <div className="flex justify-end w-full">{ratingGenerator}</div>
           <NewBookPostForm
             className="max-w-5xl mt-4"
             onSubmit={handleSubmit}

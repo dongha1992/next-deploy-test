@@ -5,6 +5,8 @@ import { useRecoilState } from "recoil";
 import { imageZoomState } from "@/store/common";
 import ImageViewer from "../ImageViewer";
 
+//TODO: layout 여러차례 렌더링
+
 function Layout({
   children,
   bottom,
@@ -16,7 +18,7 @@ function Layout({
 }) {
   const { status, data } = useSession();
   const [srcs, setSrcs] = useRecoilState(imageZoomState);
-  console.log(srcs);
+  // console.log(srcs);
 
   return (
     <div className="flex flex-col items-center max-w-[540px] w-full min-h-full h-screen mx-auto bg-black overflow-y-scroll">

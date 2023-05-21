@@ -9,7 +9,11 @@ const IconMap: { [key: string]: JSX.Element } = {
 
 const INITIAL_COUNT = 5;
 
-function useRating(userRating: number) {
+interface Props {
+  userRating?: number;
+}
+
+function useRating({ userRating = 5 }: Props = {}) {
   const [hoverRating, setHoverRating] = useState<number>(0);
   const [rating, setRating] = useState<number>(5);
 
@@ -53,12 +57,12 @@ function useRating(userRating: number) {
           onClick={(e) => onRating && onRating(e, idx)}
           // onMouseLeave={(e) => onRating && onRating(e, idx)}
         >
-          <div>{IconMap[getSvgName(idx)]}</div>
+          <div className="pr-1">{IconMap[getSvgName(idx)]}</div>
         </div>
       ));
     return (
       <div className="flex cursor-pointer select-none">
-        <div className="pr-2">{stars}</div>
+        <div className="pr-2 flex">{stars}</div>
       </div>
     );
   }, [getSvgName]);
@@ -70,6 +74,7 @@ function useRating(userRating: number) {
   return {
     ratingGenerator,
     onRating,
+    rating,
   };
 }
 
