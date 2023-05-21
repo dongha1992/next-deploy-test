@@ -98,7 +98,23 @@ export default function BookDetailPage({ id }: { id: number }) {
           return;
         }}
         onLike={() => onMutateLikeHandler(book.isLiked, book.id)}
-        onShare={() => console.log("share")}
+        onShare={() => {
+          window?.Kakao.Link.sendDefault({
+            objectType: "feed",
+            content: {
+              title: book.title,
+              description: book.body,
+              imageUrl: book.image,
+              imageWidth: 600,
+              imageHeight: 420,
+              link: {
+                webUrl: `${process.env.NEXTAUTH_URL}/book/${book.id}`,
+                mobileWebUrl: `${process.env.NEXTAUTH_URL}/book/${book.id}`,
+              },
+            },
+            buttons: [],
+          });
+        }}
       />
       <form className="flex flex-col mx-6" onSubmit={onSubmitComment}>
         <TextArea name="comment" />

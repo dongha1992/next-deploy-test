@@ -133,7 +133,7 @@ function BookPage() {
                           title: book.title,
                           description: book.body,
                           imageUrl: book.image,
-                          imageWidth: 800,
+                          imageWidth: 600,
                           imageHeight: 420,
                           link: {
                             webUrl: `${process.env.NEXTAUTH_URL}/book/${book.id}`,
