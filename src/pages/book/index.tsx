@@ -130,14 +130,14 @@ function BookPage() {
                       window?.Kakao.Link.sendDefault({
                         objectType: "feed",
                         content: {
-                          title: "",
-                          description: "",
-                          imageUrl: "",
+                          title: book.title,
+                          description: book.body,
+                          imageUrl: book.image,
                           imageWidth: 800,
                           imageHeight: 420,
                           link: {
-                            webUrl: process.env.NEXTAUTH_URL,
-                            mobileWebUrl: process.env.NEXTAUTH_URL,
+                            webUrl: `${process.env.NEXTAUTH_URL}/book/${book.id}`,
+                            mobileWebUrl: `${process.env.NEXTAUTH_URL}/book/${book.id}`,
                           },
                         },
                         buttons: [],
