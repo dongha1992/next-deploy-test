@@ -8,20 +8,15 @@ import { useRecoilState } from "recoil";
 interface IProps {
   images: string[];
   startIndex?: number;
-  isShow?: boolean;
 }
 
-const ImageViewer = ({
-  images = [],
-  startIndex = 0,
-  isShow = false,
-}: IProps) => {
+const ImageViewer = ({ images = [], startIndex = 0 }: IProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(startIndex);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const [srcs, setSrcs] = useRecoilState(imageZoomState);
 
   const onChange = (changedIndex: number) => {
+    console.log(currentImageIndex, "currentImageIndex");
     setCurrentImageIndex(changedIndex);
   };
 
@@ -31,8 +26,9 @@ const ImageViewer = ({
 
   return (
     <ModalFullScreen>
-      <section className="relative h-screen flex justify-center items-center">
-        <div>
+      <section className="relative h-screen flex justify-center items-center flex-col px-6">
+        <div className="flex items-center justify-between w-full mb-6">
+          <div />
           <span className="text-white">
             {currentImageIndex + 1} / {images.length}
           </span>

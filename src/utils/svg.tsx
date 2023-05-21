@@ -255,8 +255,9 @@ function BookActiveIcon() {
 function CancelIcon(props: any) {
   return (
     <svg
-      width="18"
-      height="18"
+      width="48"
+      height="48"
+      cursor={"pointer"}
       {...props}
       viewBox="0 0 18 18"
       fill="none"

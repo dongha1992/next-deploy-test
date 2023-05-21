@@ -11,10 +11,13 @@ interface IProps {
 const NextArrow = ({ onClick }: any) => {
   return (
     <div
+      role="button"
       onClick={onClick}
-      className="absolute top-1/2 transform -translate-y-1/2 right-0 z-50"
+      className="absolute top-1/2 transform -translate-y-1/2 right-1 z-50 bg-gray-600 w-8 h-8 rounded-full"
     >
-      {"->"}
+      <span className="text-xl text-bold text-white absolute right-3 ">
+        {">"}
+      </span>
     </div>
   );
 };
@@ -22,10 +25,13 @@ const NextArrow = ({ onClick }: any) => {
 const PreviousArrow = ({ onClick }: any) => {
   return (
     <div
+      role="button"
       onClick={onClick}
-      className="absolute top-1/2 transform -translate-y-1/2 left-0 z-50"
+      className="absolute top-1/2 transform -translate-y-1/2 left-1 z-50 text-xl text-bold bg-gray-600 w-8 h-8 rounded-full text-white"
     >
-      {"<-"}
+      <span className="text-xl text-bold text-white absolute left-2">
+        {"<"}
+      </span>
     </div>
   );
 };
@@ -55,7 +61,7 @@ const Carousel = ({ images, initialSlide, onChange }: IProps) => {
       onMouseLeave={() => {
         setIsArrowShow(false);
       }}
-      className="relative max-w-[640px] min-w-[640px] w-full"
+      className="relative max-w-[640px] min-w-[420px] w-full"
     >
       <Slider {...settings}>
         {images.map((src: string, index: number) => {
@@ -64,9 +70,9 @@ const Carousel = ({ images, initialSlide, onChange }: IProps) => {
               src={src}
               key={index}
               className={"review-image"}
-              width={100}
-              height={100}
               alt="리뷰 이미지"
+              width={600}
+              height={600}
             />
           );
         })}
