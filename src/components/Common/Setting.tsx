@@ -6,6 +6,7 @@ import {
   EditActiveIcon,
   EditInactiveIcon,
 } from "@/utils/svg";
+import { getZIndex } from "@/utils/getZIndex";
 
 interface Props {
   onDelete: any;
@@ -14,7 +15,11 @@ interface Props {
 
 function Setting({ onDelete, onEdit }: Props) {
   return (
-    <Menu as="div" className="relative text-left">
+    <Menu
+      as="div"
+      className="relative text-left"
+      style={{ zIndex: getZIndex("settingButton") }}
+    >
       <div>
         <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
           ...

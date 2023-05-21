@@ -1,3 +1,4 @@
+import { getZIndex } from "@/utils/getZIndex";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
@@ -9,8 +10,9 @@ function Popup({ text, onClickConfirm, isOpen, setIsOpen }: any) {
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="relative z-10"
+          className="relative"
           onClose={() => setIsOpen(false)}
+          style={{ zIndex: getZIndex("popup") }}
         >
           <Transition.Child
             as={Fragment}
