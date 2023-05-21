@@ -100,10 +100,10 @@ export default function BookPost({
           </Link>
         </div>
         <Spacing size={20} />
-        <section className="overflow-x-scroll max-w-96 w-auto">
+        <section className="overflow-x-scroll max-w-96">
           <div
             className="flex align-items-center gap-4"
-            style={{ width: "800px" }}
+            style={{ width: "600px" }}
           >
             {book?.userImages.length > 0 &&
               book?.userImages.map((src: string, index: number) => {
