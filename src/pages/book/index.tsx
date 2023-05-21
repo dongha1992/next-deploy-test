@@ -126,7 +126,23 @@ function BookPage() {
                         isUnauthenticated ? "/auth/signin" : `book/${book.id}`
                       )
                     }
-                    onShare={() => console.log("share books", book.id)}
+                    onShare={() => {
+                      window?.Kakao.Link.sendDefault({
+                        objectType: "feed",
+                        content: {
+                          title: "",
+                          description: "",
+                          imageUrl: "",
+                          imageWidth: 800,
+                          imageHeight: 420,
+                          link: {
+                            webUrl: process.env.NEXTAUTH_URL,
+                            mobileWebUrl: process.env.NEXTAUTH_URL,
+                          },
+                        },
+                        buttons: [],
+                      });
+                    }}
                   />
                 </li>
               ))}

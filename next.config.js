@@ -14,6 +14,8 @@ const nextConfig = {
     AWS_S3_BUCKET_NAME: process.env.AWS_S3_BUCKET_NAME,
     AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
     AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
+
+    NEXT_PUBLIC_KAKAO_KEY: process.env.NEXT_PUBLIC_KAKAO_KEY,
   },
   images: {
     domains: [
