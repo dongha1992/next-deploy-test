@@ -1,5 +1,5 @@
 import React from "react";
-import { signIn, useSession, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
 import { options } from "../api/auth/[...nextauth]";
 import Image from "next/image";
