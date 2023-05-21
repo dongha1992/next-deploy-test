@@ -5,6 +5,7 @@ import { CancelIcon } from "@/utils/svg";
 import Carousel from "./Carousel";
 import { imageZoomState } from "@/store/common";
 import { useRecoilState } from "recoil";
+import Spacing from "./Common/Spacing";
 interface IProps {
   images: string[];
   startIndex?: number;
@@ -16,7 +17,6 @@ const ImageViewer = ({ images = [], startIndex = 0 }: IProps) => {
   const [srcs, setSrcs] = useRecoilState(imageZoomState);
 
   const onChange = (changedIndex: number) => {
-    console.log(currentImageIndex, "currentImageIndex");
     setCurrentImageIndex(changedIndex);
   };
 
@@ -26,7 +26,8 @@ const ImageViewer = ({ images = [], startIndex = 0 }: IProps) => {
 
   return (
     <ModalFullScreen>
-      <section className="relative h-screen flex justify-center items-center flex-col px-6">
+      <section className="relative h-screen flex items-center flex-col px-6">
+        <Spacing size={30} />
         <div className="flex items-center justify-between w-full mb-6">
           <div />
           <span className="text-white">

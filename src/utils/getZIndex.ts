@@ -1,6 +1,6 @@
 const zIndexMap: { [k: string]: string } = {
   fixedBottom: "10000000",
-  settingButton: "1000",
+  settingButton: "10",
   popup: "10",
 };
 

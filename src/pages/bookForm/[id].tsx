@@ -9,6 +9,7 @@ import Lottie from "@/components/Common/Lottie";
 import { getBookDetailApi } from "@/utils/api/book";
 import NewBookPostForm from "@/components/Book/NewBookPostForm";
 import BookInfo from "@/components/Book/BookInfo";
+import useRating from "@/hooks/useRating";
 
 export default function PostForm() {
   const [images, setImages] = useState<any>([]);
@@ -24,6 +25,11 @@ export default function PostForm() {
       enabled: !!id,
     }
   );
+
+  const { ratingGenerator, rating } = useRating({
+    userRating: book?.rating,
+    isReadOnly: false,
+  });
 
   const { mutate: patchPostMutation, isLoading: postLoading } = useEditPost({
     queryKey: [BOOK_DETAIL_QUERY_KEY, id],
@@ -46,7 +52,7 @@ export default function PostForm() {
     // userImages: images,
 
     patchPostMutation({
-      data: { body: text.value, userImages: images },
+      data: { body: text.value, userImages: images, rating },
       id: Number(id),
     });
   };
@@ -76,6 +82,7 @@ export default function PostForm() {
         </h1>
         <div className="mt-6">
           <BookInfo item={book} />
+          <div className="flex justify-end w-full">{ratingGenerator}</div>
           <NewBookPostForm
             className="max-w-5xl mt-4"
             onSubmit={onEditHandler}

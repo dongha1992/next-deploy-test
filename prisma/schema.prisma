@@ -115,6 +115,7 @@ model Book {
   updatedAt     DateTime        @updatedAt
   userId        String
   isLiked       Boolean
+  rating        Decimal?
   user          User            @relation(fields: [userId], references: [id])
   userBookLikes UserBookLikes[]
   bookComments  BookComment[]

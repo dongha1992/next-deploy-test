@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Book" ALTER COLUMN "rating" SET DATA TYPE DECIMAL(65,30);

@@ -57,6 +57,7 @@ export interface CreateBookData {
   body: string;
   book?: Book;
   image?: string;
+  rating: number;
 }
 
 function useBookCreate({ options = {}, queryKey }: Props) {
@@ -155,7 +156,7 @@ function useEditPost({ options = {}, queryKey }: Props) {
       data,
       id,
     }: {
-      data: { body: string; userImages: string[] };
+      data: { body: string; userImages: string[]; rating: number };
       id: number;
     }) => {
       return editBookApi(id, data);

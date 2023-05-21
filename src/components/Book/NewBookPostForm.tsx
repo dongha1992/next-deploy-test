@@ -1,13 +1,12 @@
 import Image from "next/image";
+import AWS from "aws-sdk";
+import { Dispatch, SetStateAction, useState } from "react";
 
 import Button from "../Common/Button";
 import TextArea from "../Common/TextArea";
 import ImageBox from "../Common/ImageBox";
 import Lottie from "../Common/Lottie";
 import Overlay from "../Common/Overlay";
-
-import AWS from "aws-sdk";
-import { Dispatch, SetStateAction, useState } from "react";
 import { CancelIcon } from "@/utils/svg";
 
 // TODO: aws 분리
@@ -36,7 +35,9 @@ export default function NewBookPostForm({
   className = "",
 }: Props) {
   const [isImageLoading, setImageLoading] = useState<boolean>(false);
+
   // TODO: 이미지 모듈 분리
+
   const setImageHandler = async (image: any) => {
     if (!image) return;
 

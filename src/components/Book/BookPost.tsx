@@ -14,6 +14,7 @@ import Popup from "../Common/Popup";
 import Spacing from "../Common/Spacing";
 
 import { imageZoomState } from "@/store/common";
+import useRating from "@/hooks/useRating";
 
 //TODO: 서버에서 받은 이미지 포맷 함수
 
@@ -31,6 +32,7 @@ export default function BookPost({
   const [srcs, setSrcs] = useRecoilState(imageZoomState);
 
   const { status, data } = useSession();
+  const { rating, ratingGenerator } = useRating({ userRating: book.rating });
 
   const { mutate: deletePostMutation } = useDeletePost({
     queryKey: [BOOK_QUERY_KEY],
@@ -93,6 +95,7 @@ export default function BookPost({
               </div>
             </div>
           </div>
+          <div className="flex justify-end w-full">{ratingGenerator}</div>
           <Link href={href}>
             <span className="text-sm text-gray-100 whitespace-pre-wrap break-words">
               {book?.body.slice(0, 100)}

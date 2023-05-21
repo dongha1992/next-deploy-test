@@ -30,12 +30,13 @@ async function createBook(req: any, res: any) {
     return;
   }
 
-  const { title, body, book, userImages } = req.body.data;
-
+  const { title, body, book, userImages, rating } = req.body.data;
+  console.log(req.body.data, "req.body.data");
   await prisma.book.create({
     data: {
       body,
       title,
+      rating: rating,
       userId: prismaUser.id,
       isLiked: false,
       author: book?.author,

@@ -25,9 +25,11 @@ export default function AddBookPage() {
     NaverBooks,
     Error
   >();
-  const { mutate, isLoading: isPostLoading } = useBookCreate({
-    queryKey: [BOOK_QUERY_KEY],
-  });
+  const { mutate: mutateAddBookPost, isLoading: isPostLoading } = useBookCreate(
+    {
+      queryKey: [BOOK_QUERY_KEY],
+    }
+  );
 
   const [selectedBook, setSelectedBook] = useState<NaverBook | null>(null);
   const [start, setStart] = useState<number>(1);
@@ -38,9 +40,8 @@ export default function AddBookPage() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   totalBooksRef.current = data?.total;
 
-  const { ratingGenerator, onRating, rating } = useRating();
+  const { ratingGenerator, rating } = useRating({ isReadOnly: false });
 
-  console.log(rating, "rating");
   useLayoutEffect(() => {
     scrollToTop();
   }, [start]);
@@ -111,11 +112,12 @@ export default function AddBookPage() {
 
     const data = {
       book,
+      rating,
       body: text.value,
       title: selectedBook?.title ?? "",
       userImages: images,
     };
-    mutate(data);
+    mutateAddBookPost(data);
     text.value = "";
   };
 

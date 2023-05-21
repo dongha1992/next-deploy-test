@@ -15,7 +15,7 @@ const NextArrow = ({ onClick }: any) => {
       onClick={onClick}
       className="absolute top-1/2 transform -translate-y-1/2 right-1 z-50 bg-gray-600 w-8 h-8 rounded-full"
     >
-      <span className="text-xl text-bold text-white absolute right-3 ">
+      <span className="text-xl text-bold text-white absolute right-2">
         {">"}
       </span>
     </div>
