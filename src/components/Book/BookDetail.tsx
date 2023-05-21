@@ -11,6 +11,7 @@ import BookInfo from "./BookInfo";
 import Popup from "../Common/Popup";
 import { useState } from "react";
 import Spacing from "../Common/Spacing";
+import useRating from "@/hooks/useRating";
 
 export default function BookDetail({
   onLike,
@@ -22,6 +23,9 @@ export default function BookDetail({
 }: any) {
   const { status, data } = useSession();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const { ratingGenerator } = useRating({ userRating: book?.rating });
+
   const { mutateAsync: deletePostMutation } = useDeletePost({
     queryKey: [BOOK_QUERY_KEY],
   });
@@ -85,6 +89,7 @@ export default function BookDetail({
             </div>
           </div>
         </div>
+        <div className="flex justify-end w-full my-1">{ratingGenerator}</div>
         <div className="flex flex-col mt-4">
           <BookInfo item={book} className="" withTitle={false} />
           <span className="mt-4 text-sm text-gray-100 whitespace-pre-wrap break-words">

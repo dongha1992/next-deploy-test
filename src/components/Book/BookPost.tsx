@@ -95,7 +95,7 @@ export default function BookPost({
               </div>
             </div>
           </div>
-          <div className="flex justify-end w-full">{ratingGenerator}</div>
+          <div className="flex justify-end w-full my-1">{ratingGenerator}</div>
           <Link href={href}>
             <span className="text-sm text-gray-100 whitespace-pre-wrap break-words">
               {book?.body.slice(0, 100)}
