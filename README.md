@@ -1,6 +1,6 @@
 # 스코프
 
-demo: https://the-scope.vercel.app/
+demo: https://the-scope.vercel.app/book
 
 ## SUMMARY
 
