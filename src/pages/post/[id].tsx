@@ -106,7 +106,7 @@ export default function PostDetailPage({ id }: { id: number }) {
           확인
         </Button>
       </form>
-      <div className="mx-6 mt-10">
+      <div className="mx-6 mt-10 mb-6">
         {post?.comments?.map((comment: any, index: number) => {
           return (
             <Comment

@@ -52,6 +52,8 @@ export default function BookDetail({
     });
   };
 
+  const isAuth = data?.user?.email === book?.user?.email;
+
   return (
     <div
       className={
@@ -85,7 +87,9 @@ export default function BookDetail({
               <p className="text-md font-semibold text-gray-100 break-all">
                 {book?.title ? `<${book?.title}> ${book?.author}` : ""}
               </p>
-              <Setting onDelete={onDeleteHandler} onEdit={onEditHandler} />
+              {isAuth && (
+                <Setting onDelete={onDeleteHandler} onEdit={onEditHandler} />
+              )}
             </div>
           </div>
         </div>

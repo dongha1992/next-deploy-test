@@ -74,7 +74,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="w-full pt-8 pb-10 mx-auto max-w-7xl px-4 bg-black relative">
+      <div className="w-full pt-8 pb-12 mx-auto max-w-7xl px-4 bg-black relative">
         <div className="max-w-2xl mx-auto">
           <form onSubmit={onSubmitSearch}>
             <Input

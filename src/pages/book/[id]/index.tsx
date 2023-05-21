@@ -17,8 +17,10 @@ import Overlay from "@/components/Common/Overlay";
 import { getBookDetailApi } from "@/utils/api/book";
 import BookDetail from "@/components/Book/BookDetail";
 import router from "next/router";
+import { useSession } from "next-auth/react";
 
 export default function BookDetailPage({ id }: { id: number }) {
+  const { status, data } = useSession();
   const {
     data: book,
     isLoading,
@@ -122,12 +124,13 @@ export default function BookDetailPage({ id }: { id: number }) {
           확인
         </Button>
       </form>
-      <div className="mx-6 mt-10">
+      <div className="mx-6 mt-10 mb-6">
         {book?.comments?.map((comment: any, index: number) => {
           return (
             <Comment
               key={index}
               user={comment?.user}
+              isAuth={data?.user?.email === comment?.user.email}
               comment={comment}
               onDelete={() => onDeleteComment(comment.id)}
               onEdit={() => onEditComment(comment.id)}

@@ -9,6 +9,7 @@ interface Props {
   className?: string;
   onDelete?: () => void;
   onEdit?: () => void;
+  isAuth?: boolean;
 }
 
 function Comment({
@@ -17,6 +18,7 @@ function Comment({
   className,
   onDelete,
   onEdit,
+  isAuth,
 }: Props) {
   return (
     <div className={twMerge("flex items-center m-auto mt-7", className)}>
@@ -41,7 +43,7 @@ function Comment({
         </div>
         <div className="flex mt-1 items-center justify-between">
           <p className="text-xs text-gray-100 break-all">{comment?.text}</p>
-          <Setting onDelete={onDelete} onEdit={onEdit} />
+          {isAuth && <Setting onDelete={onDelete} onEdit={onEdit} />}
         </div>
       </div>
     </div>

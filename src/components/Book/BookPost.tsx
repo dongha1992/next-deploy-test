@@ -61,6 +61,8 @@ export default function BookPost({
     setIsOpen(false);
   };
 
+  const isAuth = data?.user?.email === book.user.email;
+
   return (
     <>
       <div className={"flex flex-col rounded-lg shadow-lg " + className}>
@@ -91,7 +93,9 @@ export default function BookPost({
                 <p className="text-sm font-semibold text-gray-100 break-all">
                   {book?.title ? `<${book?.title}> ${book?.author}` : ""}
                 </p>
-                <Setting onDelete={onDeleteHandler} onEdit={onEditHandler} />
+                {isAuth && (
+                  <Setting onDelete={onDeleteHandler} onEdit={onEditHandler} />
+                )}
               </div>
             </div>
           </div>
