@@ -6,6 +6,7 @@ import Carousel from "./Carousel";
 import { imageZoomState } from "@/store/common";
 import { useRecoilState } from "recoil";
 import Spacing from "./Common/Spacing";
+import { getZIndex } from "@/utils/getZIndex";
 interface IProps {
   images: string[];
   startIndex?: number;
@@ -28,7 +29,7 @@ const ImageViewer = ({ images = [], startIndex = 0 }: IProps) => {
     <ModalFullScreen>
       <section className="relative h-screen flex items-center flex-col px-6">
         <Spacing size={30} />
-        <div className="flex items-center justify-between w-full mb-6">
+        <div className="flex items-center justify-between w-full mb-6 mt-6">
           <div />
           <span className="text-white">
             {currentImageIndex + 1} / {images.length}
@@ -58,7 +59,8 @@ const ModalFullScreen = ({ children }: PropsWithChildren) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center bg-black z-50`}
+      className={`fixed top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center bg-black`}
+      style={{ zIndex: getZIndex("fullScreen") }}
       onClick={handleClickDimmer}
     >
       <div className={"relative max-w-screen-md w-full z-10 box-border"}>
