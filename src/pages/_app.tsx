@@ -39,6 +39,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       },
     });
   }
+
   const initKakao = () => {
     try {
       if (!window.Kakao.isInitialized()) {

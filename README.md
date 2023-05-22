@@ -47,3 +47,7 @@ demo: https://the-scope.vercel.app/book
 - [] axios instance
 - [] api 중복
 - [] 타입 다 지정하기
+
+#### 테스트코드
+
+- [] 테스트 코드 작성
