@@ -15,6 +15,9 @@ function Signin() {
         encodeURIComponent("/api/auth/signin/google");
     } else {
       // signIn("google");
+      window.location.href =
+        "kakaotalk://web/openExternal?url=" +
+        encodeURIComponent("/api/auth/signin/google");
     }
     // window.open("/api/auth/signin/google", "_blank");
   };
@@ -49,6 +52,19 @@ export default Signin;
 
 export async function getServerSideProps(context: any) {
   const session = await getServerSession(context.req, context.res, options);
+  const userAgent = context.req
+    ? context.req.headers["user-agent"]
+    : navigator.userAgent;
+
+  if (userAgent.match(/kakaotalk/i)) {
+    // Redirect using server-side code
+    context.res.writeHead(302, {
+      Location: "/api/auth/signin/google",
+    });
+    context.res.end();
+
+    return { props: {} };
+  }
 
   if (session) {
     //redirect to login page
