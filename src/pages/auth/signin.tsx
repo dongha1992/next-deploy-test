@@ -6,6 +6,18 @@ import Image from "next/image";
 import Button from "@/components/Common/Button";
 
 function Signin() {
+  const handleSignInWithGoogle = () => {
+    const useragt = window.navigator?.userAgent.toLowerCase();
+
+    if (useragt.match(/kakaotalk/i)) {
+      window.location.href = "/api/auth/signin/google";
+      // "kakaotalk://web/openExternal?url=" +
+      // encodeURIComponent("/api/auth/signin/google");
+    } else {
+      // signIn("google");
+    }
+    // window.open("/api/auth/signin/google", "_blank");
+  };
   return (
     <div
       className="h-full w-full flex flex-col justify-center items-center"
@@ -18,7 +30,7 @@ function Signin() {
         <Button
           className="flex bg-white text-black p-4 rounded-md text-md w-100 hover:bg-white focus:outline-none focus:ring-0"
           type="button"
-          onClick={() => signIn("google")}
+          onClick={handleSignInWithGoogle}
         >
           <Image
             src="/img/google_logo.png"
