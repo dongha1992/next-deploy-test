@@ -10,9 +10,9 @@ function Signin() {
     const useragt = window.navigator?.userAgent.toLowerCase();
 
     if (useragt.match(/kakaotalk/i)) {
-      window.location.href = "/api/auth/signin/google";
-      // "kakaotalk://web/openExternal?url=" +
-      // encodeURIComponent("/api/auth/signin/google");
+      window.location.href =
+        "kakaotalk://web/openExternal?url=" +
+        encodeURIComponent("/api/auth/signin/google");
     } else {
       // signIn("google");
     }
