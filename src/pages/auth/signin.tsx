@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
 import { options } from "../api/auth/[...nextauth]";
@@ -6,11 +6,18 @@ import Image from "next/image";
 import Button from "@/components/Common/Button";
 
 function Signin() {
-  let userAgent: any;
+  const [isInApp, setIsInApp] = useState(false);
 
   useEffect(() => {
     if (typeof window !== undefined) {
-      userAgent = window?.navigator.userAgent!;
+      const userAgent = window?.navigator.userAgent!;
+      if (
+        userAgent.match(/kakaotalk/i) ||
+        userAgent.match(/instagram/i) ||
+        userAgent.match(/FB_IAB/i)
+      ) {
+        setIsInApp(true);
+      }
     }
   }, []);
 
@@ -23,22 +30,8 @@ function Signin() {
         <Image src="/img/scope-logo.jpeg" width={200} height={200} alt="로고" />
       </div>
       <div className="flex justify-center items-center">
-        {/android/i.test(userAgent) ? (
-          <a
-            className="flex bg-white text-black p-4 rounded-md text-md w-100 hover:bg-white focus:outline-none focus:ring-0"
-            type="button"
-            href={"/api/auth/signin/google"}
-            target="_blank"
-            download
-          >
-            <Image
-              src="/img/google_logo.png"
-              alt="구글 로고"
-              width={25}
-              height={25}
-            />
-            <span className="ml-4">구글로 시작하기</span>
-          </a>
+        {isInApp ? (
+          <span className="ml-4">인앱 브라우저 이슈</span>
         ) : (
           <Button
             className="flex bg-white text-black p-4 rounded-md text-md w-100 hover:bg-white focus:outline-none focus:ring-0"
