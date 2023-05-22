@@ -1,12 +1,17 @@
 import { useEffect } from "react";
 
+let cnt = 0;
+
 function useFormatUserAgent() {
   const replaceUrl = () => {
-    if (navigator.userAgent.indexOf("KAKAO")) {
-      window.location.href = `${process.env.NEXTAUTH_URL}/book`;
-    } else if (navigator.userAgent.indexOf("Instagram")) {
-      window.location.href = `${process.env.NEXTAUTH_URL}/book`;
-    }
+    if (cnt > 2) return;
+    console.log(navigator.userAgent);
+    // if (navigator.userAgent.indexOf("KAKAO")) {
+    //   window.location.href = `${process.env.NEXTAUTH_URL}/book`;
+    // } else if (navigator.userAgent.indexOf("Instagram")) {
+    //   window.location.href = `${process.env.NEXTAUTH_URL}/book`;
+    // }
+    cnt++;
   };
 
   useEffect(() => {
