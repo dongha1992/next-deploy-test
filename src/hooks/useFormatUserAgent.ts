@@ -2,12 +2,12 @@ import { useEffect } from "react";
 
 function useFormatUserAgent() {
   const replaceUrl = () => {
-    if (navigator.userAgent.indexOf("KAKAO") > -1) {
-      window.open(`${process.env.NEXTAUTH_URL}/book`, "_self");
-    } else if (navigator.userAgent.indexOf("Instagram") > -1) {
-      window.open(`${process.env.NEXTAUTH_URL}/book`, "_self");
-    }
-    return;
+    // if (navigator.userAgent.indexOf("KAKAO") > -1) {
+    //   window.open(`${process.env.NEXTAUTH_URL}/book`, "_self");
+    // } else if (navigator.userAgent.indexOf("Instagram") > -1) {
+    //   window.open(`${process.env.NEXTAUTH_URL}/book`, "_self");
+    // }
+    // return;
   };
 
   useEffect(() => {
