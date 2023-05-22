@@ -18,6 +18,8 @@ import { getBookDetailApi } from "@/utils/api/book";
 import BookDetail from "@/components/Book/BookDetail";
 import router from "next/router";
 import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
+import { options } from "@/pages/api/auth/[...nextauth]";
 
 export default function BookDetailPage({ id }: { id: number }) {
   const { status, data } = useSession();
@@ -144,10 +146,21 @@ export default function BookDetailPage({ id }: { id: number }) {
 
 export async function getServerSideProps(context: any) {
   const { id } = context.query;
+  const session = await getServerSession(context.req, context.res, options);
 
   // const { data } = await axios.get(
   //   `${process.env.NEXTAUTH_URL}/api/books/${id}`
   // );
+
+  if (!session) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/auth/signin",
+      },
+      props: {},
+    };
+  }
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([BOOK_DETAIL_QUERY_KEY, id], () =>

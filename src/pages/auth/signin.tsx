@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
 import { options } from "../api/auth/[...nextauth]";
@@ -6,6 +6,14 @@ import Image from "next/image";
 import Button from "@/components/Common/Button";
 
 function Signin() {
+  let userAgent: any;
+
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      userAgent = window?.navigator.userAgent!;
+    }
+  }, []);
+
   return (
     <div
       className="h-full w-full flex flex-col justify-center items-center"
@@ -15,21 +23,37 @@ function Signin() {
         <Image src="/img/scope-logo.jpeg" width={200} height={200} alt="로고" />
       </div>
       <div className="flex justify-center items-center">
-        <a
-          className="flex bg-white text-black p-4 rounded-md text-md w-100 hover:bg-white focus:outline-none focus:ring-0"
-          type="button"
-          href={"/api/auth/signin/google"}
-          target="_blank"
-          download
-        >
-          <Image
-            src="/img/google_logo.png"
-            alt="구글 로고"
-            width={25}
-            height={25}
-          />
-          <span className="ml-4">구글로 시작하기</span>
-        </a>
+        {/android/i.test(userAgent) ? (
+          <a
+            className="flex bg-white text-black p-4 rounded-md text-md w-100 hover:bg-white focus:outline-none focus:ring-0"
+            type="button"
+            href={"/api/auth/signin/google"}
+            target="_blank"
+            download
+          >
+            <Image
+              src="/img/google_logo.png"
+              alt="구글 로고"
+              width={25}
+              height={25}
+            />
+            <span className="ml-4">구글로 시작하기</span>
+          </a>
+        ) : (
+          <Button
+            className="flex bg-white text-black p-4 rounded-md text-md w-100 hover:bg-white focus:outline-none focus:ring-0"
+            role="button"
+            onClick={() => signIn("google")}
+          >
+            <Image
+              src="/img/google_logo.png"
+              alt="구글 로고"
+              width={25}
+              height={25}
+            />
+            <span className="ml-4">구글로 시작하기</span>
+          </Button>
+        )}
       </div>
     </div>
   );
