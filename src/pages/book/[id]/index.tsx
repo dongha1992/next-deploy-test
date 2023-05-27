@@ -93,7 +93,7 @@ export default function BookDetailPage({ id }: { id: number }) {
   if (isError) return <div>에러</div>;
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-black">
       {(isLoading ||
         isCommentLoading ||
         isLikeLoading ||

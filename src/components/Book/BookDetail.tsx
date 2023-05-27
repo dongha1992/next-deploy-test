@@ -55,11 +55,7 @@ export default function BookDetail({
   const isAuth = data?.user?.email === book?.user?.email;
 
   return (
-    <div
-      className={
-        "flex flex-col overflow-hidden rounded-lg shadow-lg " + className
-      }
-    >
+    <div className={"flex flex-col overflow-hidden rounded-lg " + className}>
       <div className="flex flex-1 flex-col justify-between">
         <div className="mt-2 flex items-center">
           <div className="flex-shrink-0 text-gray-100">
