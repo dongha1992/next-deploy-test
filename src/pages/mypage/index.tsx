@@ -1,11 +1,20 @@
 import Navigation from "@/components/Common/Navigation";
-import Layout from "@/components/Layout";
 import React, { ReactElement } from "react";
+import Layout from "@/components/Layout";
+import LoginButton from "@/components/LoginButton";
+import { signIn, useSession } from "next-auth/react";
 
 function Mypage() {
+  const { status } = useSession();
+
+  const isUnauthenticated = status === "unauthenticated";
   return (
     <div className="w-full pt-8 pb-14 mx-auto max-w-7xl px-4 bg-black relative">
-      dd
+      {isUnauthenticated ? (
+        <LoginButton onClick={() => signIn("google")} />
+      ) : (
+        "개발중!"
+      )}
     </div>
   );
 }

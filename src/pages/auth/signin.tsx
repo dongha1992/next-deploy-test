@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { signIn } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
 import { options } from "../api/auth/[...nextauth]";
@@ -6,6 +6,7 @@ import Image from "next/image";
 import Button from "@/components/Common/Button";
 import { copyToClipboard } from "@/utils/copyToClipboard";
 import useIsInApp from "@/hooks/useIsInApp";
+import LoginButton from "@/components/LoginButton";
 
 function Signin() {
   const { isInApp } = useIsInApp();
@@ -33,19 +34,7 @@ function Signin() {
             </Button>
           </section>
         ) : (
-          <Button
-            className="flex bg-white text-black p-4 rounded-md text-md w-100 hover:bg-white focus:outline-none focus:ring-0"
-            role="button"
-            onClick={() => signIn("google")}
-          >
-            <Image
-              src="/img/google_logo.png"
-              alt="구글 로고"
-              width={25}
-              height={25}
-            />
-            <span className="ml-4">구글로 시작하기</span>
-          </Button>
+          <LoginButton onClick={() => signIn("google")} />
         )}
       </div>
     </div>
