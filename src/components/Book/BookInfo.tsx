@@ -25,7 +25,7 @@ function BookInfo({
     <div
       className={classnames(
         selectedBook && selectedBook?.isbn === item.isbn && "border",
-        "flex rounded-md min-h-120 cursor-pointer",
+        "flex rounded-md min-h-120 cursor-pointer ",
         className
       )}
       onClick={() => onSelectedBook && onSelectedBook(item)}
