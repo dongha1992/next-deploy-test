@@ -101,7 +101,7 @@ export default function BookDetailPage({ id }: { id: number }) {
         <Overlay>
           <Lottie
             className="w-20 h-20"
-            src="https://assets2.lottiefiles.com/packages/lf20_userh0rw.json"
+            src="https://assets4.lottiefiles.com/packages/lf20_nGkgs2.json"
             loop={false}
           />
         </Overlay>
