@@ -15,7 +15,7 @@ function SearchBookList(
   const hasList = bookList?.length > 0;
   return (
     <div
-      className="max-h-64 h-auto overflow-scroll border border-gray-500 rounded pt-2 pb-3"
+      className="max-h-64 h-auto overflow-scroll rounded pt-2 pb-3"
       ref={ref}
     >
       {bookList?.map((item: NaverBook, index: number) => {
