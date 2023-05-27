@@ -12,7 +12,7 @@ function Signin() {
 
   return (
     <div
-      className="h-full w-full flex flex-col items-center justify-around"
+      className="h-screen w-full flex flex-col items-center justify-around"
       style={{ backgroundColor: "#262626" }}
     >
       <div className="flex justify-center">

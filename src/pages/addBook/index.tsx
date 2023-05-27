@@ -171,7 +171,7 @@ export default function AddBookPage() {
           {isSuccess && data?.items.length == 0 && (
             <div>결과가 없습니다! 다시 검색 해주세요.</div>
           )}
-          <div className="flex justify-end w-full my-1">{ratingGenerator}</div>
+          <div className="flex justify-end w-full my-2">{ratingGenerator}</div>
           <NewBookPostForm
             className="max-w-5xl mt-4"
             onSubmit={handleSubmit}

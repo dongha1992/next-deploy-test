@@ -11,56 +11,82 @@ async function getBook(res: NextApiResponse, req: NextApiRequest) {
 
   const book = await prisma.book.findUnique({ where: { id: Number(id) } });
 
-  if (!session) {
-    res.status(401).json({ error: "인증 되지 않은 회원입니다." });
-    return;
-  }
+  // if (!session) {
+  //   res.status(401).json({ error: "인증 되지 않은 회원입니다." });
+  //   return;
+  // }
 
-  const prismaUser = await prisma.user.findUnique({
-    where: { email: session.user.email },
-  });
+  if (session) {
+    const prismaUser = await prisma.user.findUnique({
+      where: { email: session.user.email },
+    });
 
-  if (!prismaUser) {
-    res.status(401).json({ error: "인증 되지 않은 회원입니다." });
-    return;
-  }
+    if (!book) {
+      // 검색 결과가 없는 경우 404 에러 반환
+      res.status(404).json({ message: `해당 포스트를 찾지 못 했습니다.` });
+      return;
+    }
 
-  if (!book) {
-    // 검색 결과가 없는 경우 404 에러 반환
-    res.status(404).json({ message: `해당 포스트를 찾지 못 했습니다.` });
-    return;
-  }
+    const user = await prisma.user.findUnique({
+      where: { id: book?.userId },
+    });
 
-  const user = await prisma.user.findUnique({
-    where: { id: book?.userId },
-  });
-
-  const useLikes = await prisma.userBookLikes.findUnique({
-    where: {
-      bookId_userId: {
-        bookId: Number(id),
-        userId: prismaUser.id,
+    const useLikes = await prisma.userBookLikes.findUnique({
+      where: {
+        bookId_userId: {
+          bookId: Number(id),
+          userId: prismaUser?.id!,
+        },
       },
-    },
-  });
+    });
 
-  const comments = await prisma.bookComment.findMany({
-    where: {
-      bookId: Number(id),
-    },
-    include: {
-      user: true,
-    },
-  });
+    const comments = await prisma.bookComment.findMany({
+      where: {
+        bookId: Number(id),
+      },
+      include: {
+        user: true,
+      },
+    });
 
-  // 검색 결과가 있는 경우 검색 결과 반환
+    // 검색 결과가 있는 경우 검색 결과 반환
 
-  res.status(200).json({
-    ...book,
-    user: user,
-    comments: comments,
-    isLiked: useLikes?.isLiked ? useLikes?.isLiked : false,
-  });
+    res.status(200).json({
+      ...book,
+      user: user,
+      comments: comments,
+      isLiked: useLikes?.isLiked ? useLikes?.isLiked : false,
+    });
+  } else {
+    // 비회원 경우
+    if (!book) {
+      // 검색 결과가 없는 경우 404 에러 반환
+      res.status(404).json({ message: `해당 포스트를 찾지 못 했습니다.` });
+      return;
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: book.userId },
+    });
+
+    const comments = await prisma.bookComment.findMany({
+      where: {
+        bookId: Number(id),
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    // 검색 결과가 있는 경우 검색 결과 반환
+
+    res.status(200).json({
+      ...book,
+      user: user,
+      comments: comments,
+      isLiked: false,
+    });
+  }
 }
 
 async function deleteBook(res: NextApiResponse, req: NextApiRequest) {
