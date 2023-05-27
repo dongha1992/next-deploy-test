@@ -51,7 +51,7 @@ export async function getServerSideProps(context: any) {
 
     return {
       redirect: {
-        destination: "/",
+        destination: "/book",
         permanent: false,
       },
     };
