@@ -1,17 +1,19 @@
+import { popupState } from "@/store/common";
 import { getZIndex } from "@/utils/getZIndex";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import { useRecoilState } from "recoil";
 
-//TODO: popup 훅 만들기
+function Popup({ isOpen, text, onClickConfirm }: any) {
+  const [popup, setPopup] = useRecoilState(popupState);
 
-function Popup({ text, onClickConfirm, isOpen, setIsOpen }: any) {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
           className="relative"
-          onClose={() => setIsOpen(false)}
+          onClose={() => setPopup({ isOpen: false })}
           style={{ zIndex: getZIndex("popup") }}
         >
           <Transition.Child
@@ -48,14 +50,17 @@ function Popup({ text, onClickConfirm, isOpen, setIsOpen }: any) {
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border px-4 py-2 text-sm font-medium text-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 mr-2"
-                      onClick={onClickConfirm}
+                      onClick={() => {
+                        onClickConfirm();
+                        setPopup({ isOpen: false });
+                      }}
                     >
                       확인
                     </button>
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border px-4 py-2 text-sm font-medium text-gray-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                      onClick={() => setIsOpen(false)}
+                      onClick={() => setPopup({ isOpen: false })}
                     >
                       취소
                     </button>

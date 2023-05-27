@@ -21,6 +21,7 @@ import { options } from "../api/auth/[...nextauth]";
 import BookPost from "@/components/Book/BookPost";
 import { getBooksApi } from "@/utils/api/book";
 import { useSession } from "next-auth/react";
+import useCheckAuth from "@/hooks/useCheckAuth";
 
 //TODO: auth 바르는 거 노가다로 한 거 실화?
 
@@ -31,6 +32,8 @@ function BookPage() {
 
   const isUnauthenticated = status === "unauthenticated";
   const router = useRouter();
+
+  const { checkAuthHandler } = useCheckAuth();
 
   useFormatUserAgent();
 
@@ -56,7 +59,7 @@ function BookPage() {
     isLiked ? deleteLikeMutation(id) : postLikeMutation(id);
   }
 
-  function onSubmitSearch(e: any) {
+  const onSubmitSearch = (e: any) => {
     e.preventDefault();
     const { search } = e.target.elements;
     const keyword = search.value;
@@ -64,7 +67,7 @@ function BookPage() {
     setIsSearched(true);
     setKeyword(keyword);
     search.value = "";
-  }
+  };
 
   useEffect(() => {
     return () => {
@@ -111,16 +114,13 @@ function BookPage() {
                 <li key={book.id} className="w-full">
                   <BookPost
                     book={book}
-                    href={
-                      // isUnauthenticated ? "/auth/signin" : `/book/${book.id}`
-                      `/book/${book.id}`
-                    }
+                    href={`/book/${book.id}`}
                     user={book.user}
                     className="my-10"
                     onLike={() =>
-                      isUnauthenticated
-                        ? router.push("/auth/signin")
-                        : onMutateLikeHandler(book.isLiked, book.id)
+                      checkAuthHandler(
+                        onMutateLikeHandler(book.isLiked, book.id)
+                      )
                     }
                     onComment={() =>
                       router.push(

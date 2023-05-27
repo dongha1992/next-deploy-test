@@ -2,8 +2,9 @@ import { useSession } from "next-auth/react";
 import React, { ReactNode, useEffect } from "react";
 
 import { useRecoilState } from "recoil";
-import { imageZoomState } from "@/store/common";
+import { imageZoomState, popupState } from "@/store/common";
 import ImageViewer from "../ImageViewer";
+import Popup from "../Common/Popup";
 
 //TODO: layout 여러차례 렌더링
 
@@ -16,8 +17,8 @@ function Layout({
   bottom?: ReactNode;
   top?: ReactNode;
 }) {
-  const { status, data } = useSession();
-  const [srcs, setSrcs] = useRecoilState(imageZoomState);
+  const [srcs] = useRecoilState(imageZoomState);
+  const [popup] = useRecoilState(popupState);
 
   // set 1vh for all devices
   useEffect(() => {
@@ -41,6 +42,13 @@ function Layout({
       {bottom && bottom}
       {srcs && srcs?.srcs?.length > 0 && (
         <ImageViewer images={srcs?.srcs!} startIndex={srcs?.startIndex} />
+      )}
+      {popup?.isOpen && (
+        <Popup
+          onClickConfirm={popup.callback}
+          text={popup.message}
+          isOpen={popup.isOpen}
+        />
       )}
     </div>
   );

@@ -8,4 +8,19 @@ const imageZoomState = atom<{ srcs: string[]; startIndex: number } | null>({
   }, // default value (aka initial value)
 });
 
-export { imageZoomState };
+const popupState = atom<{
+  message?: string;
+  callback?: any;
+  setIsOpen?: any;
+  isOpen: boolean;
+} | null>({
+  key: "popupState",
+  default: {
+    message: "",
+    callback: null,
+    setIsOpen: null,
+    isOpen: false,
+  },
+});
+
+export { imageZoomState, popupState };

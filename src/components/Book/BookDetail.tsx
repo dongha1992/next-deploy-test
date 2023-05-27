@@ -8,10 +8,10 @@ import PostActions from "../PostActions";
 import Setting from "../Common/Setting";
 import { formatUserName } from "@/utils/maskString";
 import BookInfo from "./BookInfo";
-import Popup from "../Common/Popup";
-import { useState } from "react";
 import Spacing from "../Common/Spacing";
 import useRating from "@/hooks/useRating";
+import { popupState } from "@/store/common";
+import { useRecoilState } from "recoil";
 
 export default function BookDetail({
   onLike,
@@ -22,7 +22,7 @@ export default function BookDetail({
   className = "",
 }: any) {
   const { status, data } = useSession();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [popup, setPopup] = useRecoilState(popupState);
 
   const { ratingGenerator } = useRating({ userRating: book?.rating });
 
@@ -32,19 +32,20 @@ export default function BookDetail({
 
   const onDeleteHandler = (e: any) => {
     e.preventDefault();
-    setIsOpen(true);
+    setPopup({
+      message: "정말 삭제하시겠어요",
+      callback: () => onClickConfirm(),
+      isOpen: true,
+    });
   };
 
   const onEditHandler = (e: any) => {
     e.preventDefault();
-    if (data?.user?.email !== book.user.email) {
-      alert("해당 포스트의 작성자가 아닙니다.");
-      return;
-    }
     router.push(`/bookForm/${book.id}`);
   };
 
   const onClickConfirm = () => {
+    console.log("----callback");
     deletePostMutation(book.id).then((res) => {
       if (res.status === 200) {
         router.push("/book");
@@ -129,14 +130,6 @@ export default function BookDetail({
         />
       </div>
       <Spacing size={10} />
-      {isOpen && (
-        <Popup
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          onClickConfirm={onClickConfirm}
-          text="정말 삭제하시겠어요?"
-        />
-      )}
     </div>
   );
 }
