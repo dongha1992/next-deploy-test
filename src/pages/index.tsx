@@ -86,12 +86,6 @@ export default function Home() {
               }
             />
           </form>
-          {/* {isShow && (
-            <Lottie
-              src="https://static.toss.im/lotties/confetti/confetti-explode.json"
-              loop={false}
-            />
-          )} */}
           {(isLikeLoading || isDeleteLikeLoading || isPostsLoading) && (
             <Overlay>
               <Lottie

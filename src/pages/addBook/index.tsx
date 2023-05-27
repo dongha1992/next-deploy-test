@@ -124,7 +124,11 @@ export default function AddBookPage() {
   if (isPostLoading)
     return (
       <Overlay>
-        <Lottie className="w-20 h-20" src="/lottie/loading.json" loop={false} />
+        <Lottie
+          className="w-20 h-20"
+          src="https://assets2.lottiefiles.com/packages/lf20_userh0rw.json"
+          loop={false}
+        />
       </Overlay>
     );
 

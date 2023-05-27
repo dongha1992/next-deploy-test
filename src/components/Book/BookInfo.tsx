@@ -4,7 +4,7 @@ import Image from "next/image";
 import { NaverBook } from "@/utils/api/type";
 import { classnames } from "@/utils/classnames";
 
-//TODO: 이거 컴포넌트 컴파운도로 리팩토링 진짜 안 하면 코딩 접어야함
+//TODO: 이거 컴포넌트 컴파운드로 리팩토링 진짜 안 하면 코딩 접어야함
 
 interface Props {
   item: NaverBook;
