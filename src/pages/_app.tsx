@@ -17,6 +17,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
+import useKakao from "@/hooks/useKakao";
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -29,6 +30,7 @@ type AppPropsWithLayout = AppProps & {
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>);
   const queryClient = useRef<QueryClient>();
+  useKakao();
 
   if (!queryClient.current) {
     queryClient.current = new QueryClient({
@@ -39,22 +41,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       },
     });
   }
-
-  const initKakao = () => {
-    try {
-      if (!window.Kakao.isInitialized()) {
-        if (typeof window !== undefined) {
-          window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    initKakao();
-  }, []);
 
   return (
     <QueryClientProvider client={queryClient.current}>

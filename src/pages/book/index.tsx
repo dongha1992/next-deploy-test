@@ -113,6 +113,7 @@ function BookPage() {
                     book={book}
                     href={
                       isUnauthenticated ? "/auth/signin" : `/book/${book.id}`
+                      // `/book/${book.id}`
                     }
                     user={book.user}
                     className="my-10"

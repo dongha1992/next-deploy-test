@@ -152,15 +152,15 @@ export async function getServerSideProps(context: any) {
   //   `${process.env.NEXTAUTH_URL}/api/books/${id}`
   // );
 
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/auth/signin",
-      },
-      props: {},
-    };
-  }
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       permanent: false,
+  //       destination: "/auth/signin",
+  //     },
+  //     props: {},
+  //   };
+  // }
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([BOOK_DETAIL_QUERY_KEY, id], () =>

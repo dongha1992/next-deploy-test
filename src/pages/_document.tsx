@@ -16,9 +16,6 @@ export default function Document() {
           src="https://developers.kakao.com/sdk/js/kakao.min.js"
           strategy="beforeInteractive"
         />
-        <Script type="text/javascript" id="inApp">
-          {``}
-        </Script>
       </Head>
       <body>
         <Main />

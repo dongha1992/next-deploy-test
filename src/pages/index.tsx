@@ -33,7 +33,6 @@ export default function Home() {
   const router = useRouter();
 
   useFormatUserAgent();
-  // const { isShow } = useLottie();
 
   const {
     data,
