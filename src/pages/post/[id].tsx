@@ -17,7 +17,7 @@ import TextArea from "@/components/Common/TextArea";
 import Button from "@/components/Common/Button";
 import Lottie from "@/components/Common/Lottie";
 import Overlay from "@/components/Common/Overlay";
-import PostSkeleton from "@/components/Layout/PostSkeleton";
+
 import router from "next/router";
 
 export default function PostDetailPage({ id }: { id: number }) {

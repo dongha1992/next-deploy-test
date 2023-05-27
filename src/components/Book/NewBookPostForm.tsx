@@ -71,8 +71,7 @@ export default function NewBookPostForm({
           {isImageLoading && (
             <Overlay>
               <Lottie
-                className="w-20 h-20"
-                src="https://assets4.lottiefiles.com/packages/lf20_nGkgs2.json"
+                src="https://assets8.lottiefiles.com/private_files/lf30_gqirhcr7.json"
                 loop={false}
               />
             </Overlay>

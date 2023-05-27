@@ -6,12 +6,19 @@ interface Props {
   loop?: boolean;
   autoplay?: boolean;
   controller?: MutableRefObject<AnimationItem | null>;
-
+  style?: any;
   className?: string;
 }
 
 const Lottie = memo(
-  ({ src, loop = true, autoplay = true, controller, className }: Props) => {
+  ({
+    src,
+    loop = true,
+    autoplay = true,
+    controller,
+    className,
+    style,
+  }: Props) => {
     const container = useRef<HTMLDivElement | null>(null);
     const player = useRef<AnimationItem | null>(null);
     const [, assetsPath, name] = /(.+)\/(.+)\..+/.exec(src)!;
@@ -44,7 +51,7 @@ const Lottie = memo(
       };
     }, [assetsPath, autoplay, controller, loop, name, src]);
 
-    return <div className={className} ref={container} />;
+    return <div className={className} ref={container} style={style} />;
   },
   (prev, next) => {
     return (
