@@ -33,7 +33,7 @@ function Layout({
 
   return (
     <div
-      className="flex flex-col items-center max-w-[540px] w-full min-h-full h-screen mx-auto bg-black overflow-y-scroll"
+      className="flex flex-col items-center max-w-[540px] w-full min-h-full h-screen mx-auto bg-black"
       style={{ minHeight: "calc(var(--vh, 1vh) * 100)" }}
     >
       {top && top}
