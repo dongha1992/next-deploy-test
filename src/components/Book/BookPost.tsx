@@ -9,12 +9,11 @@ import router from "next/router";
 import PostActions from "../PostActions";
 import Setting from "../Common/Setting";
 import { formatUserName } from "@/utils/maskString";
-import { useState } from "react";
-import Popup from "../Common/Popup";
 import Spacing from "../Common/Spacing";
 
-import { imageZoomState } from "@/store/common";
+import { imageZoomState, popupState } from "@/store/common";
 import useRating from "@/hooks/useRating";
+import useCheckAuth from "@/hooks/useCheckAuth";
 
 //TODO: 서버에서 받은 이미지 포맷 함수
 
@@ -27,12 +26,11 @@ export default function BookPost({
   user,
   className = "",
 }: any) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  const [popup, setPopup] = useRecoilState(popupState);
   const [srcs, setSrcs] = useRecoilState(imageZoomState);
 
   const { status, data } = useSession();
-  const { rating, ratingGenerator } = useRating({ userRating: book.rating });
+  const { ratingGenerator } = useRating({ userRating: book.rating });
 
   const { mutate: deletePostMutation } = useDeletePost({
     queryKey: [BOOK_QUERY_KEY],
@@ -40,7 +38,11 @@ export default function BookPost({
 
   const onDeleteHandler = (e: any) => {
     e.preventDefault();
-    setIsOpen(true);
+    setPopup({
+      message: "정말 삭제하시겠어요",
+      callback: () => onClickConfirm(),
+      isOpen: true,
+    });
   };
 
   const onEditHandler = (e: any) => {
@@ -50,7 +52,6 @@ export default function BookPost({
 
   const onClickConfirm = () => {
     deletePostMutation(book.id);
-    setIsOpen(false);
   };
 
   const isAuth = data?.user?.email === book.user.email;
@@ -134,14 +135,6 @@ export default function BookPost({
           />
         </div>
       </div>
-      {isOpen && (
-        <Popup
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          onClickConfirm={onClickConfirm}
-          text="정말 삭제하시겠어요?"
-        />
-      )}
     </>
   );
 }

@@ -118,15 +118,11 @@ function BookPage() {
                     user={book.user}
                     className="my-10"
                     onLike={() =>
-                      checkAuthHandler(
+                      checkAuthHandler(() =>
                         onMutateLikeHandler(book.isLiked, book.id)
                       )
                     }
-                    onComment={() =>
-                      router.push(
-                        isUnauthenticated ? "/auth/signin" : `book/${book.id}`
-                      )
-                    }
+                    onComment={() => router.push(`book/${book.id}`)}
                     onShare={() => {
                       window?.Kakao.Link.sendDefault({
                         objectType: "feed",

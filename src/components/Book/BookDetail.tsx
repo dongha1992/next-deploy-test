@@ -45,7 +45,6 @@ export default function BookDetail({
   };
 
   const onClickConfirm = () => {
-    console.log("----callback");
     deletePostMutation(book.id).then((res) => {
       if (res.status === 200) {
         router.push("/book");

@@ -20,9 +20,16 @@ import router from "next/router";
 import { useSession } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
 import { options } from "@/pages/api/auth/[...nextauth]";
+import useCheckAuth from "@/hooks/useCheckAuth";
+import { useRecoilState } from "recoil";
+import { popupState } from "@/store/common";
 
 export default function BookDetailPage({ id }: { id: number }) {
   const { status, data } = useSession();
+  const { checkAuthHandler } = useCheckAuth();
+  const [popup, setPopup] = useRecoilState(popupState);
+  const isUnauthenticated = status === "unauthenticated";
+
   const {
     data: book,
     isLoading,
@@ -57,6 +64,14 @@ export default function BookDetailPage({ id }: { id: number }) {
   function onSubmitComment(e: any) {
     e.preventDefault();
     const { comment } = e.target.elements;
+
+    if (isUnauthenticated) {
+      return setPopup({
+        message: "로그인 후 이용해주세요!",
+        callback: () => router.push("/auth/signin"),
+        isOpen: true,
+      });
+    }
 
     if (!comment.value.length) {
       return alert("코멘트를 작성해주세요.");
@@ -101,7 +116,9 @@ export default function BookDetailPage({ id }: { id: number }) {
         onComment={() => {
           return;
         }}
-        onLike={() => onMutateLikeHandler(book.isLiked, book.id)}
+        onLike={() =>
+          checkAuthHandler(() => onMutateLikeHandler(book.isLiked, book.id))
+        }
         onShare={() => {
           window?.Kakao.Link.sendDefault({
             objectType: "feed",
