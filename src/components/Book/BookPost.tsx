@@ -13,7 +13,6 @@ import Spacing from "../Common/Spacing";
 
 import { imageZoomState, popupState } from "@/store/common";
 import useRating from "@/hooks/useRating";
-import useCheckAuth from "@/hooks/useCheckAuth";
 
 //TODO: 서버에서 받은 이미지 포맷 함수
 

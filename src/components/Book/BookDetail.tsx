@@ -10,7 +10,7 @@ import { formatUserName } from "@/utils/maskString";
 import BookInfo from "./BookInfo";
 import Spacing from "../Common/Spacing";
 import useRating from "@/hooks/useRating";
-import { popupState } from "@/store/common";
+import { imageZoomState, popupState } from "@/store/common";
 import { useRecoilState } from "recoil";
 
 export default function BookDetail({
@@ -23,6 +23,7 @@ export default function BookDetail({
 }: any) {
   const { status, data } = useSession();
   const [popup, setPopup] = useRecoilState(popupState);
+  const [srcs, setSrcs] = useRecoilState(imageZoomState);
 
   const { ratingGenerator } = useRating({ userRating: book?.rating });
 
@@ -106,7 +107,16 @@ export default function BookDetail({
           {book?.userImages.length > 0 &&
             book?.userImages.map((src: string, index: number) => {
               return (
-                <div key={index} className="relative w-48 h-48 object-contain">
+                <div
+                  key={index}
+                  className="relative w-48 h-48 object-contain"
+                  onClick={() =>
+                    setSrcs({
+                      srcs: book?.userImages,
+                      startIndex: index,
+                    })
+                  }
+                >
                   <Image src={src} alt="스크린샷" fill className="rounded" />
                 </div>
               );
