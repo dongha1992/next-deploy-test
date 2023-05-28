@@ -23,6 +23,7 @@ import { getBooksApi } from "@/utils/api/book";
 import { useSession } from "next-auth/react";
 import useCheckAuth from "@/hooks/useCheckAuth";
 import { SearchActiveIcon } from "@/utils/svg";
+import Border from "@/components/Common/Border";
 
 function BookPage() {
   const [keyword, setKeyword] = useState<string>("");
@@ -116,7 +117,7 @@ function BookPage() {
                     book={book}
                     href={`/book/${book.id}`}
                     user={book.user}
-                    className="my-10"
+                    className="my-5"
                     onLike={() =>
                       checkAuthHandler(() =>
                         onMutateLikeHandler(book.isLiked, book.id)
@@ -141,6 +142,7 @@ function BookPage() {
                       });
                     }}
                   />
+                  <Border size={1} />
                 </li>
               ))}
             </ul>

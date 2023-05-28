@@ -46,36 +46,34 @@ function MypageReviewList({ email }: { email: string }) {
           <ul className="mt-8 w-full">
             {data?.map((book: any) => (
               <li key={book.id} className="w-full">
-                <>
-                  <BookPost
-                    book={book}
-                    href={`/book/${book.id}`}
-                    user={book.user}
-                    className="my-10"
-                    onLike={() => onMutateLikeHandler(book.isLiked, book.id)}
-                    onComment={() => {
-                      return;
-                    }}
-                    onShare={() => {
-                      window?.Kakao.Link.sendDefault({
-                        objectType: "feed",
-                        content: {
-                          title: book.title,
-                          description: book.body,
-                          imageUrl: book.image,
-                          imageWidth: 600,
-                          imageHeight: 420,
-                          link: {
-                            webUrl: `${process.env.NEXTAUTH_URL}/book/${book.id}`,
-                            mobileWebUrl: `${process.env.NEXTAUTH_URL}/book/${book.id}`,
-                          },
+                <BookPost
+                  book={book}
+                  href={`/book/${book.id}`}
+                  user={book.user}
+                  className="my-5"
+                  onLike={() => onMutateLikeHandler(book.isLiked, book.id)}
+                  onComment={() => {
+                    return;
+                  }}
+                  onShare={() => {
+                    window?.Kakao.Link.sendDefault({
+                      objectType: "feed",
+                      content: {
+                        title: book.title,
+                        description: book.body,
+                        imageUrl: book.image,
+                        imageWidth: 600,
+                        imageHeight: 420,
+                        link: {
+                          webUrl: `${process.env.NEXTAUTH_URL}/book/${book.id}`,
+                          mobileWebUrl: `${process.env.NEXTAUTH_URL}/book/${book.id}`,
                         },
-                        buttons: [],
-                      });
-                    }}
-                  />
-                  <Border size={1} />
-                </>
+                      },
+                      buttons: [],
+                    });
+                  }}
+                />
+                <Border size={1} />
               </li>
             ))}
           </ul>
