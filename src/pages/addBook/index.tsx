@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 
 import Overlay from "@/components/Common/Overlay";
 import Lottie from "@/components/Common/Lottie";
@@ -28,16 +28,18 @@ import Header from "@/components/Common/Header";
 // BookForm page와 중복임
 
 export default function AddBookPage() {
-  const router = useRouter();
   const { data, run, isLoading, setReset, isSuccess } = useAsync<
     NaverBooks,
     Error
   >();
-  const { mutate: mutateAddBookPost, isLoading: isPostLoading } = useBookCreate(
-    {
-      queryKey: [BOOK_QUERY_KEY],
-    }
-  );
+
+  const {
+    mutate: mutateAddBookPost,
+    isLoading: isPostLoading,
+    isSuccess: isPostSuccess,
+  } = useBookCreate({
+    queryKey: [BOOK_QUERY_KEY],
+  });
 
   const [selectedBook, setSelectedBook] = useState<NaverBook | null>(null);
   const [start, setStart] = useState<number>(1);
@@ -129,21 +131,19 @@ export default function AddBookPage() {
     text.value = "";
   };
 
-  if (isPostLoading)
-    return (
-      <Overlay>
-        <Lottie
-          src="https://assets8.lottiefiles.com/private_files/lf30_gqirhcr7.json"
-          loop={false}
-        />
-      </Overlay>
-    );
-
   return (
     <>
       <Head>
         <title>{selectedBook?.author ?? ""}</title>
       </Head>
+      {isPostLoading && (
+        <Overlay>
+          <Lottie
+            src="https://assets8.lottiefiles.com/private_files/lf30_gqirhcr7.json"
+            loop={false}
+          />
+        </Overlay>
+      )}
       <div className="w-full pb-10 lg:pt-12 lg:pb-14 max-w-10xl mx-auto px-4 my-4">
         <h1 className="text-xl font-bold tracking-tight text-gray-100 sm:text-2xl md:text-3xl mb-6">
           어떤 책을 읽으셨나요?

@@ -62,12 +62,13 @@ export interface CreateBookData {
 function useBookCreate({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
   return useMutation(({ ...data }: CreateBookData) => postBookApi(data), {
-    onSuccess: async () => {
+    onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
       router.replace("/book");
     },
     onError: async (error: any) => {
       console.error(error);
+      alert("에러가 발생했습니다. 다시 시도해주세요.");
     },
     ...options,
   });

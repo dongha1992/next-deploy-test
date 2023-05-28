@@ -3,8 +3,6 @@ import { signIn } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
 import { options } from "../api/auth/[...nextauth]";
 import Image from "next/image";
-import Button from "@/components/Common/Button";
-import { copyToClipboard } from "@/utils/copyToClipboard";
 import useIsInApp from "@/hooks/useIsInApp";
 import LoginButton from "@/components/LoginButton";
 import InAppInfo from "@/components/InAppInfo";
@@ -20,7 +18,7 @@ function Signin() {
       <div className="flex justify-center">
         <Image src="/img/scope-logo.jpeg" width={200} height={200} alt="로고" />
       </div>
-      <div className="flex justify-center items-center px-2">
+      <div className="w-full flex justify-center items-center px-2">
         {isInApp ? (
           <InAppInfo />
         ) : (

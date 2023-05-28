@@ -31,13 +31,19 @@ function Mypage() {
   }
 
   if (isInApp) {
-    return <InAppInfo />;
+    return (
+      <div className="mt-4">
+        <InAppInfo />
+      </div>
+    );
   }
 
   return (
     <article className="w-full pt-8 pb-14 mx-auto max-w-7xl px-4 bg-black relative">
       {isUnauthenticated ? (
-        <LoginButton onClick={() => signIn("google")} />
+        <div className="flex justify-center">
+          <LoginButton onClick={() => signIn("google")} />
+        </div>
       ) : (
         <section>
           <div className="flex flex-col">

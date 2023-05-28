@@ -31,7 +31,7 @@ async function createBook(req: any, res: any) {
   }
 
   const { title, body, book, userImages, rating } = req.body.data;
-  console.log(req.body.data, "req.body.data");
+
   await prisma.book.create({
     data: {
       body,
