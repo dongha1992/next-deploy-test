@@ -11,9 +11,10 @@ import { getZIndex } from "@/utils/getZIndex";
 interface Props {
   onDelete: any;
   onEdit: any;
+  className?: string;
 }
 
-function Setting({ onDelete, onEdit }: Props) {
+function Setting({ onDelete, onEdit, className = "bottom-10 right-0" }: Props) {
   return (
     <Menu
       as="div"
@@ -34,7 +35,12 @@ function Setting({ onDelete, onEdit }: Props) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute bottom-10 right-0 mt-2 w-24 origin-top divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items
+          className={
+            "absolute mt-2 w-24 origin-top divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none " +
+            className
+          }
+        >
           <div className="px-1 py-1 ">
             <Menu.Item>
               {({ active }) => (

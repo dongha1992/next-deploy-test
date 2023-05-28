@@ -15,7 +15,7 @@ demo: https://the-scope.vercel.app/book
 #### api
 
 - [x] 댓글
-- [x]댓글 삭제
+- [x] 댓글 삭제
 - [x] 글 삭제
 - [x] 글 수정
 - [x] 좋아요

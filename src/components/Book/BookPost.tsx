@@ -86,7 +86,11 @@ export default function BookPost({
                   {book?.title ? `<${book?.title}> ${book?.author}` : ""}
                 </p>
                 {isAuth && (
-                  <Setting onDelete={onDeleteHandler} onEdit={onEditHandler} />
+                  <Setting
+                    onDelete={onDeleteHandler}
+                    onEdit={onEditHandler}
+                    className="top-5 right-0"
+                  />
                 )}
               </div>
             </div>
@@ -109,7 +113,7 @@ export default function BookPost({
                 return (
                   <div
                     key={index}
-                    className="relative object-contain w-48 h-48"
+                    className="relative object-fit w-48 h-48"
                     onClick={() =>
                       setSrcs({
                         srcs: book?.userImages,

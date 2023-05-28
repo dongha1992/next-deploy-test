@@ -85,7 +85,11 @@ export default function BookDetail({
                 {book?.title ? `<${book?.title}> ${book?.author}` : ""}
               </p>
               {isAuth && (
-                <Setting onDelete={onDeleteHandler} onEdit={onEditHandler} />
+                <Setting
+                  onDelete={onDeleteHandler}
+                  onEdit={onEditHandler}
+                  className="top-5 right-0"
+                />
               )}
             </div>
           </div>

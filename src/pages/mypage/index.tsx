@@ -13,7 +13,7 @@ function Mypage() {
       {isUnauthenticated ? (
         <LoginButton onClick={() => signIn("google")} />
       ) : (
-        "개발중!"
+        <span>개발중!</span>
       )}
     </div>
   );
