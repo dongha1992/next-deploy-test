@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import { NaverBook } from "@/utils/api/type";
 import { classnames } from "@/utils/classnames";
+import formatDate from "@/utils/formatDate";
 
 //TODO: 이거 컴포넌트 컴파운드로 리팩토링 진짜 안 하면 코딩 접어야함
 
@@ -38,15 +39,17 @@ function BookInfo({
       <div className="ml-2">
         <div className="flex flex-col justify-between ">
           {withTitle && (
-            <p className="text-sm font-semibold text-gray-100 mb-2">
+            <p className="text-sm font-semibold text-gray-100 mb-2 mr-2">
               {item?.title}
             </p>
           )}
 
-          <p className="text-xs text-gray-100">{item?.author}</p>
+          <p className="text-xs text-gray-100">
+            {item?.author.replaceAll("^", ", ")}
+          </p>
           <div className="flex mt-1">
             <p className="text-xs mr-2 text-gray-100">{item?.publisher}</p>
-            <p className="text-xs text-gray-100">{item?.pubdate}</p>
+            <p className="text-xs text-gray-100">{formatDate(item?.pubdate)}</p>
           </div>
         </div>
       </div>

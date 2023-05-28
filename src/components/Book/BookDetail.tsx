@@ -83,7 +83,7 @@ export default function BookDetail({
             </div>
             <div className="flex mt-1 items-center justify-between">
               <p className="text-md font-semibold text-gray-100 break-all">
-                {book?.title ? `<${book?.title}> ${book?.author}` : ""}
+                {book?.title ? `<${book?.title}>` : ""}
               </p>
               {isAuth && (
                 <Setting
