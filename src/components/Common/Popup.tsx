@@ -49,7 +49,7 @@ function Popup({ isOpen, text, onClickConfirm }: any) {
                   <div className="mt-4">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border px-4 py-2 text-sm font-medium text-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 mr-2"
+                      className="inline-flex justify-center rounded-md border px-4 py-2 text-sm font-medium text-indigo-500 focus:outline-none focus-visible:ring-offset-2 mr-2"
                       onClick={() => {
                         onClickConfirm && onClickConfirm();
                         setPopup({ isOpen: false });
