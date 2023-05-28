@@ -29,7 +29,7 @@ const ImageViewer = ({ images = [], startIndex = 0 }: IProps) => {
     <ModalFullScreen>
       <section className="relative h-screen flex items-center flex-col px-6">
         <Spacing size={30} />
-        <div className="flex items-center justify-between w-full mb-2">
+        <div className="flex items-center justify-between w-full mb-2 mt-1">
           <div />
           <span className="text-white">
             {currentImageIndex + 1} / {images.length}
