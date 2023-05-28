@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import { imageZoomState, popupState } from "@/store/common";
 import ImageViewer from "../ImageViewer";
 import Popup from "../Common/Popup";
+import { Background } from "./Background";
 
 //TODO: layout 여러차례 렌더링
 
@@ -33,24 +34,27 @@ function Layout({
   }, []);
 
   return (
-    <div
-      className="flex flex-col items-center max-w-[540px] w-full min-h-full mx-auto bg-black"
-      style={{ minHeight: "calc(var(--vh, 1vh) * 100)" }}
-    >
-      {top && top}
-      {children}
-      {bottom && bottom}
-      {srcs && srcs?.srcs?.length > 0 && (
-        <ImageViewer images={srcs?.srcs!} startIndex={srcs?.startIndex} />
-      )}
-      {popup?.isOpen && (
-        <Popup
-          onClickConfirm={popup.callback}
-          text={popup.message}
-          isOpen={popup.isOpen}
-        />
-      )}
-    </div>
+    <>
+      <Background />
+      <div
+        className="flex flex-col items-center max-w-[540px] w-full min-h-full mx-auto bg-black"
+        style={{ minHeight: "calc(var(--vh, 1vh) * 100)" }}
+      >
+        {top && top}
+        {children}
+        {bottom && bottom}
+        {srcs && srcs?.srcs?.length > 0 && (
+          <ImageViewer images={srcs?.srcs!} startIndex={srcs?.startIndex} />
+        )}
+        {popup?.isOpen && (
+          <Popup
+            onClickConfirm={popup.callback}
+            text={popup.message}
+            isOpen={popup.isOpen}
+          />
+        )}
+      </div>
+    </>
   );
 }
 
