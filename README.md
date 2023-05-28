@@ -36,6 +36,7 @@ demo: https://the-scope.vercel.app/book
 
 - [] 프로파일
 - [] 렌더링
+- [] 페이지네이션
 
 #### 기타
 

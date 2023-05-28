@@ -113,7 +113,7 @@ export default function BookPost({
                 return (
                   <div
                     key={index}
-                    className="relative object-fit w-48 h-48"
+                    className="relative w-48 h-48"
                     onClick={() =>
                       setSrcs({
                         srcs: book?.userImages,
@@ -121,7 +121,13 @@ export default function BookPost({
                       })
                     }
                   >
-                    <Image src={src} alt="스크린샷" fill className="rounded" />
+                    <Image
+                      src={src}
+                      alt="스크린샷"
+                      className="rounded"
+                      fill
+                      style={{ objectFit: "cover" }}
+                    />
                   </div>
                 );
               })}
