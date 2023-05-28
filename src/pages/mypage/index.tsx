@@ -7,11 +7,14 @@ import LoginButton from "@/components/LoginButton";
 import { signIn, useSession } from "next-auth/react";
 import Overlay from "@/components/Common/Overlay";
 import Lottie from "@/components/Common/Lottie";
+import useIsInApp from "@/hooks/useIsInApp";
+import InAppInfo from "@/components/InAppInfo";
 
 const MYPAGE_MENU = [{ text: "내가 쓴 글 보기", value: "/mypage/list" }];
 
 function Mypage() {
   const { status, data } = useSession();
+  const { isInApp } = useIsInApp();
 
   const isUnauthenticated = status === "unauthenticated";
   const isLoading = status === "loading";
@@ -25,6 +28,10 @@ function Mypage() {
         />
       </Overlay>
     );
+  }
+
+  if (isInApp) {
+    return <InAppInfo />;
   }
 
   return (

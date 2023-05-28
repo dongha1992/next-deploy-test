@@ -16,6 +16,8 @@ import useRating from "@/hooks/useRating";
 
 //TODO: 서버에서 받은 이미지 포맷 함수
 
+const MAX_BODY_LENGTH = 100;
+
 export default function BookPost({
   onLike,
   onComment,
@@ -98,7 +100,9 @@ export default function BookPost({
           <div className="flex justify-end w-full my-2">{ratingGenerator}</div>
           <Link href={href}>
             <span className="text-sm text-gray-100 whitespace-pre-wrap break-words">
-              {book?.body.slice(0, 100)}
+              {book?.body.length > MAX_BODY_LENGTH
+                ? book?.body.slice(0, MAX_BODY_LENGTH) + "..."
+                : book?.body}
             </span>
           </Link>
         </div>
