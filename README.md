@@ -23,7 +23,7 @@ demo: https://the-scope.vercel.app/book
   - [x] react-query로 refetch
   - [] 특정 글 좋아요 했는지(list 일 때)
 - [] 해시태그
-- [] 내 게시글만 보기
+- [x] 내 게시글만 보기
 - [] 특정 인물 게시글만 보기
 - [x] 검색
 - [] 마이페이지 링크 같은 거 입력
@@ -41,6 +41,7 @@ demo: https://the-scope.vercel.app/book
 #### 기타
 
 - [] 첫 글 빵빠레 로티 (렌더링 이슈 해결해야함)
+- [] SEO
 
 #### 리팩토링
 

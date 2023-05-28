@@ -28,7 +28,7 @@ function MypageReviewList({ email }: { email: string }) {
   }
 
   return (
-    <div className="w-full pt-8 pb-14 mx-auto max-w-7xl px-4 bg-black relative">
+    <div className="w-full pt-2 pb-14 mx-auto max-w-7xl px-4 bg-black relative">
       {isSuccess && data?.length === 0 && (
         <div className="mt-8">첫 번째 글을 작성해주세요!</div>
       )}
@@ -43,7 +43,7 @@ function MypageReviewList({ email }: { email: string }) {
 
       <div className="max-w-2xl mx-auto">
         {data?.length ? (
-          <ul className="mt-8 w-full">
+          <ul className="w-full">
             {data?.map((book: any) => (
               <li key={book.id} className="w-full">
                 <BookPost
