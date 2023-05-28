@@ -1,4 +1,5 @@
 import React, { PropsWithChildren, useState } from "react";
+import useBodyLock from "@/hooks/useBodyLock";
 
 import { CancelIcon } from "@/utils/svg";
 import Carousel from "./Carousel";
@@ -50,6 +51,7 @@ const ImageViewer = ({ images = [], startIndex = 0 }: IProps) => {
 export default React.memo(ImageViewer);
 
 const ModalFullScreen = ({ children }: PropsWithChildren) => {
+  useBodyLock();
   const handleClickDimmer = ({ target, currentTarget }: any) => {
     if (target !== currentTarget) {
       return;
