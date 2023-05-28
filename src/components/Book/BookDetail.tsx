@@ -54,6 +54,7 @@ export default function BookDetail({
   };
 
   const isAuth = data?.user?.email === book?.user?.email;
+  const hasBookInfo = book.image || book.author;
 
   return (
     <div className={"flex flex-col overflow-hidden rounded-lg " + className}>
@@ -95,14 +96,16 @@ export default function BookDetail({
           </div>
         </div>
         <div className="flex justify-end w-full my-2">{ratingGenerator}</div>
-        <div className="flex flex-col mt-4">
-          <BookInfo item={book} className="" withTitle={false} />
-          <span className="mt-4 text-sm text-gray-100 whitespace-pre-wrap break-words">
-            {book?.body ?? ""}
-          </span>
-        </div>
+        {hasBookInfo && (
+          <div className="flex flex-col mt-4">
+            <BookInfo item={book} className="" withTitle={false} />
+          </div>
+        )}
+        <span className="mt-4 text-sm text-gray-100 whitespace-pre-wrap break-words">
+          {book?.body ?? ""}
+        </span>
       </div>
-      <Spacing size={30} />
+      <Spacing size={20} />
       <section className="overflow-x-scroll max-w-96 w-auto">
         <div
           className="flex align-items-center gap-4"
