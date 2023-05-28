@@ -22,6 +22,7 @@ import BookPost from "@/components/Book/BookPost";
 import { getBooksApi } from "@/utils/api/book";
 import { useSession } from "next-auth/react";
 import useCheckAuth from "@/hooks/useCheckAuth";
+import { SearchActiveIcon } from "@/utils/svg";
 
 //TODO: auth 바르는 거 노가다로 한 거 실화?
 
@@ -81,6 +82,7 @@ function BookPage() {
         <div className="max-w-2xl mx-auto">
           <form onSubmit={onSubmitSearch}>
             <Input
+              left={<SearchActiveIcon />}
               name="search"
               button={
                 <Button type="submit" className="w-16 p-2 m-0">

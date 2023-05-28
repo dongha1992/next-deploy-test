@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import { apiClient } from "./apiClient";
 import { CreateBookData } from "@/query/book";
 

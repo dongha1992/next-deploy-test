@@ -121,7 +121,13 @@ export default function BookDetail({
                     })
                   }
                 >
-                  <Image src={src} alt="스크린샷" fill className="rounded" />
+                  <Image
+                    src={src}
+                    alt="스크린샷"
+                    fill
+                    className="rounded"
+                    style={{ objectFit: "cover" }}
+                  />
                 </div>
               );
             })}

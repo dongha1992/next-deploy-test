@@ -23,11 +23,14 @@ import Layout from "@/components/Layout";
 import Navigation from "@/components/Common/Navigation";
 import { SearchActiveIcon } from "@/utils/svg";
 import { useSession } from "next-auth/react";
+import { popupState } from "@/store/common";
+import { useRecoilState } from "recoil";
 
 export default function Home() {
   const [keyword, setKeyword] = useState<string>("");
-  const [isSearched, setIsSearched] = useState<boolean>(false);
+
   const { status } = useSession();
+  const [popup, setPopup] = useRecoilState(popupState);
 
   const isUnauthenticated = status === "unauthenticated";
   const router = useRouter();
@@ -61,7 +64,6 @@ export default function Home() {
     const { search } = e.target.elements;
     const keyword = search.value;
 
-    setIsSearched(true);
     setKeyword(keyword);
   }
 
@@ -70,6 +72,20 @@ export default function Home() {
       refetchPostSearchQuery();
     };
   }, [refetchPostSearchQuery]);
+
+  useEffect(() => {
+    setPopup({
+      message: (
+        <>
+          <p>테스트 페이지입니다</p>
+          <p className="text-sm">
+            이 페이지에 뭘 해야 할까요,,, 아이디어 주세요,,,
+          </p>
+        </>
+      ),
+      isOpen: true,
+    });
+  }, [setPopup]);
 
   return (
     <>

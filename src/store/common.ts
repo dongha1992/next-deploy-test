@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { atom } from "recoil";
 
 const imageZoomState = atom<{ srcs: string[]; startIndex: number } | null>({
@@ -9,7 +10,7 @@ const imageZoomState = atom<{ srcs: string[]; startIndex: number } | null>({
 });
 
 const popupState = atom<{
-  message?: string;
+  message?: string | ReactNode;
   callback?: any;
   setIsOpen?: any;
   isOpen: boolean;
