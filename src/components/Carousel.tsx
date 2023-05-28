@@ -61,7 +61,7 @@ const Carousel = ({ images, initialSlide, onChange }: IProps) => {
       onMouseLeave={() => {
         setIsArrowShow(false);
       }}
-      className="relative max-w-[560px] min-w-[320px] w-full"
+      className="relative max-w-[480px] min-w-[320px] w-full"
     >
       <Slider {...settings}>
         {images.map((src: string, index: number) => {
