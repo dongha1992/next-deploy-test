@@ -23,6 +23,9 @@ import { options } from "@/pages/api/auth/[...nextauth]";
 import useCheckAuth from "@/hooks/useCheckAuth";
 import { useRecoilState } from "recoil";
 import { popupState } from "@/store/common";
+import Layout from "@/components/Layout";
+import { ReactElement } from "react";
+import Header from "@/components/Common/Header";
 
 export default function BookDetailPage({ id }: { id: number }) {
   const { status, data } = useSession();
@@ -111,7 +114,7 @@ export default function BookDetailPage({ id }: { id: number }) {
       <BookDetail
         book={book}
         user={book?.user}
-        className="px-6 my-3 mt-10"
+        className="px-4 my-3 mt-10"
         onComment={() => {
           return;
         }}
@@ -159,6 +162,10 @@ export default function BookDetailPage({ id }: { id: number }) {
     </div>
   );
 }
+
+BookDetailPage.getLayout = (page: ReactElement) => {
+  return <Layout top={<Header />}>{page}</Layout>;
+};
 
 export async function getServerSideProps(context: any) {
   const { id } = context.query;

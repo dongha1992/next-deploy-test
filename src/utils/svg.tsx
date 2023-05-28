@@ -337,6 +337,35 @@ function StarEmptyIcon() {
   );
 }
 
+function ArrowBackIcon() {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="4"
+        y="14"
+        width="2"
+        height="18"
+        rx="1"
+        transform="rotate(-90 4 14)"
+        fill="#FFFFFF"
+      />
+      <path
+        d="M10.5 5.5L3 13L10.5 20.5"
+        stroke="#FFFFFF"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export {
   EditInactiveIcon,
   EditActiveIcon,
@@ -353,4 +382,5 @@ export {
   StarFullIcon,
   StarHalfIcon,
   StarEmptyIcon,
+  ArrowBackIcon,
 };

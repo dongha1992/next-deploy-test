@@ -1,12 +1,14 @@
 import BookPost from "@/components/Book/BookPost";
+import Header from "@/components/Common/Header";
 import Lottie from "@/components/Common/Lottie";
 import Overlay from "@/components/Common/Overlay";
+import Layout from "@/components/Layout";
 import { useDeleteLike, useUpdateLike } from "@/query/book";
 import { MYPAGE_REVIEWS_QUERY_KEY, useGetMyReviewList } from "@/query/mypage";
 import { getMyReviewsApi } from "@/utils/api/mypage";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import router from "next/router";
-import React from "react";
+import React, { ReactElement } from "react";
 
 function MypageReviewList({ email }: { email: string }) {
   const { data, isSuccess } = useGetMyReviewList({ email });
@@ -26,9 +28,6 @@ function MypageReviewList({ email }: { email: string }) {
 
   return (
     <div className="w-full pt-8 pb-14 mx-auto max-w-7xl px-4 bg-black relative">
-      <span className="w-full flex justify-center text-lg">
-        내가 쓴 글 보기
-      </span>
       {isSuccess && data?.length === 0 && (
         <div className="mt-8">첫 번째 글을 작성해주세요!</div>
       )}
@@ -81,6 +80,10 @@ function MypageReviewList({ email }: { email: string }) {
 }
 
 export default MypageReviewList;
+
+MypageReviewList.getLayout = (page: ReactElement) => {
+  return <Layout top={<Header>내가 쓴 글 보기</Header>}>{page}</Layout>;
+};
 
 export async function getServerSideProps(context: any) {
   const queryClient = new QueryClient();
