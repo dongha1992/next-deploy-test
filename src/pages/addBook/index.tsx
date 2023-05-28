@@ -1,4 +1,10 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  ReactElement,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
@@ -16,6 +22,8 @@ import Button from "@/components/Common/Button";
 import BookInfo from "@/components/Book/BookInfo";
 import { getNaverBooksApi } from "@/utils/api/naver";
 import useRating from "@/hooks/useRating";
+import Layout from "@/components/Layout";
+import Header from "@/components/Common/Header";
 
 // BookForm page와 중복임
 
@@ -134,10 +142,10 @@ export default function AddBookPage() {
   return (
     <>
       <Head>
-        <title>책에 대해서</title>
+        <title>{selectedBook?.author ?? ""}</title>
       </Head>
-      <div className="w-full pt-8 pb-10 lg:pt-12 lg:pb-14 max-w-10xl mx-auto px-6 my-6">
-        <h1 className="text-2xl font-bold tracking-tight text-gray-100 sm:text-3xl md:text-4xl mb-6">
+      <div className="w-full pb-10 lg:pt-12 lg:pb-14 max-w-10xl mx-auto px-4 my-4">
+        <h1 className="text-xl font-bold tracking-tight text-gray-100 sm:text-2xl md:text-3xl mb-6">
           어떤 책을 읽으셨나요?
         </h1>
         <div className="mt-6">
@@ -187,3 +195,7 @@ export default function AddBookPage() {
     </>
   );
 }
+
+AddBookPage.getLayout = (page: ReactElement) => {
+  return <Layout top={<Header />}>{page}</Layout>;
+};

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 
@@ -10,6 +10,8 @@ import { getBookDetailApi } from "@/utils/api/book";
 import NewBookPostForm from "@/components/Book/NewBookPostForm";
 import BookInfo from "@/components/Book/BookInfo";
 import useRating from "@/hooks/useRating";
+import Layout from "@/components/Layout";
+import Header from "@/components/Common/Header";
 
 export default function PostForm() {
   const [images, setImages] = useState<any>([]);
@@ -78,9 +80,8 @@ export default function PostForm() {
       <Head>
         <title>책에 대하여</title>
       </Head>
-
-      <div className="w-full pt-8 pb-10 lg:pt-12 lg:pb-14 max-w-10xl mx-auto px-6 my-6">
-        <h1 className="text-2xl font-bold tracking-tight text-gray-100 sm:text-3xl md:text-4xl mb-6">
+      <div className="w-full pb-10 lg:pt-12 lg:pb-14 max-w-10xl mx-auto px-4 my-4">
+        <h1 className="text-xl font-bold tracking-tight text-gray-100 sm:text-2xl md:text-3xl mb-6">
           어떤 책을 읽으셨나요?
         </h1>
         <div className="mt-6">
@@ -99,3 +100,7 @@ export default function PostForm() {
     </>
   );
 }
+
+PostForm.getLayout = (page: ReactElement) => {
+  return <Layout top={<Header />}>{page}</Layout>;
+};

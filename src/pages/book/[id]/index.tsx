@@ -26,7 +26,6 @@ import { popupState } from "@/store/common";
 import Layout from "@/components/Layout";
 import { ReactElement } from "react";
 import Header from "@/components/Common/Header";
-import Border from "@/components/Common/Border";
 
 export default function BookDetailPage({ id }: { id: number }) {
   const { status, data } = useSession();
