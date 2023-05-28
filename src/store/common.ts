@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
 import { atom } from "recoil";
+import { v1 } from "uuid";
 
 const imageZoomState = atom<{ srcs: string[]; startIndex: number } | null>({
-  key: "imageZoomState",
+  key: `imageZoomState/${v1()}`,
   default: {
     srcs: [],
     startIndex: 0,
@@ -15,7 +16,7 @@ const popupState = atom<{
   setIsOpen?: any;
   isOpen: boolean;
 } | null>({
-  key: "popupState",
+  key: `popupState/${v1()}`,
   default: {
     message: "",
     callback: null,

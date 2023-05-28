@@ -5,6 +5,8 @@ import router from "next/router";
 import Layout from "@/components/Layout";
 import LoginButton from "@/components/LoginButton";
 import { signIn, useSession } from "next-auth/react";
+import Overlay from "@/components/Common/Overlay";
+import Lottie from "@/components/Common/Lottie";
 
 const MYPAGE_MENU = [{ text: "내가 쓴 글 보기", value: "/mypage/list" }];
 
@@ -12,6 +14,19 @@ function Mypage() {
   const { status, data } = useSession();
 
   const isUnauthenticated = status === "unauthenticated";
+  const isLoading = status === "loading";
+
+  if (isLoading) {
+    return (
+      <Overlay>
+        <Lottie
+          src="https://assets8.lottiefiles.com/private_files/lf30_gqirhcr7.json"
+          loop={false}
+        />
+      </Overlay>
+    );
+  }
+
   return (
     <article className="w-full pt-8 pb-14 mx-auto max-w-7xl px-4 bg-black relative">
       {isUnauthenticated ? (
@@ -31,7 +46,12 @@ function Mypage() {
                   return (
                     <li
                       key={index}
-                      onClick={() => router.push(item.value)}
+                      onClick={() =>
+                        router.push(
+                          `${item.value}?email=${data?.user?.email}`
+                          // item.value
+                        )
+                      }
                       className="cursor-pointer"
                     >
                       {item.text}
@@ -50,4 +70,5 @@ function Mypage() {
 Mypage.getLayout = (page: ReactElement) => {
   return <Layout bottom={<Navigation />}>{page}</Layout>;
 };
+
 export default Mypage;

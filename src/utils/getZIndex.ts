@@ -1,8 +1,8 @@
 const zIndexMap: { [k: string]: string } = {
-  fixedBottom: "10000000",
-  fullScreen: "10000000",
-  lottie: "10000001",
-  settingButton: "200",
+  fixedBottom: "100",
+  fullScreen: "100",
+  lottie: "101",
+  settingButton: "9",
   popup: "10",
 };
 

@@ -37,6 +37,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       defaultOptions: {
         queries: {
           retry: false,
+          refetchOnWindowFocus: false,
         },
       },
     });

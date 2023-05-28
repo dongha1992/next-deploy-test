@@ -1,7 +1,6 @@
 // TODO: post query랑 중복 제거
 
 import { useSyncMutation } from "@/hooks/query";
-import { apiClient } from "@/utils/api/apiClient";
 import {
   deleteBookApi,
   deleteBookCommentApi,

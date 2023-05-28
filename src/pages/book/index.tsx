@@ -24,8 +24,6 @@ import { useSession } from "next-auth/react";
 import useCheckAuth from "@/hooks/useCheckAuth";
 import { SearchActiveIcon } from "@/utils/svg";
 
-//TODO: auth 바르는 거 노가다로 한 거 실화?
-
 function BookPage() {
   const [keyword, setKeyword] = useState<string>("");
   const [isSearched, setIsSearched] = useState<boolean>(false);
@@ -45,6 +43,7 @@ function BookPage() {
   } = useSearchPost({
     query: keyword,
   });
+
   const refetchPostSearchQuery = useRefetchPostSearchQuery();
 
   const { mutate: postLikeMutation, isLoading: isLikeLoading } = useUpdateLike({

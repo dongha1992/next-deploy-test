@@ -11,11 +11,6 @@ async function getBook(res: NextApiResponse, req: NextApiRequest) {
 
   const book = await prisma.book.findUnique({ where: { id: Number(id) } });
 
-  // if (!session) {
-  //   res.status(401).json({ error: "인증 되지 않은 회원입니다." });
-  //   return;
-  // }
-
   if (session) {
     const prismaUser = await prisma.user.findUnique({
       where: { email: session.user.email },

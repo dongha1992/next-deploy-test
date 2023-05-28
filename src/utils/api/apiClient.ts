@@ -15,6 +15,7 @@ apiClient.interceptors.response.use(
   },
   (err: any) => {
     const message = err?.response?.data?.message ?? "네트워크 에러입니다.";
+    console.log(err);
     throw new Error(message);
     // return Promise.reject('에러 발생');
   }
