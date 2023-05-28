@@ -53,7 +53,9 @@ function MypageReviewList({ email }: { email: string }) {
                     user={book.user}
                     className="my-10"
                     onLike={() => onMutateLikeHandler(book.isLiked, book.id)}
-                    onComment={() => router.push(`book/${book.id}`)}
+                    onComment={() => {
+                      return;
+                    }}
                     onShare={() => {
                       window?.Kakao.Link.sendDefault({
                         objectType: "feed",

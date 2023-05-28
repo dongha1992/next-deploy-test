@@ -40,7 +40,7 @@ export default function BookPost({
   const onDeleteHandler = (e: any) => {
     e.preventDefault();
     setPopup({
-      message: "정말 삭제하시겠어요",
+      message: "정말 삭제하시겠어요?",
       callback: () => onClickConfirm(),
       isOpen: true,
     });

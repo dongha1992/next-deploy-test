@@ -9,6 +9,7 @@ import Overlay from "@/components/Common/Overlay";
 import Lottie from "@/components/Common/Lottie";
 import useIsInApp from "@/hooks/useIsInApp";
 import InAppInfo from "@/components/InAppInfo";
+import Border from "@/components/Common/Border";
 
 const MYPAGE_MENU = [{ text: "내가 쓴 글 보기", value: "/mypage/list" }];
 
@@ -47,12 +48,13 @@ function Mypage() {
       ) : (
         <section>
           <div className="flex flex-col">
-            <div className="flex items-center">
+            <div className="flex items-center mb-4">
               <p className="text-md font-medium text-gray-100 mr-2">
                 {data?.user?.name}님
               </p>
               <p>안녕하세요!</p>
             </div>
+            <Border size={1} />
             <div className="mt-6">
               <ul>
                 {MYPAGE_MENU.map((item, index) => {
