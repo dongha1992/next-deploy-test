@@ -6,6 +6,8 @@ import {
   HomeUnActiveIcon,
   MypageActiveIcon,
   MypageUnActiveIcon,
+  TalkActiveIcon,
+  TalkUnActiveIcon,
 } from "@/utils/svg";
 import { useRouter } from "next/router";
 import React, { useEffect, useLayoutEffect, useState } from "react";
@@ -21,12 +23,19 @@ const NAVIGATION = [
   {
     id: 1,
     name: "book",
-    active: <BookActiveIcon />,
-    unactive: <BookUnActiveIcon />,
+    active: <TalkActiveIcon />,
+    unactive: <TalkUnActiveIcon />,
     link: "/book",
   },
   {
     id: 2,
+    name: "read",
+    active: <BookActiveIcon />,
+    unactive: <BookUnActiveIcon />,
+    link: "/read",
+  },
+  {
+    id: 3,
     name: "mypage",
     active: <MypageActiveIcon />,
     unactive: <MypageUnActiveIcon />,
