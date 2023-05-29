@@ -140,7 +140,7 @@ export default function BookDetailPage({ id }: { id: number }) {
         }}
       />
       <form className="flex flex-col mx-4" onSubmit={onSubmitComment}>
-        <TextArea name="comment" />
+        <TextArea name="comment" style={{ minHeight: "120px" }} />
         <Button type="submit" className="w-15 self-end">
           확인
         </Button>

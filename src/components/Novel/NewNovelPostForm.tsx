@@ -19,7 +19,7 @@ export default function NewNovelPostForm({ value, onSubmit }: Props) {
           placeholder="제목을 입력해주세요."
           className="border-gray-600 mb-6"
         />
-        <TextArea name="text" value={value} style={{ height: "70vh" }} />
+        <TextArea name="text" value={value} style={{ minHeight: "70vh" }} />
         <div>
           <Button type="submit">제출</Button>
         </div>

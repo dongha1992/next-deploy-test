@@ -15,7 +15,7 @@ function ReadPage() {
     <section className="w-full pt-8 pb-14 mx-auto max-w-7xl px-4 bg-black relative">
       <div
         className="h-full border border-gray-700"
-        style={{ height: "90vh" }}
+        style={{ height: "80vh" }}
       ></div>
       <div className="fixed bottom-20 left-50 z-50">
         <Button

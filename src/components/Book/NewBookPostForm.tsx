@@ -69,7 +69,7 @@ export default function NewBookPostForm({
       <form onSubmit={onSubmit} className={className} action="#" method="POST">
         <input type="hidden" name="remember" value="true" />
         <div className="rounded-md shadow-sm -space-y-px">
-          <TextArea name="text" value={value} style={{ height: "50vh" }} />
+          <TextArea name="text" value={value} style={{ minHeight: "60vh" }} />
           {isImageLoading && (
             <Overlay>
               <Lottie
