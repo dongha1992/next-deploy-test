@@ -9,19 +9,18 @@ import {
 } from "@/query/novel";
 import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import router from "next/router";
+import { ReactElement, useEffect } from "react";
 
 import Comment from "@/components/Common/Comment";
 import TextArea from "@/components/Common/TextArea";
 import Button from "@/components/Common/Button";
 import Lottie from "@/components/Common/Lottie";
 import Overlay from "@/components/Common/Overlay";
-import BookDetail from "@/components/Book/BookDetail";
-import router from "next/router";
 import useCheckAuth from "@/hooks/useCheckAuth";
 import { useRecoilState } from "recoil";
-import { popupState } from "@/store/common";
+import { modeState, popupState } from "@/store/common";
 import Layout from "@/components/Layout";
-import { ReactElement } from "react";
 import Header from "@/components/Common/Header";
 import { getNovelDetailApi } from "@/utils/api/novel";
 import NovelDetail from "@/components/Novel/NovelDetail";
@@ -30,6 +29,8 @@ export default function NovelDetailPage({ id }: { id: number }) {
   const { status, data } = useSession();
   const { checkAuthHandler } = useCheckAuth();
   const [popup, setPopup] = useRecoilState(popupState);
+  const [mode, setIsModeOn] = useRecoilState(modeState);
+
   const isUnauthenticated = status === "unauthenticated";
 
   const {
@@ -95,7 +96,7 @@ export default function NovelDetailPage({ id }: { id: number }) {
   if (isError) return <div>에러</div>;
 
   return (
-    <div className="w-full bg-black">
+    <div className="w-full">
       {(isLoading ||
         isCommentLoading ||
         isLikeLoading ||

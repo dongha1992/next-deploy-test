@@ -1,3 +1,3 @@
-export const Background = () => {
-  return <div className="fixed z-[-1] w-full h-full bg-neutral-900" />;
+export const Background = ({ color = "bg-neutral-900" }) => {
+  return <div className={`fixed z-[-1] w-full h-full ${color}`} />;
 };

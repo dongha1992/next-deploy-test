@@ -25,4 +25,13 @@ const popupState = atom<{
   },
 });
 
-export { imageZoomState, popupState };
+const modeState = atom<{
+  isWhite: boolean;
+} | null>({
+  key: `modeState/${v1()}`,
+  default: {
+    isWhite: false,
+  },
+});
+
+export { imageZoomState, popupState, modeState };

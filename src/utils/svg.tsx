@@ -422,7 +422,7 @@ function StarEmptyIcon({ props }: any) {
   );
 }
 
-function ArrowBackIcon() {
+function ArrowBackIcon({ color = "#FFFFFF" }: { color?: string }) {
   return (
     <svg
       width="24"
@@ -438,11 +438,11 @@ function ArrowBackIcon() {
         height="18"
         rx="1"
         transform="rotate(-90 4 14)"
-        fill="#FFFFFF"
+        fill={color}
       />
       <path
         d="M10.5 5.5L3 13L10.5 20.5"
-        stroke="#FFFFFF"
+        stroke={color}
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
