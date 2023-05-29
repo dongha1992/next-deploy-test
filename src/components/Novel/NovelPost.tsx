@@ -59,22 +59,11 @@ export default function NovelPost({
 
   return (
     <>
-      <div className={"flex flex-col rounded-lg shadow-lg " + className}>
+      <div className={"flex flex-col rounded-lg shadow-lg px-4 " + className}>
         <Link href={href}>
           <div className="flex flex-1 flex-col justify-between">
-            <div className="mt-2 mb-2 flex items-center ">
-              <div className="flex-shrink-0 text-gray-100">
-                {user?.image && (
-                  <Image
-                    className="h-8 w-8 rounded-full"
-                    src={user.image}
-                    width={10}
-                    height={10}
-                    alt="아바타 사진"
-                  />
-                )}
-              </div>
-              <div className="ml-4 flex-1">
+            <div className="flex items-center ">
+              <div className="flex-1">
                 <div className="flex items-center justify-between">
                   <p className="text-xs font-medium text-gray-100">
                     {/* {formatUserName(user?.name)} */}
@@ -84,8 +73,8 @@ export default function NovelPost({
                     {novel?.createdAt.split("T")[0]}
                   </p>
                 </div>
-                <div className="flex mt-1 items-center justify-between">
-                  <p className="text-sm font-semibold text-gray-100 break-all">
+                <div className="flex items-center justify-between">
+                  <p className="text-lg font-semibold text-gray-100 break-all">
                     {novel?.title ? `<${novel?.title}>` : ""}
                   </p>
                   {isAuth && (
@@ -98,22 +87,8 @@ export default function NovelPost({
                 </div>
               </div>
             </div>
-            <div className="flex justify-end w-full my-2">
-              {ratingGenerator()}
-            </div>
           </div>
         </Link>
-        <Spacing size={20} />
-        <div className="flex flex-col items-center pb-3 pt-2">
-          <PostActions
-            onComment={onComment}
-            onLike={onLike}
-            onShare={onShare}
-            isLiked={novel?.isLiked}
-            totalComments={novel?.totalComments}
-            totalLikes={novel?.totalLikes}
-          />
-        </div>
       </div>
     </>
   );

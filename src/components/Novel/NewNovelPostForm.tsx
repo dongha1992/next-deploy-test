@@ -16,6 +16,7 @@ export default function NewNovelPostForm({ value, onSubmit }: Props) {
     <form onSubmit={onSubmit} action="#" method="POST">
       <div className="rounded-md shadow-sm -space-y-px">
         <Input
+          name="title"
           placeholder="제목을 입력해주세요."
           className="border-gray-600 mb-6"
         />

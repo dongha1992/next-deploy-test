@@ -1,7 +1,6 @@
 // TODO: post query랑 중복 제거
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import router from "next/router";
-import { useCallback } from "react";
 
 import { useSyncMutation } from "@/hooks/query";
 import {
@@ -17,26 +16,15 @@ import {
 import { CreateNovelData } from "@/utils/api/type";
 
 export const NOVEL_DETAIL_QUERY_KEY = "getNovelDetail";
-export const NOVLES_QUERY_KEY = "getNovels";
+export const NOVELS_QUERY_KEY = "getNovels";
 
 interface Props {
   options?: any;
   queryKey: any[];
 }
 
-interface QueryProps {
-  options?: any;
-  query: string;
-}
-
-function useSearchPost({ query, options }: QueryProps) {
-  return useQuery(getSearchPostConfig(query, options));
-}
-
-const getSearchPostConfig = (query: string, options = {}) => ({
-  queryKey: [NOVLES_QUERY_KEY, query],
-  queryFn: () => getNovelsApi(query),
-  config: {
+const useGetNovels = ({ options }: any = {}) => {
+  return useQuery([NOVELS_QUERY_KEY], () => getNovelsApi(), {
     onSucess: (books: any) => {
       // 개별 아이템 캐시 해야함
       // for (const book of books) {
@@ -47,10 +35,10 @@ const getSearchPostConfig = (query: string, options = {}) => ({
       // }
     },
     ...options,
-  },
-});
+  });
+};
 
-function useBookCreate({ options = {}, queryKey }: Props) {
+function useNovelCreate({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
   return useMutation(({ ...data }: CreateNovelData) => postNovelApi(data), {
     onSuccess: () => {
@@ -92,7 +80,7 @@ function useDeleteLike({ options = {}, queryKey }: Props) {
   });
 }
 
-function usePostComment({ options = {}, queryKey }: Props) {
+function useNovelComment({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
   return useMutation(
     ({ data, id }: { data: string; id: number }) =>
@@ -109,7 +97,7 @@ function usePostComment({ options = {}, queryKey }: Props) {
   );
 }
 
-function useDeletePost({ options = {}, queryKey }: Props) {
+function useDeleteNovel({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
   return useMutation((id: number) => deleteNovelApi(id), {
     onSuccess: () => {
@@ -160,25 +148,13 @@ function useEditNovel({ options = {}, queryKey }: Props) {
   );
 }
 
-function useRefetchPostSearchQuery() {
-  const queryClient = useQueryClient();
-  return useCallback(
-    async function refetchPostSearchQuery() {
-      queryClient.removeQueries([NOVLES_QUERY_KEY]);
-      await queryClient.prefetchQuery(getSearchPostConfig(""));
-    },
-    [queryClient]
-  );
-}
-
 export {
-  useSearchPost,
+  useGetNovels,
   useUpdateLike,
   useDeleteLike,
-  usePostComment,
-  useBookCreate,
-  useDeletePost,
+  useNovelComment,
+  useNovelCreate,
+  useDeleteNovel,
   useDeleteComment,
   useEditNovel,
-  useRefetchPostSearchQuery,
 };

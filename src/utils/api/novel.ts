@@ -1,8 +1,8 @@
 import { apiClient } from "./apiClient";
 import { CreateNovelData } from "./type";
 
-const getNovelsApi = (query?: string): Promise<any[]> => {
-  return apiClient.get(`api/novels?search=${query}`).then(({ data }) => data);
+const getNovelsApi = (): Promise<any[]> => {
+  return apiClient.get(`api/novels`).then(({ data }) => data);
 };
 
 const postNovelApi = (data: CreateNovelData): Promise<any> => {

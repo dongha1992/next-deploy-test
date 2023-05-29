@@ -1,17 +1,17 @@
 import React, { ReactElement } from "react";
 
 import NewNovelPostForm from "@/components/Novel/NewNovelPostForm";
-import { BOOK_QUERY_KEY, useBookCreate } from "@/query/book";
+import { NOVELS_QUERY_KEY, useNovelCreate } from "@/query/novel";
 import Layout from "@/components/Layout";
 import Header from "@/components/Common/Header";
 
 function AddNovelPage() {
   const {
-    mutate: mutateAddBookPost,
-    isLoading: isPostLoading,
-    isSuccess: isPostSuccess,
-  } = useBookCreate({
-    queryKey: [BOOK_QUERY_KEY],
+    mutate: mutateAddNovelPost,
+    isLoading: isNovelLoading,
+    isSuccess: isNovelSuccess,
+  } = useNovelCreate({
+    queryKey: [NOVELS_QUERY_KEY],
   });
 
   const handleSubmit = async (e: any) => {
@@ -28,7 +28,8 @@ function AddNovelPage() {
       body: text.value,
       title: title.value,
     };
-    // mutateAddBookPost(data);
+
+    mutateAddNovelPost(data);
     text.value = "";
     title.value = "";
   };
