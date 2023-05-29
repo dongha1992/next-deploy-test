@@ -4,6 +4,8 @@ import NewNovelPostForm from "@/components/Novel/NewNovelPostForm";
 import { NOVELS_QUERY_KEY, useNovelCreate } from "@/query/novel";
 import Layout from "@/components/Layout";
 import Header from "@/components/Common/Header";
+import Overlay from "@/components/Common/Overlay";
+import Lottie from "@/components/Common/Lottie";
 
 function AddNovelPage() {
   const {
@@ -35,6 +37,14 @@ function AddNovelPage() {
   };
   return (
     <div className="w-full h-full pb-10 lg:pt-6 lg:pb-8 max-w-10xl mx-auto px-4">
+      {isNovelLoading && (
+        <Overlay>
+          <Lottie
+            src="https://assets8.lottiefiles.com/private_files/lf30_gqirhcr7.json"
+            loop={false}
+          />
+        </Overlay>
+      )}
       <div className="mt-2">
         <NewNovelPostForm className="max-w-5xl mt-4" onSubmit={handleSubmit} />
       </div>

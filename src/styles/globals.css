@@ -45,4 +45,11 @@
     height: auto !important;
     min-height: 0 !important;
   }
+
+  .undraggable {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
 }

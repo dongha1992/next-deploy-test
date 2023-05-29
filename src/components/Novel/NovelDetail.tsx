@@ -72,7 +72,7 @@ export default function NovelDetailPage({
         </div>
 
         <span
-          className={`w-full mt-4 text-md lg:text-lg ${textColor}  leading-loose whitespace-pre-wrap break-words`}
+          className={`w-full mt-4 text-md lg:text-lg ${textColor}  leading-loose whitespace-pre-wrap break-words undraggable`}
         >
           {novel?.body ?? ""}
         </span>
