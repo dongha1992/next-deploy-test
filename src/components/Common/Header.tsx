@@ -12,7 +12,7 @@ function Header({ children }: Props) {
   };
   return (
     <div className="flex w-full justify-between align-center py-4 px-4">
-      <div onClick={onNavigateHandler}>
+      <div onClick={onNavigateHandler} role="button">
         <ArrowBackIcon />
       </div>
       {children}

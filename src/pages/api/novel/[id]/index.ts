@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { Session } from "..";
 import { options } from "../../auth/[...nextauth]";
 
-async function getBook(res: NextApiResponse, req: NextApiRequest) {
+async function getNovel(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
   const session: Session | null = await getServerSession(req, res, options);
   // TODO: 중복코드
@@ -26,18 +26,18 @@ async function getBook(res: NextApiResponse, req: NextApiRequest) {
       where: { id: book?.userId },
     });
 
-    const useLikes = await prisma.userBookLikes.findUnique({
+    const useLikes = await prisma.userNovelLikes.findUnique({
       where: {
-        bookId_userId: {
-          bookId: Number(id),
+        novelId_userId: {
+          novelId: Number(id),
           userId: prismaUser?.id!,
         },
       },
     });
 
-    const comments = await prisma.bookComment.findMany({
+    const comments = await prisma.novelComment.findMany({
       where: {
-        bookId: Number(id),
+        novelId: Number(id),
       },
       include: {
         user: true,
@@ -84,12 +84,12 @@ async function getBook(res: NextApiResponse, req: NextApiRequest) {
   }
 }
 
-async function deleteBook(res: NextApiResponse, req: NextApiRequest) {
+async function deleteNovel(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
   const session: Session | null = await getServerSession(req, res, options);
   // TODO: 중복코드
 
-  const book = await prisma.book.findUnique({ where: { id: Number(id) } });
+  const novel = await prisma.novel.findUnique({ where: { id: Number(id) } });
   const user = await prisma.user.findUnique({
     where: { email: session?.user.email },
   });
@@ -99,14 +99,14 @@ async function deleteBook(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  if (!book) {
+  if (!novel) {
     // 검색 결과가 없는 경우 404 에러 반환
     res.status(404).json({ message: `해당 포스트를 찾지 못 했습니다.` });
     return;
   }
 
-  if (book.userId === user.id) {
-    await prisma.book.delete({
+  if (novel.userId === user.id) {
+    await prisma.novel.delete({
       where: {
         id: Number(id),
       },
@@ -120,13 +120,13 @@ async function deleteBook(res: NextApiResponse, req: NextApiRequest) {
   // 검색 결과가 있는 경우 검색 결과 반환
 }
 
-async function patchBook(res: NextApiResponse, req: NextApiRequest) {
+async function patchNovel(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
   const { data } = req.body;
   const session: Session | null = await getServerSession(req, res, options);
   // TODO: 중복코드
 
-  const book = await prisma.book.findUnique({ where: { id: Number(id) } });
+  const novel = await prisma.novel.findUnique({ where: { id: Number(id) } });
   const user = await prisma.user.findUnique({
     where: { email: session?.user.email },
   });
@@ -136,21 +136,20 @@ async function patchBook(res: NextApiResponse, req: NextApiRequest) {
     return;
   }
 
-  if (!book) {
+  if (!novel) {
     // 검색 결과가 없는 경우 404 에러 반환
     res.status(404).json({ message: `해당 포스트를 찾지 못 했습니다.` });
     return;
   }
 
-  if (book.userId === user.id) {
-    await prisma.book.update({
+  if (novel.userId === user.id) {
+    await prisma.novel.update({
       where: {
         id: Number(id),
       },
       data: {
+        title: data.title,
         body: data.body,
-        userImages: data.userImages,
-        rating: data.rating,
       },
     });
 
@@ -170,15 +169,15 @@ export default async function handler(
 
   switch (method) {
     case "GET":
-      getBook(res, req);
+      getNovel(res, req);
       break;
 
     case "DELETE":
-      deleteBook(res, req);
+      deleteNovel(res, req);
       break;
 
     case "PATCH":
-      patchBook(res, req);
+      patchNovel(res, req);
       break;
     default:
       res.setHeader("Allow", ["GET", "DELETE", "PATCH"]);
