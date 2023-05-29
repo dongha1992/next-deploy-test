@@ -17,3 +17,8 @@ export interface NaverBook {
   publisher: string;
   title: string;
 }
+
+export interface CreateNovelData {
+  title: string;
+  body: string;
+}
