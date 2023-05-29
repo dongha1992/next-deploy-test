@@ -13,7 +13,7 @@ import useRating from "@/hooks/useRating";
 import Layout from "@/components/Layout";
 import Header from "@/components/Common/Header";
 
-export default function PostForm() {
+export default function BookEditPage() {
   const [images, setImages] = useState<any>([]);
   const router = useRouter();
 
@@ -103,6 +103,6 @@ export default function PostForm() {
   );
 }
 
-PostForm.getLayout = (page: ReactElement) => {
+BookEditPage.getLayout = (page: ReactElement) => {
   return <Layout top={<Header />}>{page}</Layout>;
 };

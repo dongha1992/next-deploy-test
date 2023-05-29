@@ -22,7 +22,7 @@ function Setting({ onDelete, onEdit, className = "bottom-10 right-0" }: Props) {
       style={{ zIndex: getZIndex("settingButton") }}
     >
       <div>
-        <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+        <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 px-4 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
           ...
         </Menu.Button>
       </div>
@@ -41,7 +41,7 @@ function Setting({ onDelete, onEdit, className = "bottom-10 right-0" }: Props) {
             className
           }
         >
-          <div className="px-1 py-1 ">
+          <div className="px-1 py-1">
             <Menu.Item>
               {({ active }) => (
                 <button

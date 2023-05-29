@@ -5,13 +5,19 @@ import Input from "../Common/Input";
 
 interface Props {
   onSubmit: any;
-  className: string;
-  value?: string;
-
-  isLoading?: boolean;
+  body?: string;
+  title?: string;
+  className?: string;
+  onChangeValue?: (e: HTMLInputElement) => void;
 }
 
-export default function NewNovelPostForm({ value, onSubmit }: Props) {
+export default function NewNovelPostForm({
+  body,
+  title,
+  className,
+  onSubmit,
+  onChangeValue,
+}: Props) {
   return (
     <form onSubmit={onSubmit} action="#" method="POST">
       <div className="rounded-md shadow-sm -space-y-px">
@@ -19,8 +25,13 @@ export default function NewNovelPostForm({ value, onSubmit }: Props) {
           name="title"
           placeholder="제목을 입력해주세요."
           className="border-gray-600 mb-6"
+          inputprops={{
+            title,
+            "aria-label": "소설 제목",
+            onChange: onChangeValue,
+          }}
         />
-        <TextArea name="text" value={value} style={{ minHeight: "70vh" }} />
+        <TextArea name="text" value={body} style={{ minHeight: "70vh" }} />
         <div>
           <Button type="submit">제출</Button>
         </div>

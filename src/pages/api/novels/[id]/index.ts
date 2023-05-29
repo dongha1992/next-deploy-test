@@ -9,21 +9,21 @@ async function getNovel(res: NextApiResponse, req: NextApiRequest) {
   const session: Session | null = await getServerSession(req, res, options);
   // TODO: 중복코드
 
-  const book = await prisma.book.findUnique({ where: { id: Number(id) } });
+  const novel = await prisma.novel.findUnique({ where: { id: Number(id) } });
 
   if (session) {
     const prismaUser = await prisma.user.findUnique({
       where: { email: session.user.email },
     });
 
-    if (!book) {
+    if (!novel) {
       // 검색 결과가 없는 경우 404 에러 반환
       res.status(404).json({ message: `해당 포스트를 찾지 못 했습니다.` });
       return;
     }
 
     const user = await prisma.user.findUnique({
-      where: { id: book?.userId },
+      where: { id: novel?.userId },
     });
 
     const useLikes = await prisma.userNovelLikes.findUnique({
@@ -47,26 +47,26 @@ async function getNovel(res: NextApiResponse, req: NextApiRequest) {
     // 검색 결과가 있는 경우 검색 결과 반환
 
     res.status(200).json({
-      ...book,
+      ...novel,
       user: user,
       comments: comments,
       isLiked: useLikes?.isLiked ? useLikes?.isLiked : false,
     });
   } else {
     // 비회원 경우
-    if (!book) {
+    if (!novel) {
       // 검색 결과가 없는 경우 404 에러 반환
       res.status(404).json({ message: `해당 포스트를 찾지 못 했습니다.` });
       return;
     }
 
     const user = await prisma.user.findUnique({
-      where: { id: book.userId },
+      where: { id: novel.userId },
     });
 
-    const comments = await prisma.bookComment.findMany({
+    const comments = await prisma.novelComment.findMany({
       where: {
-        bookId: Number(id),
+        novelId: Number(id),
       },
       include: {
         user: true,
@@ -76,7 +76,7 @@ async function getNovel(res: NextApiResponse, req: NextApiRequest) {
     // 검색 결과가 있는 경우 검색 결과 반환
 
     res.status(200).json({
-      ...book,
+      ...novel,
       user: user,
       comments: comments,
       isLiked: false,
