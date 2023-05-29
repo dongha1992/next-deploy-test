@@ -42,19 +42,22 @@ model VerificationToken {
 }
 
 model User {
-  id            String          @id @default(cuid())
-  name          String
-  email         String          @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  posts         Post[]
-  sessions      Session[]
-  userLikes     UserLikes[]
-  comment       Comment[]
-  books         Book[]
-  userBookLikes UserBookLikes[]
-  bookComment   BookComment[]
+  id             String           @id @default(cuid())
+  name           String
+  email          String           @unique
+  emailVerified  DateTime?
+  image          String?
+  accounts       Account[]
+  posts          Post[]
+  sessions       Session[]
+  userLikes      UserLikes[]
+  comment        Comment[]
+  books          Book[]
+  userBookLikes  UserBookLikes[]
+  bookComment    BookComment[]
+  Novel          Novel[]
+  UserNovelLikes UserNovelLikes[]
+  NovelComment   NovelComment[]
 }
 
 // Post 관련
@@ -141,4 +144,40 @@ model BookComment {
   user      User     @relation(fields: [userId], references: [id])
   bookId    Int
   book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+}
+
+model Novel {
+  id             Int              @id @default(autoincrement())
+  title          String
+  body           String
+  totalLikes     Int              @default(0)
+  totalComments  Int              @default(0)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  userId         String
+  isLiked        Boolean
+  user           User             @relation(fields: [userId], references: [id])
+  UserNovelLikes UserNovelLikes[]
+  NovelComment   NovelComment[]
+}
+
+model UserNovelLikes {
+  isLiked Boolean
+  novelId Int
+  userId  String
+  novel   Novel   @relation(fields: [novelId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@id([novelId, userId])
+}
+
+model NovelComment {
+  id        Int      @id @default(autoincrement())
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  novelId   Int
+  novel     Novel    @relation(fields: [novelId], references: [id], onDelete: Cascade)
 }
