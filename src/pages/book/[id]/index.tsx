@@ -139,13 +139,13 @@ export default function BookDetailPage({ id }: { id: number }) {
           });
         }}
       />
-      <form className="flex flex-col mx-6" onSubmit={onSubmitComment}>
+      <form className="flex flex-col mx-4" onSubmit={onSubmitComment}>
         <TextArea name="comment" />
         <Button type="submit" className="w-15 self-end">
           확인
         </Button>
       </form>
-      <div className="mx-6 mt-10 mb-6">
+      <div className="mx-4 mt-10 mb-6">
         {book?.comments?.map((comment: any, index: number) => {
           return (
             <Comment
