@@ -17,8 +17,9 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
-import useKakao from "@/hooks/useKakao";
+import { Analytics } from "@vercel/analytics/react";
 
+import useKakao from "@/hooks/useKakao";
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
@@ -48,6 +49,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       <Hydrate state={pageProps.dehydratedProps}>
         <SessionProvider session={pageProps.session}>
           <RecoilRoot>{getLayout(<Component {...pageProps} />)}</RecoilRoot>
+          <Analytics />
           <ReactQueryDevtools initialIsOpen={false} />
         </SessionProvider>
       </Hydrate>
