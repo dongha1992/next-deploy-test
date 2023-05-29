@@ -127,7 +127,7 @@ export default function NovelDetailPage({ id }: { id: number }) {
             content: {
               title: novel.title,
               description: novel.body,
-              imageUrl: novel?.image,
+              imageUrl: "",
               imageWidth: 600,
               imageHeight: 420,
               link: {
