@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useLayoutEffect, useState } from "react";
 
 import { useRecoilState } from "recoil";
 import { imageZoomState, modeState, popupState } from "@/store/common";
@@ -37,7 +37,7 @@ function Layout({
     return () => window.removeEventListener("resize", calcBrowserScreenSize);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const isReadPage = router.asPath.indexOf("read") > -1;
     if (router.isReady && isReadPage) {
       const isDetailPage =
