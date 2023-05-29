@@ -39,15 +39,18 @@ function ReadPage() {
   }
   return (
     <section className="w-full pt-8 pb-14 mx-auto max-w-7xl px-4 bg-black relative">
-      {/* {(isLikeLoading || isDeleteLikeLoading || isBooksLoading) && (
-            <Overlay>
-              <Lottie
-                src="https://assets8.lottiefiles.com/private_files/lf30_gqirhcr7.json"
-                loop={false}
-              />
-            </Overlay>
-          )} */}
-      <div className="h-full border border-gray-700" style={{ height: "75vh" }}>
+      {(isLikeLoading || isDeleteLikeLoading || isNovelsLoading) && (
+        <Overlay>
+          <Lottie
+            src="https://assets8.lottiefiles.com/private_files/lf30_gqirhcr7.json"
+            loop={false}
+          />
+        </Overlay>
+      )}
+      <div
+        className="h-full border border-gray-700 overflow-scroll"
+        style={{ height: "75vh" }}
+      >
         {data?.length ? (
           <ul className="w-full">
             {data?.map((novel: any) => (

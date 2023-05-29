@@ -114,7 +114,7 @@ export default function BookDetailPage({ id }: { id: number }) {
       <BookDetail
         book={book}
         user={book?.user}
-        className="px-4 my-3 mt-10"
+        className="px-4 my-3 mt-3"
         onComment={() => {
           return;
         }}

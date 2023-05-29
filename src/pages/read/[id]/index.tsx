@@ -113,7 +113,7 @@ export default function NovelDetailPage({ id }: { id: number }) {
       <NovelDetail
         novel={novel}
         user={novel?.user}
-        className="px-4 my-3 mt-10"
+        className="px-4 my-3 mt-3"
         onComment={() => {
           return;
         }}

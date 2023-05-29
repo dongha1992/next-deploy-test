@@ -47,48 +47,24 @@ export default function NovelDetailPage({
     });
   };
 
-  const isAuth = data?.user?.email === novel?.user?.email;
+  // const isAuth = data?.user?.email === novel?.user?.email;
 
   return (
     <div className={"flex flex-col overflow-hidden rounded-lg " + className}>
       <div className="flex flex-1 flex-col justify-between">
-        <div className="mt-2 flex items-center">
-          <div className="flex-shrink-0 text-gray-100">
-            {user?.image && (
-              <Image
-                className="h-8 w-8 rounded-full"
-                src={user.image}
-                width={10}
-                height={10}
-                alt="아바타 사진"
-              />
-            )}
-          </div>
-          <div className="ml-4 flex-1">
-            <div className="flex items-center justify-between">
-              <p className="text-xs font-medium text-gray-100">
-                {/* {formatUserName(user?.name)} */}
-                {user?.name}
-              </p>
-              <p className="text-xs text-gray-300">
-                {novel?.createdAt.split("T")[0]}
-              </p>
-            </div>
-            <div className="flex mt-1 items-center justify-between">
-              <p className="text-md font-semibold text-gray-100 break-all">
-                {novel?.title ? `<${novel?.title}>` : ""}
-              </p>
-              {isAuth && (
-                <Setting
-                  onDelete={onDeleteHandler}
-                  onEdit={onEditHandler}
-                  className="top-5 right-0"
-                />
-              )}
-            </div>
-          </div>
+        <div className="flex items-center flex-col my-4 mb-6">
+          <p className="text-xs md:text-md font-semibold text-gray-100 flex justify-start w-full mb-4">
+            {"<단편소설>"}
+          </p>
+          <p className="text-lg md:text-xl font-semibold text-gray-100 break-all">
+            {novel?.title ?? ""}
+          </p>
+          <p className="text-sm md:text-md font-medium text-gray-100 flex justify-end w-full">
+            {user?.name}
+          </p>
         </div>
-        <span className="mt-4 text-sm md:text-lg lg:text-lg text-gray-100 whitespace-pre-wrap break-words">
+
+        <span className="w-full mt-4 text-md lg:text-lg text-gray-100 leading-loose whitespace-pre-wrap break-words">
           {novel?.body ?? ""}
         </span>
       </div>
