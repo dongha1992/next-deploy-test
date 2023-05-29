@@ -11,6 +11,8 @@ import { CancelIcon } from "@/utils/svg";
 
 // TODO: aws 분리
 
+const IMAGE_LIMIT = 4;
+
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -67,7 +69,7 @@ export default function NewBookPostForm({
       <form onSubmit={onSubmit} className={className} action="#" method="POST">
         <input type="hidden" name="remember" value="true" />
         <div className="rounded-md shadow-sm -space-y-px">
-          <TextArea className="h-96" name="text" value={value} />
+          <TextArea name="text" value={value} style={{ height: "50vh" }} />
           {isImageLoading && (
             <Overlay>
               <Lottie
@@ -100,7 +102,7 @@ export default function NewBookPostForm({
                   </div>
                 );
               })}
-            {images && images?.length < 3 && (
+            {images && images?.length < IMAGE_LIMIT && (
               <ImageBox setImageValue={setImageHandler} />
             )}
           </section>

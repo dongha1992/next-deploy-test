@@ -84,7 +84,7 @@ export default function BookPost({
                 </p>
               </div>
               <div className="flex mt-1 items-center justify-between">
-                <p className="text-sm font-semibold text-gray-100 break-all">
+                <p className="text-sm md:text-md lg:text-md font-semibold text-gray-100 break-all">
                   {book?.title ? `<${book?.title}>` : ""}
                 </p>
                 {isAuth && (
@@ -97,9 +97,11 @@ export default function BookPost({
               </div>
             </div>
           </div>
-          <div className="flex justify-end w-full my-2">{ratingGenerator}</div>
+          <div className="flex justify-end w-full my-2">
+            {ratingGenerator()}
+          </div>
           <Link href={href}>
-            <span className="text-sm text-gray-100 whitespace-pre-wrap break-words">
+            <span className="text-sm md:text-lg lg:text-lg text-gray-100 whitespace-pre-wrap break-words">
               {book?.body.length > MAX_BODY_LENGTH
                 ? book?.body.slice(0, MAX_BODY_LENGTH) + "..."
                 : book?.body}
@@ -107,10 +109,10 @@ export default function BookPost({
           </Link>
         </div>
         <Spacing size={20} />
-        <section className="overflow-x-scroll max-w-96">
+        <section className="overflow-x-scroll">
           <div
             className="flex align-items-center gap-4"
-            style={{ width: "600px" }}
+            style={{ width: `${book?.userImages.length * 192}px` }}
           >
             {book?.userImages.length > 0 &&
               book?.userImages.map((src: string, index: number) => {

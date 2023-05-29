@@ -86,7 +86,9 @@ export default function PostForm() {
         </h1>
         <div className="mt-6">
           <BookInfo item={book} />
-          <div className="flex justify-end w-full my-2">{ratingGenerator}</div>
+          <div className="flex justify-end w-full my-2">
+            {ratingGenerator({ width: 24, height: 24 })}
+          </div>
           <NewBookPostForm
             className="max-w-5xl mt-4"
             onSubmit={onEditHandler}

@@ -99,7 +99,7 @@ export default function NovelPost({
               </div>
             </div>
             <div className="flex justify-end w-full my-2">
-              {ratingGenerator}
+              {ratingGenerator()}
             </div>
           </div>
         </Link>

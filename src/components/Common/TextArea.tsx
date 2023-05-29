@@ -29,6 +29,7 @@ export type Props = {
    * 에러 상태를 표시합니다.
    */
   hasError?: boolean;
+  style?: any;
 } & TextAreaAttributes;
 
 function TextArea({
@@ -40,18 +41,17 @@ function TextArea({
   onBlur,
   // onChange,
   value = "",
+  style,
   ...textareaAttrs
 }: Props) {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
     <div
-      className={`relative flex justify-between transition-background-color rounded-12 items-center shadow-inset-0-0-0-1px-rgba-0-0-0-0-02 font-light text-white border-solid border-1 border-gray-500 ${
+      className={`relative flex justify-between transition-background-color rounded-12 items-center shadow-inset-0-0-0-1px-rgba-0-0-0-0-02 font-normal text-white border-solid border-1 border-gray-500 ${
         hasError ? "bg-red-100" : ""
       } ${isFocused ? "" : ""}`}
-      style={{
-        height: "70vh",
-      }}
+      style={style}
     >
       <textarea
         name={name}

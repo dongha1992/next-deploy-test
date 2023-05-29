@@ -1,12 +1,6 @@
 import { StarEmptyIcon, StarFullIcon, StarHalfIcon } from "@/utils/svg";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
-const IconMap: { [key: string]: JSX.Element } = {
-  StarHalfIcon: <StarHalfIcon />,
-  StarFullIcon: <StarFullIcon />,
-  StarEmptyIcon: <StarEmptyIcon />,
-};
-
 const INITIAL_COUNT = 5;
 
 interface Props {
@@ -17,6 +11,15 @@ interface Props {
 function useRating({ userRating = 5, isReadOnly = true }: Props = {}) {
   const [hoverRating, setHoverRating] = useState<number>(0);
   const [rating, setRating] = useState<number>(5);
+
+  const onRenderIcon = useCallback((key: string, style?: any) => {
+    const iconMap: { [key: string]: JSX.Element } = {
+      StarHalfIcon: <StarHalfIcon props={style} />,
+      StarFullIcon: <StarFullIcon props={style} />,
+      StarEmptyIcon: <StarEmptyIcon props={style} />,
+    };
+    return iconMap[key];
+  }, []);
 
   const onRating = useCallback(
     (e: React.MouseEvent<HTMLDivElement>, idx: number) => {
@@ -51,26 +54,29 @@ function useRating({ userRating = 5, isReadOnly = true }: Props = {}) {
     [rating, hoverRating]
   );
 
-  const ratingGenerator = useMemo(() => {
-    const stars = Array(INITIAL_COUNT)
-      .fill(0)
-      .map((_, i) => i + 1)
-      .map((idx) => (
-        <div
-          key={idx}
-          // onMouseOver={(e) => onRating && onRating(e, idx)}
-          onClick={(e) => onRating && onRating(e, idx)}
-          // onMouseLeave={(e) => onRating && onRating(e, idx)}
-        >
-          <div className="pr-1">{IconMap[getSvgName(idx)]}</div>
+  const ratingGenerator = useCallback(
+    (style?: any) => {
+      const stars = Array(INITIAL_COUNT)
+        .fill(0)
+        .map((_, i) => i + 1)
+        .map((idx) => (
+          <div
+            key={idx}
+            // onMouseOver={(e) => onRating && onRating(e, idx)}
+            onClick={(e) => onRating && onRating(e, idx)}
+            // onMouseLeave={(e) => onRating && onRating(e, idx)}
+          >
+            <div className="pr-1">{onRenderIcon(getSvgName(idx), style)}</div>
+          </div>
+        ));
+      return (
+        <div className="flex cursor-pointer select-none">
+          <div className="pr-2 flex">{stars}</div>
         </div>
-      ));
-    return (
-      <div className="flex cursor-pointer select-none">
-        <div className="pr-2 flex">{stars}</div>
-      </div>
-    );
-  }, [getSvgName, onRating]);
+      );
+    },
+    [getSvgName, onRating, onRenderIcon]
+  );
 
   useEffect(() => {
     setRating(userRating);

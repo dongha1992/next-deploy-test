@@ -362,11 +362,12 @@ function CancelIcon(props: any) {
   );
 }
 
-function StarFullIcon(props: any) {
+function StarFullIcon({ props }: any) {
   return (
     <svg
       width={20}
       height={20}
+      {...props}
       viewBox="0 0 44 44"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -379,11 +380,12 @@ function StarFullIcon(props: any) {
   );
 }
 
-function StarHalfIcon() {
+function StarHalfIcon({ props }: any) {
   return (
     <svg
       width={20}
       height={20}
+      {...props}
       viewBox="0 0 44 44"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -402,11 +404,12 @@ function StarHalfIcon() {
   );
 }
 
-function StarEmptyIcon() {
+function StarEmptyIcon({ props }: any) {
   return (
     <svg
       width={20}
       height={20}
+      {...props}
       viewBox="0 0 44 44"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

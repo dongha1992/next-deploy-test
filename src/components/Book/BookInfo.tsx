@@ -44,11 +44,13 @@ function BookInfo({
             </p>
           )}
 
-          <p className="text-xs text-gray-100">
+          <p className="text-xs  md:text-sm lg:text-sm text-gray-100">
             {item?.author?.replaceAll("^", ", ")}
           </p>
           <div className="flex mt-1">
-            <p className="text-xs mr-2 text-gray-100">{item?.publisher}</p>
+            <p className="text-xs  md:text-sm lg:text-sm mr-2 text-gray-100">
+              {item?.publisher}
+            </p>
             {item?.pubdate && (
               <p className="text-xs text-gray-100">
                 {formatDate(item?.pubdate)}
