@@ -31,9 +31,9 @@ export default function NewNovelPostForm({
             onChange: onChangeValue,
           }}
         />
-        <TextArea name="text" value={body} style={{ minHeight: "70vh" }} />
+        <TextArea name="text" value={body} style={{ minHeight: "75vh" }} />
         <div>
-          <Button type="submit">제출</Button>
+          <Button type="submit">{body ? "수정" : "작성"}</Button>
         </div>
       </div>
     </form>

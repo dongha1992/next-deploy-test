@@ -69,7 +69,7 @@ export default function NewBookPostForm({
       <form onSubmit={onSubmit} className={className} action="#" method="POST">
         <input type="hidden" name="remember" value="true" />
         <div className="rounded-md shadow-sm -space-y-px">
-          <TextArea name="text" value={value} style={{ minHeight: "60vh" }} />
+          <TextArea name="text" value={value} style={{ minHeight: "50vh" }} />
           {isImageLoading && (
             <Overlay>
               <Lottie
@@ -107,7 +107,7 @@ export default function NewBookPostForm({
             )}
           </section>
           <div>
-            <Button type="submit">제출</Button>
+            <Button type="submit">{value ? "수정" : "작성"}</Button>
           </div>
         </div>
       </form>
