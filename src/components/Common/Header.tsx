@@ -1,3 +1,4 @@
+import useIsInApp from "@/hooks/useIsInApp";
 import { modeState } from "@/store/common";
 import { ArrowBackIcon } from "@/utils/svg";
 import router from "next/router";
@@ -9,10 +10,11 @@ interface Props {
 }
 
 function Header({ children }: Props) {
+  const { isInApp } = useIsInApp();
   const [mode, setIsModeOn] = useRecoilState(modeState);
 
   const onNavigateHandler = () => {
-    router.back();
+    isInApp ? router.push("/book") : router.back();
   };
   return (
     <div className="flex w-full justify-between align-center py-4 px-4">
