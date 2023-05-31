@@ -120,23 +120,6 @@ export default function NovelDetailPage({ id }: { id: number }) {
         onLike={() =>
           checkAuthHandler(() => onMutateLikeHandler(novel.isLiked, novel.id))
         }
-        onShare={() => {
-          window?.Kakao.Link.sendDefault({
-            objectType: "feed",
-            content: {
-              title: novel.title,
-              description: novel.body,
-              imageUrl: "",
-              imageWidth: 600,
-              imageHeight: 420,
-              link: {
-                webUrl: `${process.env.NEXTAUTH_URL}/read/${novel.id}`,
-                mobileWebUrl: `${process.env.NEXTAUTH_URL}/read/${novel.id}`,
-              },
-            },
-            buttons: [],
-          });
-        }}
       />
       <form className="flex flex-col mx-4" onSubmit={onSubmitComment}>
         <TextArea name="comment" style={{ minHeight: "120px" }} />

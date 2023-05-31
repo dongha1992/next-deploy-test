@@ -74,7 +74,7 @@ export default function BookPost({
               )}
             </div>
             <div className="ml-4 flex-1">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-2">
                 <p className="text-xs font-medium text-gray-100">
                   {user?.name}
                 </p>

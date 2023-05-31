@@ -11,7 +11,6 @@ import { NOVELS_QUERY_KEY } from "@/query/novel";
 export default function NovelDetailPage({
   onLike,
   onComment,
-  onShare,
   novel,
   user,
   className = "",
@@ -83,7 +82,6 @@ export default function NovelDetailPage({
         <PostActions
           onComment={onComment}
           onLike={onLike}
-          onShare={onShare}
           isLiked={novel?.isLiked}
           totalComments={novel?.totalComments}
           totalLikes={novel?.totalLikes}
