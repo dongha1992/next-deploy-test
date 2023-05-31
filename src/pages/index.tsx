@@ -102,7 +102,7 @@ export default function Home() {
               }
             />
           </form>
-          {isSuccess && data.length === 0 && (
+          {isSuccess && data?.length === 0 && (
             <div className="mt-8">
               {keyword}에 대한 포스트가 존재하지 않습니다!
             </div>

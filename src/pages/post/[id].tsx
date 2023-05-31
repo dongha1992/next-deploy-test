@@ -99,8 +99,8 @@ export default function PostDetailPage({ id }: { id: number }) {
               key={index}
               user={comment?.user}
               comment={comment}
-              onDelete={() => deleteCommentMutation(comment.id)}
-              onEdit={() => onEditComment(comment.id)}
+              onDelete={() => deleteCommentMutation(comment?.id)}
+              onEdit={() => onEditComment(comment?.id)}
             />
           );
         })}

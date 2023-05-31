@@ -40,8 +40,8 @@ export default function PostForm() {
           <NewPostForm
             className="max-w-5xl"
             onSubmit={onEditHandler}
-            defaultCode={post.code}
-            defaultLanguage={post.language}
+            defaultCode={post?.code}
+            defaultLanguage={post?.language}
           />
         </div>
       </div>
