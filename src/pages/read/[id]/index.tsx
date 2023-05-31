@@ -19,7 +19,7 @@ import Lottie from "@/components/Common/Lottie";
 import Overlay from "@/components/Common/Overlay";
 import useCheckAuth from "@/hooks/useCheckAuth";
 import { useRecoilState } from "recoil";
-import { modeState, popupState } from "@/store/common";
+import { popupState } from "@/store/common";
 import Layout from "@/components/Layout";
 import { getNovelDetailApi } from "@/utils/api/novel";
 import NovelDetail from "@/components/Novel/NovelDetail";

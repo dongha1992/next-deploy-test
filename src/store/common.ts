@@ -11,10 +11,11 @@ const imageZoomState = atom<{ srcs: string[]; startIndex: number } | null>({
 });
 
 const popupState = atom<{
-  message?: string | ReactNode;
+  message?: ReactNode;
   callback?: any;
   setIsOpen?: any;
   isOpen: boolean;
+  hasCustomButton?: boolean;
 } | null>({
   key: `popupState/${v1()}`,
   default: {
@@ -22,6 +23,7 @@ const popupState = atom<{
     callback: null,
     setIsOpen: null,
     isOpen: false,
+    hasCustomButton: false,
   },
 });
 

@@ -23,7 +23,7 @@ function Input({
       {left && left}
       <input
         name={name}
-        className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none focus:ring-0"
+        className="appearance-none bg-transparent border-none w-full text-gray mr-3 py-1 px-2 leading-tight focus:outline-none focus:ring-0"
         type="text"
         placeholder={placeholder}
         aria-label="검색"

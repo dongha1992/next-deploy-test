@@ -123,6 +123,7 @@ model Book {
   userBookLikes UserBookLikes[]
   bookComments  BookComment[]
   userImages    String[]
+  userName      String?
 }
 
 model UserBookLikes {

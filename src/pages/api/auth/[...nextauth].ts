@@ -25,18 +25,24 @@ export const options: any = {
       // 중복 메일 검사 등
       return true;
     },
-    async jwt({ token, user }: any) {
+    async jwt({ token, user, trigger, session }: any) {
       if (user) {
         const userToken: any = await SignToken(user.email);
         token.userToken = userToken;
       }
 
+      if (trigger === "update" && session?.name) {
+        // Note, that `session` can be any arbitrary object, remember to validate it!
+        token.name = session.name;
+      }
+
       return token;
     },
-    async session({ session, token }: any) {
+    async session({ session, token, trigger, newSession }: any) {
       if (token && token.userToken) {
         session.loggedUser = token.userToken;
       }
+
       return session;
     },
   },

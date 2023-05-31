@@ -23,7 +23,7 @@ import BookInfo from "@/components/Book/BookInfo";
 import { getNaverBooksApi } from "@/utils/api/naver";
 import useRating from "@/hooks/useRating";
 import Layout from "@/components/Layout";
-import Header from "@/components/Common/Header";
+import { Header } from "@/components/Common/Header";
 
 // BookForm page와 중복임
 

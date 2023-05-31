@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import router from "next/router";
 import PostActions from "../PostActions";
 import Setting from "../Common/Setting";
-import { formatUserName } from "@/utils/maskString";
+
 import Spacing from "../Common/Spacing";
 
 import { imageZoomState, popupState } from "@/store/common";
@@ -74,9 +74,8 @@ export default function BookPost({
               )}
             </div>
             <div className="ml-4 flex-1">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between mb-4">
                 <p className="text-xs font-medium text-gray-100">
-                  {/* {formatUserName(user?.name)} */}
                   {user?.name}
                 </p>
                 <p className="text-xs text-gray-300">

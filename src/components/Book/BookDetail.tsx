@@ -72,7 +72,7 @@ export default function BookDetail({
             )}
           </div>
           <div className="ml-4 flex-1">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-4">
               <p className="text-xs font-medium text-gray-100">
                 {/* {formatUserName(user?.name)} */}
                 {user?.name}

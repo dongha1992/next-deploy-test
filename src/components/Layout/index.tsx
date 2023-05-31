@@ -6,6 +6,7 @@ import ImageViewer from "../ImageViewer";
 import Popup from "../Common/Popup";
 import { Background } from "./Background";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 //TODO: layout 여러차례 렌더링
 //TODO: 다크모드 임시임 수정해야함
@@ -19,6 +20,8 @@ function Layout({
   bottom?: ReactNode;
   top?: ReactNode;
 }) {
+  const { status, data, update } = useSession();
+
   const [srcs] = useRecoilState(imageZoomState);
   const [popup] = useRecoilState(popupState);
   const [colorMode, setIsModeOn] = useRecoilState(modeState);
@@ -77,6 +80,7 @@ function Layout({
             onClickConfirm={popup.callback}
             text={popup.message}
             isOpen={popup.isOpen}
+            hasCustomButton={popup.hasCustomButton}
           />
         )}
       </div>
