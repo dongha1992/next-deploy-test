@@ -20,6 +20,7 @@ function Setting({ onDelete, onEdit, className = "bottom-10 right-0" }: Props) {
       as="div"
       className="relative text-left"
       style={{ zIndex: getZIndex("settingButton") }}
+      onClick={(e) => e.preventDefault()}
     >
       <div>
         <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 px-4 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">

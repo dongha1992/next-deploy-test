@@ -11,7 +11,7 @@ import NewBookPostForm from "@/components/Book/NewBookPostForm";
 import BookInfo from "@/components/Book/BookInfo";
 import useRating from "@/hooks/useRating";
 import Layout from "@/components/Layout";
-import Header from "@/components/Common/Header";
+import { Header } from "@/components/Common/Header";
 
 export default function BookEditPage() {
   const [images, setImages] = useState<any>([]);

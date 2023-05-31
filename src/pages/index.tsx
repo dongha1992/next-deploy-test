@@ -105,7 +105,7 @@ export default function Home() {
           {(isLikeLoading || isDeleteLikeLoading || isPostsLoading) && (
             <Overlay>
               <Lottie
-                className="w-20 h-20"
+                className="w-56"
                 src="/lottie/loading.json"
                 loop={false}
               />

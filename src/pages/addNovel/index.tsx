@@ -3,7 +3,7 @@ import React, { ReactElement } from "react";
 import NewNovelPostForm from "@/components/Novel/NewNovelPostForm";
 import { NOVELS_QUERY_KEY, useNovelCreate } from "@/query/novel";
 import Layout from "@/components/Layout";
-import Header from "@/components/Common/Header";
+import { Header } from "@/components/Common/Header";
 import Overlay from "@/components/Common/Overlay";
 import Lottie from "@/components/Common/Lottie";
 
@@ -40,6 +40,7 @@ function AddNovelPage() {
       {isNovelLoading && (
         <Overlay>
           <Lottie
+            className="w-56"
             src="https://assets8.lottiefiles.com/private_files/lf30_gqirhcr7.json"
             loop={false}
           />

@@ -25,7 +25,7 @@ import { useRecoilState } from "recoil";
 import { popupState } from "@/store/common";
 import Layout from "@/components/Layout";
 import { ReactElement } from "react";
-import Header from "@/components/Common/Header";
+import { Header } from "@/components/Common/Header";
 
 export default function BookDetailPage({ id }: { id: number }) {
   const { status, data } = useSession();

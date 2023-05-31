@@ -10,7 +10,7 @@ import {
 import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import router from "next/router";
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 
 import Comment from "@/components/Common/Comment";
 import TextArea from "@/components/Common/TextArea";
@@ -21,15 +21,14 @@ import useCheckAuth from "@/hooks/useCheckAuth";
 import { useRecoilState } from "recoil";
 import { modeState, popupState } from "@/store/common";
 import Layout from "@/components/Layout";
-import Header from "@/components/Common/Header";
 import { getNovelDetailApi } from "@/utils/api/novel";
 import NovelDetail from "@/components/Novel/NovelDetail";
+import { StickyHeader } from "@/components/Common/Header";
 
 export default function NovelDetailPage({ id }: { id: number }) {
   const { status, data } = useSession();
   const { checkAuthHandler } = useCheckAuth();
   const [popup, setPopup] = useRecoilState(popupState);
-  const [mode, setIsModeOn] = useRecoilState(modeState);
 
   const isUnauthenticated = status === "unauthenticated";
 
@@ -141,7 +140,10 @@ export default function NovelDetailPage({ id }: { id: number }) {
       />
       <form className="flex flex-col mx-4" onSubmit={onSubmitComment}>
         <TextArea name="comment" style={{ minHeight: "120px" }} />
-        <Button type="submit" className="w-15 self-end">
+        <Button
+          type="submit"
+          className="w-15 self-end bg-gray-700 hover:bg-gray-600"
+        >
           확인
         </Button>
       </form>
@@ -164,7 +166,7 @@ export default function NovelDetailPage({ id }: { id: number }) {
 }
 
 NovelDetailPage.getLayout = (page: ReactElement) => {
-  return <Layout top={<Header />}>{page}</Layout>;
+  return <Layout top={<StickyHeader />}>{page}</Layout>;
 };
 
 export async function getServerSideProps(context: any) {

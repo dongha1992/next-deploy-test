@@ -1,15 +1,15 @@
+import React, { ReactElement } from "react";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+
 import BookPost from "@/components/Book/BookPost";
 import Border from "@/components/Common/Border";
-import Header from "@/components/Common/Header";
+import { Header } from "@/components/Common/Header";
 import Lottie from "@/components/Common/Lottie";
 import Overlay from "@/components/Common/Overlay";
 import Layout from "@/components/Layout";
 import { useDeleteLike, useUpdateLike } from "@/query/book";
 import { MYPAGE_REVIEWS_QUERY_KEY, useGetMyReviewList } from "@/query/mypage";
 import { getMyReviewsApi } from "@/utils/api/mypage";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
-import router from "next/router";
-import React, { ReactElement } from "react";
 
 function MypageReviewList({ email }: { email: string }) {
   const { data, isSuccess } = useGetMyReviewList({ email });

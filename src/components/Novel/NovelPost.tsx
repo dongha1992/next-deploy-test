@@ -39,35 +39,37 @@ export default function NovelPost({ href, novel, user, className = "" }: any) {
   return (
     <>
       <div className={"flex flex-col rounded-lg shadow-lg px-4 " + className}>
-        <div className="flex flex-1 flex-col justify-between">
-          <div className="flex items-center ">
-            <div className="flex-1">
-              <div className="flex items-center justify-between">
-                <p className="text-xs font-medium text-gray-100">
-                  {/* {formatUserName(user?.name)} */}
-                  {user?.name}
-                </p>
-                <p className="text-xs text-gray-300">
-                  {novel?.createdAt.split("T")[0]}
-                </p>
-              </div>
-              <div className="flex items-center justify-between">
-                <Link href={href}>
+        <Link href={href}>
+          <div className="flex flex-1 flex-col justify-between">
+            <div className="flex items-center ">
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  <p className="text-xs font-medium text-gray-100">
+                    {/* {formatUserName(user?.name)} */}
+                    {user?.name}
+                  </p>
+                  <p className="text-xs text-gray-300">
+                    {novel?.createdAt.split("T")[0]}
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between">
                   <p className="text-lg font-semibold text-gray-100 break-all">
                     {novel?.title ? `<${novel?.title}>` : ""}
                   </p>
-                </Link>
-                {isAuth && (
-                  <Setting
-                    onDelete={onDeleteHandler}
-                    onEdit={onEditHandler}
-                    className="top-5 right-0"
-                  />
-                )}
+
+                  {isAuth && (
+                    <Setting
+                      onDelete={onDeleteHandler}
+                      onEdit={onEditHandler}
+                      className="top-5 right-0"
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </Link>
       </div>
     </>
   );

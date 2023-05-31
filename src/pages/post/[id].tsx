@@ -15,8 +15,6 @@ import { apiClient } from "@/utils/api/apiClient";
 import Comment from "@/components/Common/Comment";
 import TextArea from "@/components/Common/TextArea";
 import Button from "@/components/Common/Button";
-import Lottie from "@/components/Common/Lottie";
-import Overlay from "@/components/Common/Overlay";
 
 import router from "next/router";
 
@@ -74,18 +72,6 @@ export default function PostDetailPage({ id }: { id: number }) {
 
   return (
     <div className="w-full">
-      {(isLoading ||
-        isCommentLoading ||
-        isLikeLoading ||
-        isLikeDeleteLoading) && (
-        <Overlay>
-          <Lottie
-            className="w-20 h-20"
-            src="/lottie/loading.json"
-            loop={false}
-          />
-        </Overlay>
-      )}
       <Head>
         <title>{post?.title}</title>
       </Head>

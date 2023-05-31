@@ -6,7 +6,7 @@ import { NOVEL_DETAIL_QUERY_KEY, useEditNovel } from "@/query/novel";
 import Overlay from "@/components/Common/Overlay";
 import Lottie from "@/components/Common/Lottie";
 import Layout from "@/components/Layout";
-import Header from "@/components/Common/Header";
+import { Header } from "@/components/Common/Header";
 import NewNovelPostForm from "@/components/Novel/NewNovelPostForm";
 import { getNovelDetailApi } from "@/utils/api/novel";
 

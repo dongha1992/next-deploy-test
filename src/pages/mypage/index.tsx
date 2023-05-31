@@ -4,12 +4,13 @@ import router from "next/router";
 
 import Layout from "@/components/Layout";
 import LoginButton from "@/components/LoginButton";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, useSession, signOut } from "next-auth/react";
 import Overlay from "@/components/Common/Overlay";
 import Lottie from "@/components/Common/Lottie";
 import useIsInApp from "@/hooks/useIsInApp";
 import InAppInfo from "@/components/InAppInfo";
 import Border from "@/components/Common/Border";
+import Button from "@/components/Common/Button";
 
 const MYPAGE_MENU = [{ text: "내가 쓴 글 보기", value: "/mypage/list" }];
 
@@ -46,7 +47,7 @@ function Mypage() {
           <LoginButton onClick={() => signIn("google")} />
         </div>
       ) : (
-        <section>
+        <section className="flex flex-col justify-between h-[85vh] md:h-[90vh]">
           <div className="flex flex-col">
             <div className="flex items-center mb-4">
               <p className="text-md font-medium text-gray-100 mr-2">
@@ -76,6 +77,7 @@ function Mypage() {
               </ul>
             </div>
           </div>
+          <Button onClick={() => signOut()}>로그아웃</Button>
         </section>
       )}
     </article>

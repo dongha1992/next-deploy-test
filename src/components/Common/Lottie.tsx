@@ -13,11 +13,11 @@ interface Props {
 const Lottie = memo(
   ({
     src,
+    controller,
+    style,
     loop = true,
     autoplay = true,
-    controller,
-    className,
-    style,
+    className = "w-56",
   }: Props) => {
     const container = useRef<HTMLDivElement | null>(null);
     const player = useRef<AnimationItem | null>(null);

@@ -5,8 +5,6 @@ import NewPostForm from "@/components/Post/NewPostForm";
 import { POST_DETAIL_QUERY_KEY, useEditPost } from "@/query/post";
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/utils/api/apiClient";
-import Overlay from "@/components/Common/Overlay";
-import Lottie from "@/components/Common/Lottie";
 
 export default function PostForm() {
   const router = useRouter();
@@ -27,14 +25,6 @@ export default function PostForm() {
   const onEditHandler = (data: any) => {
     patchPostMutation({ data, id: Number(id) });
   };
-
-  if (isLoading || postLoading) {
-    return (
-      <Overlay>
-        <Lottie className="w-20 h-20" src="/lottie/loading.json" loop={false} />
-      </Overlay>
-    );
-  }
 
   return (
     <>
