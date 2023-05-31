@@ -101,12 +101,12 @@ function Mypage() {
                 </p>
                 <p>안녕하세요!</p>
               </div>
-              <Button
+              {/* <Button
                 className="w-15 mt-0"
                 onClick={() => onUpateUserHandler()}
               >
                 정보 수정하기
-              </Button>
+              </Button> */}
             </div>
 
             <Spacing size={20} />
