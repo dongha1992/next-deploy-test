@@ -124,8 +124,7 @@ export default function NovelDetailPage({ id }: { id: number }) {
       <form className="flex flex-col mx-4" onSubmit={onSubmitComment}>
         <TextArea
           name="comment"
-          style={{ minHeight: "120px" }}
-          className="text-black"
+          style={{ minHeight: "120px", color: "black" }}
         />
         <Button
           type="submit"
