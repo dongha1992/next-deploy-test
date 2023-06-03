@@ -1,8 +1,9 @@
 import type { AppProps } from "next/app";
-import { SessionProvider, useSession } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 import { NextPage } from "next";
-import { ReactElement, ReactNode, useEffect, useRef } from "react";
+import { ReactElement, ReactNode, useRef } from "react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { DefaultSeo } from "next-seo";
 
 import "@/styles/globals.css";
 import "highlight.js/styles/stackoverflow-dark.css";
@@ -20,6 +21,7 @@ import { RecoilRoot } from "recoil";
 import { Analytics } from "@vercel/analytics/react";
 
 import useKakao from "@/hooks/useKakao";
+import { DEFAULT_SEO } from "@/constants";
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
@@ -48,6 +50,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     <QueryClientProvider client={queryClient.current}>
       <Hydrate state={pageProps.dehydratedProps}>
         <SessionProvider session={pageProps.session}>
+          <DefaultSeo {...DEFAULT_SEO} />
           <RecoilRoot>{getLayout(<Component {...pageProps} />)}</RecoilRoot>
           <Analytics />
           <ReactQueryDevtools initialIsOpen={false} />
