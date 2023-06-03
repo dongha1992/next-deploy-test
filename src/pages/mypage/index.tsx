@@ -1,11 +1,11 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement } from "react";
 import Navigation from "@/components/Common/Navigation";
 import router from "next/router";
 import { useRecoilState } from "recoil";
+import { signIn, useSession, signOut } from "next-auth/react";
 
 import Layout from "@/components/Layout";
 import LoginButton from "@/components/LoginButton";
-import { signIn, useSession, signOut } from "next-auth/react";
 import Overlay from "@/components/Common/Overlay";
 import Lottie from "@/components/Common/Lottie";
 import useIsInApp from "@/hooks/useIsInApp";
@@ -15,31 +15,28 @@ import Button from "@/components/Common/Button";
 import Spacing from "@/components/Common/Spacing";
 import { popupState } from "@/store/common";
 import Input from "@/components/Common/Input";
-import axios from "axios";
+
+import { usePathcUserName } from "@/query/mypage";
 
 const MYPAGE_MENU = [{ text: "내가 쓴 글 보기", value: "/mypage/list" }];
 
 const ChangeNameModal = () => {
-  const { status, data, update } = useSession();
-  const [popup, setPopup] = useRecoilState(popupState);
+  const { mutate: mutateName } = usePathcUserName();
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
     const { changeName } = e.target.elements;
     const name = changeName.value;
-    update({ name });
-    setPopup({
-      isOpen: false,
-    });
-    await axios.patch("/api/auth");
+    mutateName(name);
   };
+
   return (
     <section>
       <form onSubmit={onSubmit} className="flex justify-between">
         <Input
           name="changeName"
           className="w-75"
-          placeholder="변경할 별명을 입력해주세요."
+          placeholder="변경할 이름을 입력해주세요."
         />
         <Button className="w-50" type="submit">
           수정하기
@@ -52,8 +49,6 @@ function Mypage() {
   const { status, data, update } = useSession();
   const { isInApp } = useIsInApp();
   const [popup, setPopup] = useRecoilState(popupState);
-
-  const [isShowUpdateInput, setIsShowUpdateInput] = useState(false);
 
   const isUnauthenticated = status === "unauthenticated";
   const isLoading = status === "loading";
@@ -101,12 +96,12 @@ function Mypage() {
                 </p>
                 <p>안녕하세요!</p>
               </div>
-              {/* <Button
+              <Button
                 className="w-15 mt-0"
                 onClick={() => onUpateUserHandler()}
               >
-                정보 수정하기
-              </Button> */}
+                이름 변경하기
+              </Button>
             </div>
 
             <Spacing size={20} />

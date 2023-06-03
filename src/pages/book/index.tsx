@@ -70,6 +70,8 @@ function BookPage() {
     search.value = "";
   };
 
+  console.log(data, "data");
+
   useEffect(() => {
     return () => {
       refetchPostSearchQuery();

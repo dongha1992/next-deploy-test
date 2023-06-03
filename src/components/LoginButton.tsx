@@ -16,7 +16,7 @@ function LoginButton({ onClick }: any) {
         width={25}
         height={25}
       />
-      <span className="ml-4">구글로 시작하기</span>
+      <span className="ml-4">1.8초 구글 로그인</span>
     </Button>
   );
 }

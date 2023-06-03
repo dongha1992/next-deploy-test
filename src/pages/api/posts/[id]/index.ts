@@ -95,8 +95,6 @@ async function deletePost(res: NextApiResponse, req: NextApiRequest) {
   } else {
     res.status(404).json({ message: `삭제할 수 없습니다.` });
   }
-
-  // 검색 결과가 있는 경우 검색 결과 반환
 }
 
 async function patchPost(res: NextApiResponse, req: NextApiRequest) {

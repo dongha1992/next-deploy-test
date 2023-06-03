@@ -14,6 +14,7 @@ export interface Session {
 
 async function updateUser(req: any, res: any) {
   const session: Session | null = await getServerSession(req, res, options);
+  const { data } = req.body;
 
   if (!session) {
     res.status(401).json({ error: "인증 되지 않은 회원입니다." });
@@ -31,10 +32,10 @@ async function updateUser(req: any, res: any) {
 
   await prisma.user.update({
     where: { email: prismaUser.email },
-    data: { name: session.user.name },
+    data: { name: data.name },
   });
 
-  res.status(200).json({ message: "성공" });
+  res.status(200).json(data.name);
 }
 
 export default async function handler(req: any, res: any) {
