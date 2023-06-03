@@ -41,9 +41,9 @@ export default function NovelPost({ href, novel, user, className = "" }: any) {
       <div className={"flex flex-col rounded-lg shadow-lg px-4 " + className}>
         <Link href={href}>
           <div className="flex flex-1 flex-col justify-between">
-            <div className="flex items-center ">
+            <div className="flex items-center">
               <div className="flex-1">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-1">
                   <p className="text-xs font-medium text-gray-100">
                     {/* {formatUserName(user?.name)} */}
                     {user?.name}
