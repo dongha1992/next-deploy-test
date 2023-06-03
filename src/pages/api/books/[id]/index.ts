@@ -39,6 +39,9 @@ async function getBook(res: NextApiResponse, req: NextApiRequest) {
       where: {
         bookId: Number(id),
       },
+      orderBy: {
+        createdAt: "desc",
+      },
       include: {
         user: true,
       },
