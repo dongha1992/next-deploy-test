@@ -12,9 +12,15 @@ interface Props {
   onDelete: any;
   onEdit: any;
   className?: string;
+  customTextColor?: string;
 }
 
-function Setting({ onDelete, onEdit, className = "bottom-10 right-0" }: Props) {
+function Setting({
+  onDelete,
+  onEdit,
+  customTextColor,
+  className = "bottom-10 right-0",
+}: Props) {
   return (
     <Menu
       as="div"
@@ -23,7 +29,9 @@ function Setting({ onDelete, onEdit, className = "bottom-10 right-0" }: Props) {
       onClick={(e) => e.preventDefault()}
     >
       <div>
-        <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 px-4 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+        <Menu.Button
+          className={`inline-flex w-full justify-center rounded-md bg-opacity-20 px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 ${customTextColor}`}
+        >
           ...
         </Menu.Button>
       </div>

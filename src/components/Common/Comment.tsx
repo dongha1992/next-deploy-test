@@ -10,6 +10,7 @@ interface Props {
   onDelete?: () => void;
   onEdit?: () => void;
   isAuth?: boolean;
+  textColor?: string;
 }
 
 function Comment({
@@ -19,9 +20,11 @@ function Comment({
   onDelete,
   onEdit,
   isAuth,
+  textColor,
 }: Props) {
+  const customTextColor = textColor ? textColor : "text-gray-100";
   return (
-    <div className={twMerge("flex items-center m-auto mt-7", className)}>
+    <div className={twMerge("flex items-center m-auto mt-7 ", className)}>
       <div className="flex-shrink-0 min-w-2xl">
         {user?.image && (
           <Image
@@ -35,17 +38,25 @@ function Comment({
       </div>
       <div className="ml-4 flex-1">
         <div className="flex items-center justify-between">
-          <p className="text-xs  font-medium text-gray-100">{user?.name}</p>
-          <p className="pl-5 text-xs text-gray-300">
+          <p className={`text-xs font-medium ${customTextColor}`}>
+            {user?.name}
+          </p>
+          <p className={`pl-5 text-xs ${customTextColor}`}>
             {/* {formatTimeAgo(post.createdAt)} */}
             {comment?.createdAt?.split("T")[0] ?? ""}
           </p>
         </div>
         <div className="flex mt-1 items-center justify-between">
-          <p className="text-xs md:text-sm text-gray-100 break-all">
+          <p className={`text-xs md:text-sm break-all ${customTextColor}`}>
             {comment?.text}
           </p>
-          {isAuth && <Setting onDelete={onDelete} onEdit={onEdit} />}
+          {isAuth && (
+            <Setting
+              onDelete={onDelete}
+              onEdit={onEdit}
+              customTextColor={customTextColor}
+            />
+          )}
         </div>
       </div>
     </div>

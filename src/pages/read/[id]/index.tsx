@@ -143,6 +143,7 @@ export default function NovelDetailPage({ id }: { id: number }) {
               comment={comment}
               onDelete={() => onDeleteComment(comment.id)}
               onEdit={() => onEditComment(comment.id)}
+              textColor="text-gray-700"
             />
           );
         })}
