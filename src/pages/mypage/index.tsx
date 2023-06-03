@@ -38,8 +38,8 @@ const ChangeNameModal = () => {
           className="w-75"
           placeholder="변경할 이름을 입력해주세요."
         />
-        <Button className="w-50" type="submit">
-          수정하기
+        <Button className="w-100" type="submit">
+          수정
         </Button>
       </form>
     </section>
