@@ -71,6 +71,9 @@ async function getNovel(res: NextApiResponse, req: NextApiRequest) {
       where: {
         novelId: Number(id),
       },
+      orderBy: {
+        createdAt: "desc",
+      },
       include: {
         user: true,
       },
