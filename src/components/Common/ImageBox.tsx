@@ -1,11 +1,14 @@
-import { useRef, useEffect, ChangeEvent } from "react";
+import { useRef, ChangeEvent } from "react";
 
 const DEFAULT_LIMIT_SIZE = 1024 * 1024 * 20;
 
+/** TODO: 미리보기, 수정 관련해서 로직 엉망임 */
+
 interface IProps {
   setImageValue: any;
+  isEdit?: boolean;
 }
-const ImageBox = ({ setImageValue }: IProps) => {
+const ImageBox = ({ setImageValue, isEdit = false }: IProps) => {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,16 +36,16 @@ const ImageBox = ({ setImageValue }: IProps) => {
   };
 
   return (
-    <article>
+    <article className="relative z-10">
       <div
         role="button"
         tabIndex={0}
         onClick={onOpenFile}
-        className={
-          "bg-gray-500 w-20 h-20 flex justify-center align-center flex-col rounded-md"
-        }
+        className={`w-20 h-20 flex justify-center align-center flex-col rounded-md ${
+          isEdit ? "" : "bg-gray-500"
+        }`}
       >
-        <span className="text-2xl text-center">+</span>
+        {isEdit ? null : <span className="text-2xl text-center">+</span>}
       </div>
       <input
         type="file"

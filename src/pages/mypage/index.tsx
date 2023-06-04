@@ -139,47 +139,53 @@ const ChangeNameModal = ({
     mutateName(name);
   };
 
-  const onChangeProfile = () => {};
-
   return (
-    <section className="flex flex-col justify-center items-center">
-      {/* <div
-        className="relative h-20 w-20"
-        role="button"
-        onClick={onChangeProfile}
-      >
-        <ImageBox setImageValue={setImageHandler} />
-        {images.length &&
-          images.map((src) => {
-            return (
-              <Image
-                key={src}
-                src={src}
-                className="rounded-full"
-                style={{ objectFit: "cover" }}
-                fill
-                alt="아바타 사진"
-              />
-            );
-          })}
-        <EditActiveIcon
-          className="absolute h-12 w-12"
-          aria-hidden="true"
-          style={{ right: "-15%", bottom: "-10%" }}
-        />
-      </div> */}
-      <form onSubmit={onSubmit} className="flex flex-col justify-between">
-        <Input
-          name="changeName"
-          className="w-75"
-          placeholder="변경할 이름을 입력해주세요."
-          inputprops={{ title: name }}
-        />
-        <Button className="w-100 mt-5" type="submit">
-          수정
-        </Button>
-      </form>
-    </section>
+    <>
+      <section className="flex flex-col justify-center items-center">
+        {isImageLoading && (
+          <div className="absolute left-50">
+            <Lottie
+              className="w-56"
+              src="https://assets8.lottiefiles.com/private_files/lf30_gqirhcr7.json"
+              loop={false}
+            />
+          </div>
+        )}
+        <div className="relative h-20 w-20" role="button">
+          <ImageBox setImageValue={setImageHandler} isEdit={true} />
+          {images.length &&
+            images.map((src) => {
+              return (
+                <Image
+                  key={src}
+                  src={src}
+                  className="rounded-full"
+                  style={{ objectFit: "cover" }}
+                  fill
+                  alt="아바타 사진"
+                />
+              );
+            })}
+
+          <EditActiveIcon
+            className="absolute h-12 w-12"
+            aria-hidden="true"
+            style={{ right: "-15%", bottom: "-10%" }}
+          />
+        </div>
+        <form onSubmit={onSubmit} className="flex flex-col justify-between">
+          <Input
+            name="changeName"
+            className="w-75"
+            placeholder="변경할 이름을 입력해주세요."
+            inputprops={{ title: name }}
+          />
+          <Button className="w-100 mt-5" type="submit">
+            수정
+          </Button>
+        </form>
+      </section>
+    </>
   );
 };
 
