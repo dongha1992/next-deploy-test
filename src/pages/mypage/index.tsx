@@ -29,11 +29,11 @@ function Mypage() {
   const { isInApp } = useIsInApp();
   const [popup, setPopup] = useRecoilState(popupState);
 
-  const { data } = useGetMe();
+  const { data, isLoading: isMeLoading } = useGetMe();
 
   const isUnauthenticated = status === "unauthenticated";
   const isLoading = status === "loading";
-
+  console.log(status, "status");
   const closeModal = () => {
     setPopup({
       isOpen: false,
@@ -54,7 +54,7 @@ function Mypage() {
     });
   };
 
-  if (isLoading) {
+  if (isLoading && isMeLoading) {
     return (
       <Overlay>
         <Lottie
@@ -85,7 +85,7 @@ function Mypage() {
             <div className="flex items-center justify-between mb-4">
               <div className="flex">
                 <p className="text-md font-medium text-gray-100 mr-2">
-                  {data?.name || "익명의 유저"}님
+                  {data?.name ?? "익명의 유저"}님
                 </p>
                 <p>안녕하세요!</p>
               </div>
