@@ -4,7 +4,7 @@ const zIndexMap: { [k: string]: string } = {
   lottie: "101",
   settingButton: "9",
   popup: "11",
-  stickyHeader: "1000",
+  stickyHeader: "99",
 };
 
 const getZIndex = (key: string): string => {

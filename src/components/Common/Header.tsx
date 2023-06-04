@@ -39,7 +39,10 @@ function StickyHeader({ children }: Props) {
     isInApp ? router.push("/book") : router.back();
   };
   return (
-    <div className="sticky top-0 w-full bg-white justify-between align-center py-4 px-4 border-b-[1px] border-gray-500">
+    <div
+      className="sticky top-0 w-full bg-white justify-between align-center py-4 px-4 border-b-[1px] border-gray-500"
+      style={{ zIndex: getZIndex("stickyHeader") }}
+    >
       <div onClick={onNavigateHandler} role="button">
         <ArrowBackIcon color={mode?.isWhite ? "#242424" : "#FFFFFF"} />
       </div>
