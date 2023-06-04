@@ -47,7 +47,7 @@ function Comment({
           </p>
         </div>
         <div className="flex mt-1 items-center justify-between">
-          <p className={`text-xs md:text-sm break-all ${customTextColor}`}>
+          <p className={`text-sm md:text-sm break-all ${customTextColor}`}>
             {comment?.text}
           </p>
           {isAuth && (
