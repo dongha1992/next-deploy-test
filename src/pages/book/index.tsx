@@ -119,10 +119,11 @@ function BookPage() {
                     href={`/book/${book.id}`}
                     user={book.user}
                     className="my-5"
-                    onLike={() =>
-                      checkAuthHandler(() =>
-                        onMutateLikeHandler(book.isLiked, book.id)
-                      )
+                    onLike={
+                      () => router.push(`/book/${book.id}`)
+                      // checkAuthHandler(() =>
+                      //   onMutateLikeHandler(book.isLiked, book.id)
+                      // )
                     }
                     onComment={() => router.push(`book/${book.id}`)}
                     onShare={() => {
