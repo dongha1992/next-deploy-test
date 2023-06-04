@@ -18,6 +18,7 @@ import { popupState } from "@/store/common";
 import Input from "@/components/Common/Input";
 
 import { usePathcUserName } from "@/query/mypage";
+import { EditActiveIcon } from "@/utils/svg";
 
 const MYPAGE_MENU = [{ text: "내가 쓴 글 보기", value: "/mypage/list" }];
 
@@ -133,29 +134,39 @@ const ChangeNameModal = ({
     mutateName(name);
   };
 
+  const onChangeProfile = () => {};
+
   return (
-    <section className="flex flex-col">
-      <Image
-        className="h-12 w-12 rounded-full"
-        src={profileSrc}
-        width={10}
-        height={10}
-        alt="아바타 사진"
-      />
-      <form onSubmit={onSubmit} className="flex justify-between">
-        <div className="flex items-center justify-center">
-          <label className="mr-4">이름</label>
-          <Input
-            name="changeName"
-            className="w-75"
-            placeholder="변경할 이름을 입력해주세요."
-            inputprops={{ title: name }}
-          />
-        </div>
+    <section className="flex flex-col justify-center items-center">
+      <div
+        className="relative h-20 w-20"
+        role="button"
+        onClick={onChangeProfile}
+      >
+        <Image
+          src={profileSrc}
+          className="rounded-full"
+          style={{ objectFit: "cover" }}
+          fill
+          alt="아바타 사진"
+        />
+        <EditActiveIcon
+          className="absolute h-12 w-12"
+          aria-hidden="true"
+          style={{ right: "-15%", bottom: "-10%" }}
+        />
+      </div>
+      <form onSubmit={onSubmit} className="flex flex-col justify-between">
+        <Input
+          name="changeName"
+          className="w-75"
+          placeholder="변경할 이름을 입력해주세요."
+          inputprops={{ title: name }}
+        />
+        <Button className="w-100 mt-10" type="submit">
+          수정
+        </Button>
       </form>
-      <Button className="w-100" type="submit">
-        수정
-      </Button>
     </section>
   );
 };

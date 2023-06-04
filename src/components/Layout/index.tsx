@@ -64,7 +64,7 @@ function Layout({
     <>
       <Background color={mode ? "bg-neutral-200" : "bg-neutral-900"} />
       <div
-        className={`flex flex-col items-center max-w-[540px] w-full min-h-full mx-auto ${
+        className={`relative flex flex-col items-center max-w-[540px] w-full min-h-full mx-auto ${
           mode ? "bg-white" : "bg-black"
         }`}
         style={{ minHeight: "calc(var(--vh, 1vh) * 100)" }}

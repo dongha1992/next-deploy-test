@@ -62,13 +62,13 @@ export default function BookPost({
       <div className={"flex flex-col rounded-lg shadow-lg " + className}>
         <div className="flex flex-1 flex-col justify-between">
           <div className="mt-2 mb-2 flex items-center ">
-            <div className="flex-shrink-0 text-gray-100">
+            <div className="relative h-8 w-8 flex-shrink-0">
               {user?.image && (
                 <Image
-                  className="h-8 w-8 rounded-full"
+                  className="rounded-full"
                   src={user.image}
-                  width={10}
-                  height={10}
+                  fill
+                  style={{ objectFit: "cover" }}
                   alt="아바타 사진"
                 />
               )}

@@ -150,15 +150,17 @@ function BookPage() {
             </ul>
           ) : null}
           <div className="addButton">
-            <Button
-              className="w-15 h-15 rounded-full text-lg hover:drop-shadow-2xl hover:animate-bounce duration-300"
-              type="submit"
-              onClick={() =>
-                router.push(isUnauthenticated ? "/auth/signin" : "/addBook")
-              }
-            >
-              +
-            </Button>
+            <div className="absolute right-10 bottom-5">
+              <Button
+                className="w-15 h-15 rounded-full text-lg hover:drop-shadow-2xl hover:animate-bounce duration-300"
+                type="submit"
+                onClick={() =>
+                  router.push(isUnauthenticated ? "/auth/signin" : "/addBook")
+                }
+              >
+                +
+              </Button>
+            </div>
           </div>
         </div>
       </div>

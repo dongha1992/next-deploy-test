@@ -8,6 +8,7 @@ import ImageBox from "../Common/ImageBox";
 import Lottie from "../Common/Lottie";
 import Overlay from "../Common/Overlay";
 import { CancelIcon } from "@/utils/svg";
+import useS3Upload from "@/hooks/useS3Upload";
 
 // TODO: aws 분리
 
@@ -36,33 +37,32 @@ export default function NewBookPostForm({
   removeImageHandler,
   className = "",
 }: Props) {
-  const [isImageLoading, setImageLoading] = useState<boolean>(false);
+  // const [isImageLoading, setImageLoading] = useState<boolean>(false);
+  const { isImageLoading, setImageHandler } = useS3Upload(setImages);
 
-  // TODO: 이미지 모듈 분리
+  // const setImageHandler = async (image: any) => {
+  //   if (!image) return;
 
-  const setImageHandler = async (image: any) => {
-    if (!image) return;
-
-    setImageLoading(true);
-    const uploadParams = {
-      Bucket: process.env.AWS_S3_BUCKET_NAME!,
-      Key: image.name,
-      Body: image,
-      ACL: "public-read",
-    };
-    await s3
-      .upload(uploadParams)
-      .promise()
-      .then((res) => {
-        setImages && setImages((prev: any) => [...prev, res.Location]);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setImageLoading(false);
-      });
-  };
+  //   setImageLoading(true);
+  //   const uploadParams = {
+  //     Bucket: process.env.AWS_S3_BUCKET_NAME!,
+  //     Key: image.name,
+  //     Body: image,
+  //     ACL: "public-read",
+  //   };
+  //   await s3
+  //     .upload(uploadParams)
+  //     .promise()
+  //     .then((res) => {
+  //       setImages && setImages((prev: any) => [...prev, res.Location]);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
+  //     .finally(() => {
+  //       setImageLoading(false);
+  //     });
+  // };
 
   return (
     <>
