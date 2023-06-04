@@ -3,7 +3,8 @@ const zIndexMap: { [k: string]: string } = {
   fullScreen: "100",
   lottie: "101",
   settingButton: "9",
-  popup: "11  ",
+  popup: "11",
+  stickyHeader: "1000",
 };
 
 const getZIndex = (key: string): string => {
