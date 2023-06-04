@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import Navigation from "@/components/Common/Navigation";
 import router from "next/router";
 import { useRecoilState } from "recoil";
@@ -19,6 +19,8 @@ import Input from "@/components/Common/Input";
 
 import { usePathcUserName } from "@/query/mypage";
 import { EditActiveIcon } from "@/utils/svg";
+import ImageBox from "@/components/Common/ImageBox";
+import useS3Upload from "@/hooks/useS3Upload";
 
 const MYPAGE_MENU = [{ text: "내가 쓴 글 보기", value: "/mypage/list" }];
 
@@ -78,12 +80,12 @@ function Mypage() {
                 </p>
                 <p>안녕하세요!</p>
               </div>
-              <Button
+              {/* <Button
                 className="w-15 mt-0"
                 onClick={() => onUpateUserHandler()}
               >
                 이름 변경하기
-              </Button>
+              </Button> */}
             </div>
 
             <Spacing size={20} />
@@ -124,7 +126,10 @@ const ChangeNameModal = ({
   name: string;
   profileSrc: string;
 }) => {
+  const [images, setImages] = useState([profileSrc]);
+
   const { mutate: mutateName } = usePathcUserName();
+  const { isImageLoading, setImageHandler } = useS3Upload(setImages);
 
   console.log(profileSrc, "profileSrc");
   const onSubmit = async (e: any) => {
@@ -143,13 +148,21 @@ const ChangeNameModal = ({
         role="button"
         onClick={onChangeProfile}
       >
-        <Image
-          src={profileSrc}
-          className="rounded-full"
-          style={{ objectFit: "cover" }}
-          fill
-          alt="아바타 사진"
-        />
+        <ImageBox setImageValue={setImageHandler} />
+        {images.length &&
+          images.map((src) => {
+            return (
+              <Image
+                key={src}
+                src={src}
+                className="rounded-full"
+                style={{ objectFit: "cover" }}
+                fill
+                alt="아바타 사진"
+              />
+            );
+          })}
+
         <EditActiveIcon
           className="absolute h-12 w-12"
           aria-hidden="true"

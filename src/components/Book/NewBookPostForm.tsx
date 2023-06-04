@@ -37,32 +37,7 @@ export default function NewBookPostForm({
   removeImageHandler,
   className = "",
 }: Props) {
-  // const [isImageLoading, setImageLoading] = useState<boolean>(false);
   const { isImageLoading, setImageHandler } = useS3Upload(setImages);
-
-  // const setImageHandler = async (image: any) => {
-  //   if (!image) return;
-
-  //   setImageLoading(true);
-  //   const uploadParams = {
-  //     Bucket: process.env.AWS_S3_BUCKET_NAME!,
-  //     Key: image.name,
-  //     Body: image,
-  //     ACL: "public-read",
-  //   };
-  //   await s3
-  //     .upload(uploadParams)
-  //     .promise()
-  //     .then((res) => {
-  //       setImages && setImages((prev: any) => [...prev, res.Location]);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     })
-  //     .finally(() => {
-  //       setImageLoading(false);
-  //     });
-  // };
 
   return (
     <>
