@@ -50,7 +50,7 @@ function Mypage() {
       <Overlay>
         <Lottie
           src="https://assets8.lottiefiles.com/private_files/lf30_gqirhcr7.json"
-          loop={false}
+          loop={true}
         />
       </Overlay>
     );
@@ -146,11 +146,11 @@ const ChangeNameModal = ({
     <>
       <section className="flex flex-col justify-center items-center">
         {isImageLoading && (
-          <div className="absolute left-50">
+          <div className="absolute" style={{ bottom: "10%" }}>
             <Lottie
               className="w-56"
               src="https://assets8.lottiefiles.com/private_files/lf30_gqirhcr7.json"
-              loop={false}
+              loop={true}
             />
           </div>
         )}

@@ -36,7 +36,7 @@ function MypageReviewList({ email }: { email: string }) {
         <Overlay>
           <Lottie
             src="https://assets8.lottiefiles.com/private_files/lf30_gqirhcr7.json"
-            loop={false}
+            loop={true}
           />
         </Overlay>
       )}

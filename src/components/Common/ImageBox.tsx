@@ -1,6 +1,6 @@
 import { useRef, ChangeEvent } from "react";
 
-const DEFAULT_LIMIT_SIZE = 1024 * 1024 * 20;
+const DEFAULT_LIMIT_SIZE = 1024 * 1024 * 10;
 
 /** TODO: 미리보기, 수정 관련해서 로직 엉망임 */
 
@@ -19,7 +19,7 @@ const ImageBox = ({ setImageValue, isEdit = false }: IProps) => {
       if (!imageFile) return;
       if (imageFile.size > DEFAULT_LIMIT_SIZE || imageFile.name.length > 255) {
         return alert(
-          "사진은 1장 당 20MB 이하 (jpg, png), 파일명은 255자 이하만 등록 가능해요."
+          "사진은 1장 당 10MB 이하 (jpg, png), 파일명은 255자 이하만 등록 가능해요."
         );
       }
       // const formData = new FormData();

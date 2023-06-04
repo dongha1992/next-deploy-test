@@ -28,6 +28,7 @@ async function updateBookLike(res: NextApiResponse, req: NextApiRequest) {
     res.status(404).json({ message: `해당 포스트를 찾지 못 했습니다.` });
     return;
   }
+
   await prisma.userBookLikes.upsert({
     where: {
       bookId_userId: {
