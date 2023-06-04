@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import Navigation from "@/components/Common/Navigation";
 import router from "next/router";
 import { useRecoilState } from "recoil";
@@ -17,7 +17,7 @@ import Spacing from "@/components/Common/Spacing";
 import { popupState } from "@/store/common";
 import Input from "@/components/Common/Input";
 
-import { usePathcUserProfile } from "@/query/mypage";
+import { useGetMe, usePathcUserProfile } from "@/query/mypage";
 import { EditActiveIcon } from "@/utils/svg";
 import ImageBox from "@/components/Common/ImageBox";
 import useS3Upload from "@/hooks/useS3Upload";
@@ -25,21 +25,18 @@ import useS3Upload from "@/hooks/useS3Upload";
 const MYPAGE_MENU = [{ text: "내가 쓴 글 보기", value: "/mypage/list" }];
 
 function Mypage() {
-  const { status, data, update } = useSession();
+  const { status, update } = useSession();
   const { isInApp } = useIsInApp();
   const [popup, setPopup] = useRecoilState(popupState);
+
+  const { data } = useGetMe();
 
   const isUnauthenticated = status === "unauthenticated";
   const isLoading = status === "loading";
 
   const onUpateUserHandler = () => {
     setPopup({
-      message: (
-        <ChangeNameModal
-          name={data?.user?.name!}
-          profileSrc={data?.user?.image!}
-        />
-      ),
+      message: <ChangeNameModal name={data?.name!} profileSrc={data?.image!} />,
       isOpen: true,
       hasCustomButton: true,
     });
@@ -76,7 +73,7 @@ function Mypage() {
             <div className="flex items-center justify-between mb-4">
               <div className="flex">
                 <p className="text-md font-medium text-gray-100 mr-2">
-                  {data?.user?.name || "익명의 유저"}님
+                  {data?.name || "익명의 유저"}님
                 </p>
                 <p>안녕하세요!</p>
               </div>
@@ -84,7 +81,7 @@ function Mypage() {
                 className="w-15 mt-0"
                 onClick={() => onUpateUserHandler()}
               >
-                이름 변경하기
+                내 정보 수정하기
               </Button>
             </div>
 

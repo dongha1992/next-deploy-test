@@ -8,4 +8,8 @@ const patchUserProfileApi = (data: { name: string; profileImage: string }) => {
   return apiClient.patch(`/api/auth`, { data }).then(({ data }) => data);
 };
 
-export { getMyReviewsApi, patchUserProfileApi };
+const getMeApi = () => {
+  return apiClient.get("/api/auth").then(({ data }) => data);
+};
+
+export { getMyReviewsApi, patchUserProfileApi, getMeApi };
