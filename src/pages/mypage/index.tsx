@@ -18,14 +18,14 @@ import { popupState } from "@/store/common";
 import Input from "@/components/Common/Input";
 
 import { useGetMe, usePathcUserProfile } from "@/query/mypage";
-import { EditActiveIcon } from "@/utils/svg";
+import { CancelIcon, EditActiveIcon } from "@/utils/svg";
 import ImageBox from "@/components/Common/ImageBox";
 import useS3Upload from "@/hooks/useS3Upload";
 
 const MYPAGE_MENU = [{ text: "내가 쓴 글 보기", value: "/mypage/list" }];
 
 function Mypage() {
-  const { status, update } = useSession();
+  const { status } = useSession();
   const { isInApp } = useIsInApp();
   const [popup, setPopup] = useRecoilState(popupState);
 
@@ -34,9 +34,21 @@ function Mypage() {
   const isUnauthenticated = status === "unauthenticated";
   const isLoading = status === "loading";
 
+  const closeModal = () => {
+    setPopup({
+      isOpen: false,
+    });
+  };
+
   const onUpateUserHandler = () => {
     setPopup({
-      message: <ChangeNameModal name={data?.name!} profileSrc={data?.image!} />,
+      message: (
+        <ChangeNameModal
+          name={data?.name!}
+          profileSrc={data?.image!}
+          closeModal={closeModal}
+        />
+      ),
       isOpen: true,
       hasCustomButton: true,
     });
@@ -94,7 +106,7 @@ function Mypage() {
                     <li
                       key={index}
                       onClick={() =>
-                        router.push(`${item.value}?email=${data?.user?.email}`)
+                        router.push(`${item.value}?email=${data?.email}`)
                       }
                       className="cursor-pointer"
                     >
@@ -119,9 +131,11 @@ Mypage.getLayout = (page: ReactElement) => {
 const ChangeNameModal = ({
   name,
   profileSrc,
+  closeModal,
 }: {
   name: string;
   profileSrc: string;
+  closeModal: any;
 }) => {
   const [profileImage, setImages] = useState([profileSrc]);
 
@@ -141,6 +155,9 @@ const ChangeNameModal = ({
 
   return (
     <>
+      <div className="flex justify-end" onClick={closeModal}>
+        <CancelIcon />
+      </div>
       <section className="flex flex-col justify-center items-center">
         {isImageLoading && (
           <div className="absolute" style={{ bottom: "10%" }}>
