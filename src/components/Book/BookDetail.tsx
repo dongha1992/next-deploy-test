@@ -98,7 +98,7 @@ export default function BookDetail({
         <div className="flex justify-end w-full my-2">{ratingGenerator()}</div>
         {hasBookInfo && (
           <div className="flex flex-col mt-4">
-            <BookInfo item={book} className="" withTitle={false} />
+            <BookInfo item={book} withTitle={false} isDetail />
           </div>
         )}
         <span className="mt-4 text-sm md:text-lg lg:text-lg text-gray-100 whitespace-pre-wrap break-words">

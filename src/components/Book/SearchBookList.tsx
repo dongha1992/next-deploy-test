@@ -1,6 +1,6 @@
 import { NaverBook } from "@/utils/api/type";
 import React from "react";
-import Book from "./BookInfo";
+import BookInfo from "./BookInfo";
 
 interface Props {
   bookList: NaverBook[];
@@ -20,12 +20,7 @@ function SearchBookList(
     >
       {bookList?.map((item: NaverBook, index: number) => {
         return (
-          <Book
-            key={index}
-            item={item}
-            selectedBook={selectedBook}
-            onSelectedBook={onSelectedBook}
-          />
+          <BookInfo key={index} item={item} onSelectedBook={onSelectedBook} />
         );
       })}
       {hasList && (

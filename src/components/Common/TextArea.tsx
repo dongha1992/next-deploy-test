@@ -49,7 +49,6 @@ function TextArea({
 
   const onResizeHeight = () => {
     if (textAreaRef.current) {
-      // textAreaRef.current.style.height = "auto";
       textAreaRef.current.style.height =
         textAreaRef.current.scrollHeight + 2 + "px";
     }

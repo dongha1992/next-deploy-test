@@ -25,14 +25,14 @@ function Comment({
   const customTextColor = textColor ? textColor : "text-gray-100";
   return (
     <div className={twMerge("flex items-center m-auto mt-7 ", className)}>
-      <div className="flex-shrink-0 min-w-2xl">
+      <div className="relative h-8 w-8 flex-shrink-0 min-w-2xl">
         {user?.image && (
           <Image
-            className="h-8 w-8 rounded-full"
+            className="rounded-full"
             src={user.image}
-            width={10}
-            height={10}
-            alt=""
+            fill
+            style={{ objectFit: "cover" }}
+            alt="아바타 사진"
           />
         )}
       </div>
