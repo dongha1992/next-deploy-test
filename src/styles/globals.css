@@ -52,4 +52,33 @@
     -ms-user-select: none;
     user-select: none;
   }
+  .addButton {
+    position: fixed;
+    bottom: 10%;
+    right: 5%;
+  }
+
+  @media (min-width: 640px) {
+    .addButton {
+      position: fixed;
+      bottom: 10%;
+      right: 15%;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .addButton {
+      position: fixed;
+      bottom: 10%;
+      right: 25%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .addButton {
+      position: fixed;
+      bottom: 10%;
+      right: 35%;
+    }
+  }
 }

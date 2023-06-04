@@ -3,6 +3,7 @@ import Navigation from "@/components/Common/Navigation";
 import router from "next/router";
 import { useRecoilState } from "recoil";
 import { signIn, useSession, signOut } from "next-auth/react";
+import Image from "next/image";
 
 import Layout from "@/components/Layout";
 import LoginButton from "@/components/LoginButton";
@@ -20,31 +21,6 @@ import { usePathcUserName } from "@/query/mypage";
 
 const MYPAGE_MENU = [{ text: "내가 쓴 글 보기", value: "/mypage/list" }];
 
-const ChangeNameModal = () => {
-  const { mutate: mutateName } = usePathcUserName();
-
-  const onSubmit = async (e: any) => {
-    e.preventDefault();
-    const { changeName } = e.target.elements;
-    const name = changeName.value;
-    mutateName(name);
-  };
-
-  return (
-    <section>
-      <form onSubmit={onSubmit} className="flex justify-between">
-        <Input
-          name="changeName"
-          className="w-75"
-          placeholder="변경할 이름을 입력해주세요."
-        />
-        <Button className="w-100" type="submit">
-          수정
-        </Button>
-      </form>
-    </section>
-  );
-};
 function Mypage() {
   const { status, data, update } = useSession();
   const { isInApp } = useIsInApp();
@@ -55,7 +31,12 @@ function Mypage() {
 
   const onUpateUserHandler = () => {
     setPopup({
-      message: <ChangeNameModal />,
+      message: (
+        <ChangeNameModal
+          name={data?.user?.name!}
+          profileSrc={data?.user?.image!}
+        />
+      ),
       isOpen: true,
       hasCustomButton: true,
     });
@@ -133,6 +114,50 @@ function Mypage() {
 
 Mypage.getLayout = (page: ReactElement) => {
   return <Layout bottom={<Navigation />}>{page}</Layout>;
+};
+
+const ChangeNameModal = ({
+  name,
+  profileSrc,
+}: {
+  name: string;
+  profileSrc: string;
+}) => {
+  const { mutate: mutateName } = usePathcUserName();
+
+  console.log(profileSrc, "profileSrc");
+  const onSubmit = async (e: any) => {
+    e.preventDefault();
+    const { changeName } = e.target.elements;
+    const name = changeName.value;
+    mutateName(name);
+  };
+
+  return (
+    <section className="flex flex-col">
+      <Image
+        className="h-12 w-12 rounded-full"
+        src={profileSrc}
+        width={10}
+        height={10}
+        alt="아바타 사진"
+      />
+      <form onSubmit={onSubmit} className="flex justify-between">
+        <div className="flex items-center justify-center">
+          <label className="mr-4">이름</label>
+          <Input
+            name="changeName"
+            className="w-75"
+            placeholder="변경할 이름을 입력해주세요."
+            inputprops={{ title: name }}
+          />
+        </div>
+      </form>
+      <Button className="w-100" type="submit">
+        수정
+      </Button>
+    </section>
+  );
 };
 
 export default Mypage;
