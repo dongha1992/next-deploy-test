@@ -76,7 +76,7 @@ export default function BookPost({
             <div className="ml-4 flex-1">
               <div className="flex items-center justify-between mb-2">
                 <p className="text-xs font-medium text-gray-100">
-                  {user?.name}
+                  {user?.name || "익명의 유저"}
                 </p>
                 <p className="text-xs text-gray-300">
                   {book?.createdAt.split("T")[0]}

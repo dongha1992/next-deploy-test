@@ -66,7 +66,7 @@ export default function NovelDetailPage({
           <p
             className={`text-sm md:text-md font-medium ${textColor}  flex justify-end w-full`}
           >
-            {user?.name}
+            {user?.name || "익명의 유저"}
           </p>
         </div>
 

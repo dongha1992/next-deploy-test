@@ -17,7 +17,7 @@ import Spacing from "@/components/Common/Spacing";
 import { popupState } from "@/store/common";
 import Input from "@/components/Common/Input";
 
-import { usePathcUserName } from "@/query/mypage";
+import { usePathcUserProfile } from "@/query/mypage";
 import { EditActiveIcon } from "@/utils/svg";
 import ImageBox from "@/components/Common/ImageBox";
 import useS3Upload from "@/hooks/useS3Upload";
@@ -76,7 +76,7 @@ function Mypage() {
             <div className="flex items-center justify-between mb-4">
               <div className="flex">
                 <p className="text-md font-medium text-gray-100 mr-2">
-                  {data?.user?.name}님
+                  {data?.user?.name || "익명의 유저"}님
                 </p>
                 <p>안녕하세요!</p>
               </div>
@@ -126,17 +126,20 @@ const ChangeNameModal = ({
   name: string;
   profileSrc: string;
 }) => {
-  const [images, setImages] = useState([profileSrc]);
+  const [profileImage, setImages] = useState([profileSrc]);
 
-  const { mutate: mutateName } = usePathcUserName();
+  const { mutate: mutateProfile } = usePathcUserProfile();
   const { isImageLoading, setImageHandler } = useS3Upload(setImages);
 
-  console.log(profileSrc, "profileSrc");
+  //TODO: useS3Upload에서 set해주는 로직 수정하기 전 임시
   const onSubmit = async (e: any) => {
     e.preventDefault();
     const { changeName } = e.target.elements;
     const name = changeName.value;
-    mutateName(name);
+    mutateProfile({
+      name,
+      profileImage: profileImage[profileImage.length - 1],
+    });
   };
 
   return (
@@ -153,8 +156,8 @@ const ChangeNameModal = ({
         )}
         <div className="relative h-20 w-20" role="button">
           <ImageBox setImageValue={setImageHandler} isEdit={true} />
-          {images.length &&
-            images.map((src) => {
+          {profileImage.length &&
+            profileImage.map((src) => {
               return (
                 <Image
                   key={src}

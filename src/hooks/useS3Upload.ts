@@ -23,6 +23,7 @@ function useS3Upload(setImages: any) {
       .upload(uploadParams)
       .promise()
       .then((res) => {
+        //TODO: 해당 로직 주입해줘야함
         setImages && setImages((prev: any) => [...prev, res.Location]);
       })
       .catch((error) => {

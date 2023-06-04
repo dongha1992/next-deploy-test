@@ -39,7 +39,7 @@ function Comment({
       <div className="ml-4 flex-1">
         <div className="flex items-center justify-between">
           <p className={`text-xs font-medium ${customTextColor}`}>
-            {user?.name}
+            {user?.name || "익명의 유저"}
           </p>
           <p className={`pl-5 text-xs ${customTextColor}`}>
             {/* {formatTimeAgo(post.createdAt)} */}

@@ -31,9 +31,12 @@ export const options: any = {
         token.userToken = userToken;
       }
 
-      if (trigger === "update" && session?.name) {
+      if (trigger === "update" && (session?.name || session?.image)) {
         // Note, that `session` can be any arbitrary object, remember to validate it!
+
         token.name = session.name;
+        token.image = session.image;
+        token.picture = session.image;
       }
 
       return token;

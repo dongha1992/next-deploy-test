@@ -32,10 +32,10 @@ async function updateUser(req: any, res: any) {
 
   await prisma.user.update({
     where: { email: prismaUser.email },
-    data: { name: data.name },
+    data: { name: data.name, image: data.profileImage },
   });
 
-  res.status(200).json(data.name);
+  res.status(200).json({ name: data.name, image: data.profileImage });
 }
 
 export default async function handler(req: any, res: any) {
