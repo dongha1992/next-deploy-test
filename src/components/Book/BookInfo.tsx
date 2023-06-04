@@ -26,7 +26,6 @@ function BookInfo({
   const [isMore, setIsMore] = useState(false);
 
   const onClickMore = () => {
-    console.log("111");
     setIsMore((prev) => !prev);
   };
 
