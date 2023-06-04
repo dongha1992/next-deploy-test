@@ -33,7 +33,7 @@ function Mypage() {
 
   const isUnauthenticated = status === "unauthenticated";
   const isLoading = status === "loading";
-  console.log(status, "status");
+
   const closeModal = () => {
     setPopup({
       isOpen: false,
@@ -54,7 +54,7 @@ function Mypage() {
     });
   };
 
-  if (isLoading && isMeLoading) {
+  if (isLoading || isMeLoading) {
     return (
       <Overlay>
         <Lottie
