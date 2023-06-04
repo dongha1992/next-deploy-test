@@ -7,7 +7,7 @@ import formatDate from "@/utils/formatDate";
 
 //TODO: 이거 컴포넌트 컴파운드로 리팩토링 진짜 안 하면 코딩 접어야함
 
-const MAX_DESCRIPTION_LENGTH = 120;
+const MAX_DESCRIPTION_LENGTH = 100;
 interface Props {
   item: NaverBook;
   onSelectedBook?: (book: NaverBook) => void;
