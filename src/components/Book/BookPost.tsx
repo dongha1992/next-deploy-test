@@ -62,7 +62,7 @@ export default function BookPost({
       <div className={"flex flex-col rounded-lg shadow-lg " + className}>
         <div className="flex flex-1 flex-col justify-between">
           <div className="mt-2 mb-2 flex items-center ">
-            <div className="relative h-8 w-8 flex-shrink-0">
+            <div className="relative h-10 w-10 flex-shrink-0">
               {user?.image && (
                 <Image
                   className="rounded-full"

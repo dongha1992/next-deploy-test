@@ -60,13 +60,13 @@ export default function BookDetail({
     <div className={"flex flex-col overflow-hidden rounded-lg " + className}>
       <div className="flex flex-1 flex-col justify-between">
         <div className="mt-2 flex items-center">
-          <div className="flex-shrink-0 text-gray-100">
+          <div className="relative h-10 w-10 flex-shrink-0">
             {user?.image && (
               <Image
-                className="h-8 w-8 rounded-full"
+                className="rounded-full"
                 src={user.image}
-                width={10}
-                height={10}
+                fill
+                style={{ objectFit: "cover" }}
                 alt="아바타 사진"
               />
             )}
