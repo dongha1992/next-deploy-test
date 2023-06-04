@@ -70,14 +70,14 @@ function BookInfo({
           </div>
           <div className="text-xs mt-2">
             {hasMoreButton && isDetail ? (
-              <div>
+              <span>
                 {!isMore
                   ? `${item.description.slice(0, MAX_DESCRIPTION_LENGTH)}...`
                   : item.description}
-                <div className="mt-1" onClick={onClickMore}>
+                <p className="mt-1 text-gray-500" onClick={onClickMore}>
                   {isMore ? "접기" : "더보기"}
-                </div>
-              </div>
+                </p>
+              </span>
             ) : (
               `${item?.description.slice(0, MAX_DESCRIPTION_LENGTH)}...`
             )}
