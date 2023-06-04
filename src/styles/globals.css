@@ -3,9 +3,22 @@
 @tailwind utilities;
 
 @layer base {
+  ::-webkit-scrollbar {
+    width: 0; /* 세로 스크롤바의 너비 */
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent; /* 스크롤바 트랙 배경색 */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: transparent; /* 스크롤바 썸네일 배경색 */
+  }
+
   html {
     @apply bg-white text-white;
   }
+
   .rounded {
     border-radius: 8px;
   }
