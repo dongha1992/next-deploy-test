@@ -80,12 +80,12 @@ function Mypage() {
                 </p>
                 <p>안녕하세요!</p>
               </div>
-              {/* <Button
+              <Button
                 className="w-15 mt-0"
                 onClick={() => onUpateUserHandler()}
               >
                 이름 변경하기
-              </Button> */}
+              </Button>
             </div>
 
             <Spacing size={20} />
@@ -143,7 +143,7 @@ const ChangeNameModal = ({
 
   return (
     <section className="flex flex-col justify-center items-center">
-      <div
+      {/* <div
         className="relative h-20 w-20"
         role="button"
         onClick={onChangeProfile}
@@ -162,13 +162,12 @@ const ChangeNameModal = ({
               />
             );
           })}
-
         <EditActiveIcon
           className="absolute h-12 w-12"
           aria-hidden="true"
           style={{ right: "-15%", bottom: "-10%" }}
         />
-      </div>
+      </div> */}
       <form onSubmit={onSubmit} className="flex flex-col justify-between">
         <Input
           name="changeName"
@@ -176,7 +175,7 @@ const ChangeNameModal = ({
           placeholder="변경할 이름을 입력해주세요."
           inputprops={{ title: name }}
         />
-        <Button className="w-100 mt-10" type="submit">
+        <Button className="w-100 mt-5" type="submit">
           수정
         </Button>
       </form>
