@@ -38,7 +38,7 @@ function BookInfo({
         "flex rounded-md cursor-pointer overflow-scroll",
         className
       )}
-      style={{ height: "100%", minHeight: "170px", maxHeight: "480px" }}
+      style={{ height: "100%", minHeight: "170px", maxHeight: "1200px" }}
       onClick={() => onSelectedBook && onSelectedBook(item)}
     >
       <div
