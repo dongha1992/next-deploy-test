@@ -7,7 +7,7 @@ import formatDate from "@/utils/formatDate";
 
 //TODO: 이거 컴포넌트 컴파운드로 리팩토링 진짜 안 하면 코딩 접어야함
 
-const MAX_DESCRIPTION_LENGTH = 100;
+const MAX_DESCRIPTION_LENGTH = 80;
 interface Props {
   item: NaverBook;
   onSelectedBook?: (book: NaverBook) => void;
@@ -78,8 +78,10 @@ function BookInfo({
                   {isMore ? "접기" : "더보기"}
                 </p>
               </span>
-            ) : (
+            ) : hasMoreButton ? (
               `${item?.description.slice(0, MAX_DESCRIPTION_LENGTH)}...`
+            ) : (
+              item?.description
             )}
           </div>
         </div>
