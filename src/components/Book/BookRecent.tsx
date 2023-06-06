@@ -17,7 +17,7 @@ function BookRecent({ image, title, author, description, onClick }: Props) {
   return (
     <div>
       <BookAnimation src={image} />
-      <div className="ml-2" onClick={onClick}>
+      <div className="ml-2" onClick={onClick} role="button">
         <div className="flex flex-col justify-between">
           <div className="h-18">
             <p className="text-sm font-semibold text-gray-100 mb-2 mr-2 h-10">

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 function BookAnimation({ src }: { src: string }) {
   // const [errorImg, setErrorImg] = useState("");
@@ -56,8 +56,8 @@ function BookAnimation({ src }: { src: string }) {
       <article className="media-container">
         <div
           className="book-wrapper"
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMoveEnd}
+          // onMouseMove={handleMouseMove}
+          // onMouseLeave={handleMoveEnd}
         >
           <div className="book">
             <div className="book__front">
@@ -71,7 +71,6 @@ function BookAnimation({ src }: { src: string }) {
             <div className="book__paper"></div>
             <div className="book__back"></div>
           </div>
-          <div className="book-shadow"></div>
         </div>
       </article>
     </section>
