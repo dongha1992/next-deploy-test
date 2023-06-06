@@ -5,7 +5,9 @@ import { ReactElement, ReactNode, useRef } from "react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { DefaultSeo } from "next-seo";
 
-import "@/styles/globals.css";
+import "@/styles/globals.scss";
+import "@/styles/app.scss";
+
 import "highlight.js/styles/stackoverflow-dark.css";
 
 import "slick-carousel/slick/slick.css";

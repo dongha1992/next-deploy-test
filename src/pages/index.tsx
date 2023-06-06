@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import Navigation from "@/components/Common/Navigation";
 import { popupState } from "@/store/common";
 import { useRecoilState } from "recoil";
+import BookAnimation from "@/components/Animation/book";
 
 export default function Home() {
   const [popup, setPopup] = useRecoilState(popupState);
@@ -22,7 +23,11 @@ export default function Home() {
     });
   }, [setPopup]);
 
-  return <></>;
+  return (
+    <>
+      <BookAnimation />
+    </>
+  );
 }
 
 Home.getLayout = (page: ReactElement) => {

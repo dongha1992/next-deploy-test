@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const path = require("path");
+
 const nextConfig = {
   reactStrictMode: true,
   env: {
@@ -16,6 +18,9 @@ const nextConfig = {
     AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
 
     NEXT_PUBLIC_KAKAO_KEY: process.env.NEXT_PUBLIC_KAKAO_KEY,
+  },
+  sassOptions: {
+    includePaths: [path.join(__dirname, "styles")],
   },
   images: {
     domains: [
