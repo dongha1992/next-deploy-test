@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
-function BookAnimation() {
+function BookAnimation({ src }: { src: string }) {
+  // const [errorImg, setErrorImg] = useState("");
   return (
     <section className="app" id="app" data-current-media="book">
       <article className="media-container">
@@ -8,10 +9,10 @@ function BookAnimation() {
           <div className="book">
             <div className="book__front">
               <img
-                // src="https://images-na.ssl-images-amazon.com/images/I/91-j2UzZW4L.jpg"
-                src="/img/scope-logo.jpeg"
+                src={src}
                 alt="cover"
                 style={{ objectFit: "cover" }}
+                // onError={() => setImageSrc(IMAGE_ERROR)}
               />
             </div>
             <div className="book__paper"></div>

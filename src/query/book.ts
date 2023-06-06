@@ -7,6 +7,7 @@ import {
   deleteLikeApi,
   editBookApi,
   getBooksApi,
+  getBooksRecentApi,
   postBookApi,
   postBookCommentApi,
   postLikeApi,
@@ -18,6 +19,7 @@ import { useCallback } from "react";
 
 export const BOOK_DETAIL_QUERY_KEY = "getBookDetaill";
 export const BOOK_QUERY_KEY = "getBooks";
+export const BOOK_RECENT_KEY = "getRecentBooks";
 
 interface Props {
   options?: any;
@@ -49,6 +51,12 @@ const getSearchPostConfig = (query: string, options = {}) => ({
     ...options,
   },
 });
+
+const useGetRecentBooks = ({ options }: any = {}) => {
+  return useQuery([BOOK_RECENT_KEY], () => getBooksRecentApi(), {
+    ...options,
+  });
+};
 
 type Book = Omit<NaverBook, "title">;
 export interface CreateBookData {
@@ -188,6 +196,7 @@ function useRefetchPostSearchQuery() {
 
 export {
   useSearchPost,
+  useGetRecentBooks,
   useUpdateLike,
   useDeleteLike,
   usePostComment,

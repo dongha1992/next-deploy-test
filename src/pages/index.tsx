@@ -5,10 +5,14 @@ import Navigation from "@/components/Common/Navigation";
 import { popupState } from "@/store/common";
 import { useRecoilState } from "recoil";
 import BookAnimation from "@/components/Animation/book";
+import { useGetRecentBooks } from "@/query/book";
+import BookRecent from "@/components/Book/BookRecent";
 
 export default function Home() {
   const [popup, setPopup] = useRecoilState(popupState);
 
+  const { data } = useGetRecentBooks();
+  console.log(data, "--");
   // useEffect(() => {
   //   setPopup({
   //     message: (
@@ -28,9 +32,20 @@ export default function Home() {
       <article>
         <h2 className="ml-4 mb-2">최근 올라온 책들</h2>
         <div className="flex">
-          <BookAnimation />
-          <BookAnimation />
-          <BookAnimation />
+          {data?.map(
+            ({ image, title, publisher, pubDate, desciption, id }: any) => {
+              return (
+                <BookRecent
+                  key={id}
+                  image={image}
+                  title={title}
+                  publisher={publisher}
+                  pubDate={pubDate}
+                  desciption={desciption}
+                />
+              );
+            }
+          )}
         </div>
       </article>
     </section>

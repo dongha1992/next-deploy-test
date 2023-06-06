@@ -5,6 +5,9 @@ const getBooksApi = (query?: string): Promise<any[]> => {
   return apiClient.get(`api/books?search=${query}`).then(({ data }) => data);
 };
 
+const getBooksRecentApi = () => {
+  return apiClient.get(`api/books/recent`).then(({ data }) => data);
+};
 const postBookApi = (data: CreateBookData): Promise<any> => {
   return apiClient.post(`api/books`, { data });
 };
@@ -48,6 +51,7 @@ const postLikeApi = (id: number): Promise<any> => {
 
 export {
   getBooksApi,
+  getBooksRecentApi,
   postBookApi,
   getBookDetailApi,
   deleteBookApi,
