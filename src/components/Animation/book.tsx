@@ -39,13 +39,13 @@ function BookAnimation({ src }: { src: string }) {
 
   useEffect(() => {
     if (sheetRef.current) {
-      sheetRef.current.addEventListener("touchstart", handleMouseMove);
+      sheetRef.current.addEventListener("touchmove", handleMouseMove);
       sheetRef.current.removeEventListener("touchend", handleMoveEnd);
     }
 
     return () => {
       if (sheetRef.current) {
-        sheetRef.current.removeEventListener("touchstart", handleMouseMove);
+        sheetRef.current.removeEventListener("touchmove", handleMouseMove);
         sheetRef.current.removeEventListener("touchend", handleMoveEnd);
       }
     };
@@ -56,8 +56,8 @@ function BookAnimation({ src }: { src: string }) {
       <article className="media-container">
         <div
           className="book-wrapper"
-          // onMouseMove={handleMouseMove}
-          // onMouseLeave={handleMoveEnd}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMoveEnd}
         >
           <div className="book">
             <div className="book__front">
