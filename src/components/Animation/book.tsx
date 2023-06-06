@@ -11,6 +11,7 @@ function BookAnimation() {
                 // src="https://images-na.ssl-images-amazon.com/images/I/91-j2UzZW4L.jpg"
                 src="/img/scope-logo.jpeg"
                 alt="cover"
+                style={{ objectFit: "cover" }}
               />
             </div>
             <div className="book__paper"></div>
