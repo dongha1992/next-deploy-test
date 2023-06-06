@@ -22,3 +22,32 @@ export interface CreateNovelData {
   title: string;
   body: string;
 }
+
+export interface UserBook {
+  author: string;
+  body: string;
+  createdAt: string;
+  description: string;
+  discount: string;
+  id: number;
+  image: string;
+  isLiked: boolean;
+  isbn: string;
+  link: string;
+  pubdate: string;
+  publisher: string;
+  rating: string;
+  title: string;
+  totalComments: number;
+  totalLikes: number;
+  updatedAt: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    emailVerified: string | null;
+    image: string;
+  };
+  userId: string;
+  userImages: string[];
+}
