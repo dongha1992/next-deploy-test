@@ -15,9 +15,9 @@ function BookRecent({ image, title, author, description, onClick }: Props) {
   const hasMoreButton = description.length > MAX_RECENT_DESCRIPTION_LENGTH;
 
   return (
-    <div onClick={onClick}>
+    <div>
       <BookAnimation src={image} />
-      <div className="ml-2">
+      <div className="ml-2" onClick={onClick}>
         <div className="flex flex-col justify-between">
           <div className="h-18">
             <p className="text-sm font-semibold text-gray-100 mb-2 mr-2 h-10">

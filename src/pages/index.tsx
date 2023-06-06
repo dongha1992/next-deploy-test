@@ -1,10 +1,9 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 
 import Layout from "@/components/Layout";
 import Navigation from "@/components/Common/Navigation";
 import { popupState } from "@/store/common";
 import { useRecoilState } from "recoil";
-import BookAnimation from "@/components/Animation/book";
 import { useGetRecentBooks } from "@/query/book";
 import BookRecent from "@/components/Book/BookRecent";
 import { UserBook } from "@/utils/api/type";
@@ -13,8 +12,6 @@ import Lottie from "@/components/Common/Lottie";
 import router from "next/router";
 
 export default function Home() {
-  const [popup, setPopup] = useRecoilState(popupState);
-
   const { data, isLoading } = useGetRecentBooks();
 
   return (
