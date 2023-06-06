@@ -51,6 +51,13 @@ function BookAnimation({ src }: { src: string }) {
   //   };
   // }, []);
 
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (!sheetRef.current) return;
+  //     sheetRef.current.style.transform = `rotateX(10deg) rotateY(-30deg)`;
+  //   }, 10);
+  // }, []);
+
   return (
     <section className="app" id="app" data-current-media="book" ref={sheetRef}>
       <article className="media-container">
