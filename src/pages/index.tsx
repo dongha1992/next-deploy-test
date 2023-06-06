@@ -10,6 +10,7 @@ import BookRecent from "@/components/Book/BookRecent";
 import { UserBook } from "@/utils/api/type";
 import Overlay from "@/components/Common/Overlay";
 import Lottie from "@/components/Common/Lottie";
+import router from "next/router";
 
 export default function Home() {
   const [popup, setPopup] = useRecoilState(popupState);
@@ -38,6 +39,7 @@ export default function Home() {
                 image={image}
                 title={title}
                 description={description}
+                onClick={() => router.push(`/book/${id}`)}
               />
             );
           })}

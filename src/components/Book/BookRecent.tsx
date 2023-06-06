@@ -5,17 +5,17 @@ interface Props {
   image: string;
   title: string;
   author: string;
-
+  onClick: () => void;
   description: string;
 }
 const MAX_RECENT_DESCRIPTION_LENGTH = 60;
 
-function BookRecent({ image, title, author, description }: Props) {
+function BookRecent({ image, title, author, description, onClick }: Props) {
   const formatTitle = (str: string) => str.replace(/\(.*\)/, "");
   const hasMoreButton = description.length > MAX_RECENT_DESCRIPTION_LENGTH;
 
   return (
-    <div>
+    <div onClick={onClick}>
       <BookAnimation src={image} />
       <div className="ml-2">
         <div className="flex flex-col justify-between">
