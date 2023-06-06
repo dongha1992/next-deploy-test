@@ -1,15 +1,13 @@
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
+import router from "next/router";
 
 import Layout from "@/components/Layout";
 import Navigation from "@/components/Common/Navigation";
-import { popupState } from "@/store/common";
-import { useRecoilState } from "recoil";
 import { useGetRecentBooks } from "@/query/book";
 import BookRecent from "@/components/Book/BookRecent";
 import { UserBook } from "@/utils/api/type";
 import Overlay from "@/components/Common/Overlay";
 import Lottie from "@/components/Common/Lottie";
-import router from "next/router";
 
 export default function Home() {
   const { data, isLoading } = useGetRecentBooks();
