@@ -55,15 +55,27 @@ async function createBook(req: any, res: any) {
 }
 
 async function getBooks(req: NextApiRequest, res: NextApiResponse) {
-  const { search, page, size } = req.query;
+  const { search, page = 1, size = 5 } = req.query;
+  console.log(search, page, size);
   const skip = (Number(page) - 1) * Number(size);
   const take = Number(size);
 
   let books: any[] = [];
-
+  let totalPage = 0;
   // TODO: 중복...
 
   if (search) {
+    const totalCount = await prisma.book.count({
+      where: {
+        OR: [
+          { body: { contains: search as string } },
+          { title: { contains: search as string } },
+        ],
+      },
+    });
+
+    totalPage = Math.ceil(totalCount / Number(size));
+
     books = await prisma.book.findMany({
       where: {
         OR: [
@@ -81,6 +93,10 @@ async function getBooks(req: NextApiRequest, res: NextApiResponse) {
       take,
     });
   } else {
+    const totalCount = await prisma.book.count();
+
+    totalPage = Math.ceil(totalCount / Number(size));
+
     books = await prisma.book.findMany({
       orderBy: {
         createdAt: "desc",
@@ -93,7 +109,7 @@ async function getBooks(req: NextApiRequest, res: NextApiResponse) {
     });
   }
 
-  res.status(200).json(books);
+  res.status(200).json({ data: books, pagination: { totalPage } });
 }
 
 export default async function handler(req: any, res: any) {

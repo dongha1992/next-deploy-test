@@ -1,8 +1,14 @@
 import { apiClient } from "./apiClient";
-import { CreateBookData } from "@/query/book";
+import { CreateBookData, InfiniteParams } from "@/query/book";
 
-const getBooksApi = (query?: string): Promise<any[]> => {
-  return apiClient.get(`api/books?search=${query}`).then(({ data }) => data);
+const getBooksApi = ({
+  page = 1,
+  size = 5,
+  query,
+}: InfiniteParams): Promise<{ data: any[]; pagination: any }> => {
+  return apiClient
+    .get(`api/books?search=${query}&page=${page}&size=${size}`)
+    .then(({ data }) => data);
 };
 
 const getBooksRecentApi = () => {

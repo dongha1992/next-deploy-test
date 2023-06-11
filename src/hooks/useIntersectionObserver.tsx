@@ -53,7 +53,8 @@ const useIntersectionObserver = ({
         fetchNextPage();
       }
     }
-  }, [page, fetchNextPage, isFetching, currentPage, totalPage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
 
   return { page };
 };

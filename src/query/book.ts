@@ -1,6 +1,10 @@
 // TODO: post query랑 중복 제거
 
-import { setLikes, useSyncMutation } from "@/hooks/query";
+import {
+  setLikes,
+  useBaseInfiniteScroll,
+  useSyncMutation,
+} from "@/hooks/query";
 import {
   deleteBookApi,
   deleteBookCommentApi,
@@ -38,7 +42,7 @@ function useSearchPost({ query, options }: QueryProps) {
 
 const getSearchPostConfig = (query: string, options = {}) => ({
   queryKey: [BOOK_QUERY_KEY, query],
-  queryFn: () => getBooksApi(query),
+  queryFn: () => getBooksApi({ query }),
   config: {
     onSucess: (books: any) => {
       // 개별 아이템 캐시 해야함
@@ -52,6 +56,29 @@ const getSearchPostConfig = (query: string, options = {}) => ({
     ...options,
   },
 });
+
+export interface InfiniteParams {
+  size?: number;
+  page?: number;
+  query?: string;
+}
+
+const useGetInfiniteBooks = ({ page, size, query }: InfiniteParams) => {
+  const fetchDatas = async ({ pageParam = 1 }) => {
+    const { pagination, data } = await getBooksApi({
+      page: pageParam,
+      size,
+      query,
+    });
+
+    return {
+      result: data,
+      nextPage: pageParam + 1,
+      totalPage: pagination.totalPage,
+    };
+  };
+  return useBaseInfiniteScroll(["infiniteBooks"], fetchDatas);
+};
 
 const useGetRecentBooks = ({ options }: any = {}) => {
   return useQuery([BOOK_RECENT_KEY], () => getBooksRecentApi(), {
@@ -235,4 +262,5 @@ export {
   useEditPost,
   useRefetchPostSearchQuery,
   useGetBookDetail,
+  useGetInfiniteBooks,
 };
