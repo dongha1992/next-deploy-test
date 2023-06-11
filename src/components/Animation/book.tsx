@@ -51,13 +51,6 @@ function BookAnimation({ src }: { src: string }) {
   //   };
   // }, []);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (!sheetRef.current) return;
-  //     sheetRef.current.style.transform = `rotateX(10deg) rotateY(-30deg)`;
-  //   }, 10);
-  // }, []);
-
   return (
     <section className="app" id="app" data-current-media="book" ref={sheetRef}>
       <article className="media-container">
@@ -75,8 +68,9 @@ function BookAnimation({ src }: { src: string }) {
                 // onError={() => setImageSrc(IMAGE_ERROR)}
               />
             </div>
-            <div className="book__paper"></div>
-            <div className="book__back"></div>
+            <div className="book__paper" />
+            <div className="book__back" />
+            <div className="book__bottom" />
           </div>
         </div>
       </article>

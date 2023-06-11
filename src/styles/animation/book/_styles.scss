@@ -1,5 +1,5 @@
 .app {
-  --thickness: 20px;
+  --thickness: 10px;
 
   display: flex;
   align-items: center;
@@ -84,8 +84,29 @@
     transform: translateZ(calc(-1 * var(--thickness)));
   }
 
+  &__bottom {
+   height: calc(var(--thickness) * 2);
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.3),
+    rgba(255, 255, 257, 0)
+  ),
+  repeating-linear-gradient(
+    90deg,
+    white,
+    #e2e2e2 1px,
+    white 3px,
+    #9a9a9a 1px
+  );
+  position: absolute;
+  bottom: calc(-1 * var(--thickness));
+  left: 0;
+  transform: rotateX(90deg);
+  }
+
   &__paper {
-    height: 100%;
+    height: 99%;
     width: calc(var(--thickness) * 2);
     background: white;
     position: absolute;
