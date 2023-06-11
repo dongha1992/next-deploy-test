@@ -23,7 +23,7 @@ function BookRecent({
   const hasMoreButton = description?.length > MAX_RECENT_DESCRIPTION_LENGTH;
 
   return (
-    <div>
+    <div className="w-25 max-w-[180px]">
       <BookAnimation src={image} />
       <div className="ml-2" onClick={onClick} role="button">
         <div className="flex flex-col justify-between">
