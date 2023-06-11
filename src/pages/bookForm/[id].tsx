@@ -3,7 +3,11 @@ import { ReactElement, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 
-import { BOOK_DETAIL_QUERY_KEY, useEditPost } from "@/query/book";
+import {
+  BOOK_DETAIL_QUERY_KEY,
+  useEditPost,
+  useGetBookDetail,
+} from "@/query/book";
 import Overlay from "@/components/Common/Overlay";
 import Lottie from "@/components/Common/Lottie";
 import { getBookDetailApi } from "@/utils/api/book";
@@ -19,15 +23,7 @@ export default function BookEditPage() {
 
   const { id } = router.query;
 
-  const { data: book, isLoading } = useQuery(
-    [BOOK_DETAIL_QUERY_KEY, id],
-    () => getBookDetailApi(Number(id)),
-    {
-      onSuccess: (data) => {},
-      enabled: !!id,
-    }
-  );
-
+  const { data: book, isLoading, isError } = useGetBookDetail(Number(id));
   const { ratingGenerator, rating } = useRating({
     userRating: book?.rating,
     isReadOnly: false,
@@ -50,8 +46,6 @@ export default function BookEditPage() {
       alert("내용을 입력해주세요.");
       return;
     }
-
-    // userImages: images,
 
     patchPostMutation({
       data: { body: text.value, userImages: images, rating },
@@ -76,6 +70,7 @@ export default function BookEditPage() {
   }
 
   const hasBookInfo = book?.author || book?.description;
+
   return (
     <>
       <Head>

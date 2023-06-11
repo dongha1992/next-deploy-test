@@ -6,6 +6,7 @@ import {
   deleteBookCommentApi,
   deleteLikeApi,
   editBookApi,
+  getBookDetailApi,
   getBooksApi,
   getBooksRecentApi,
   postBookApi,
@@ -67,6 +68,14 @@ export interface CreateBookData {
   rating: number;
 }
 
+function useGetBookDetail(id: number) {
+  return useQuery([BOOK_DETAIL_QUERY_KEY, id], () => getBookDetailApi(id), {
+    onError: () => {
+      router.push("/");
+    },
+    enabled: !!id,
+  });
+}
 function useBookCreate({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
   return useMutation(({ ...data }: CreateBookData) => postBookApi(data), {
@@ -225,4 +234,5 @@ export {
   useDeleteComment,
   useEditPost,
   useRefetchPostSearchQuery,
+  useGetBookDetail,
 };

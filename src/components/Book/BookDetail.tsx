@@ -54,7 +54,7 @@ export default function BookDetail({
   };
 
   const isAuth = data?.user?.email === book?.user?.email;
-  const hasBookInfo = book.image || book.author;
+  const hasBookInfo = book?.image || book?.author;
 
   return (
     <div className={"flex flex-col overflow-hidden rounded-lg " + className}>

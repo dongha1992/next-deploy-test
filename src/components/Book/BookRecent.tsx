@@ -7,13 +7,21 @@ interface Props {
   author: string;
   onClick: () => void;
   description: string;
+  body: string;
 }
 const MAX_RECENT_DESCRIPTION_LENGTH = 60;
 
-function BookRecent({ image, title, author, description, onClick }: Props) {
+function BookRecent({
+  image,
+  title,
+  author,
+  description,
+  body,
+  onClick,
+}: Props) {
   const formatTitle = (str: string) => str.replace(/\(.*\)/, "");
-  const hasMoreButton = description.length > MAX_RECENT_DESCRIPTION_LENGTH;
-
+  const hasMoreButton = description?.length > MAX_RECENT_DESCRIPTION_LENGTH;
+  console.log(title);
   return (
     <div>
       <BookAnimation src={image} />
@@ -21,10 +29,10 @@ function BookRecent({ image, title, author, description, onClick }: Props) {
         <div className="flex flex-col justify-between">
           <div className="h-18">
             <p className="text-sm font-semibold text-gray-100 mb-2 mr-2 h-10">
-              {formatTitle(title)}
+              {formatTitle(title) || "제목미상"}
             </p>
             <p className="text-xs md:text-sm lg:text-sm text-gray-100">
-              {author?.replaceAll("^", ", ")}
+              {author ? author?.replaceAll("^", ", ") : "작가미상"}
             </p>
           </div>
           <div className="text-xs mt-2">
@@ -33,7 +41,7 @@ function BookRecent({ image, title, author, description, onClick }: Props) {
                 {`${description.slice(0, MAX_RECENT_DESCRIPTION_LENGTH)}...`}
               </span>
             ) : (
-              <span>{description}</span>
+              <span>{description || body}</span>
             )}
           </div>
         </div>

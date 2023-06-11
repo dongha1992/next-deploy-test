@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import Navigation from "@/components/Common/Navigation";
 import router from "next/router";
 import { useRecoilState } from "recoil";

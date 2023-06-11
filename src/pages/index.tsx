@@ -26,18 +26,21 @@ export default function Home() {
           </Overlay>
         )}
         <div className="flex">
-          {data?.map(({ image, author, title, description, id }: UserBook) => {
-            return (
-              <BookRecent
-                key={id}
-                author={author}
-                image={image}
-                title={title}
-                description={description}
-                onClick={() => router.push(`/book/${id}`)}
-              />
-            );
-          })}
+          {data?.map(
+            ({ image, author, title, description, id, body }: UserBook) => {
+              return (
+                <BookRecent
+                  key={id}
+                  author={author}
+                  image={image}
+                  title={title}
+                  description={description}
+                  body={body}
+                  onClick={() => router.push(`/book/${id}`)}
+                />
+              );
+            }
+          )}
         </div>
       </article>
     </section>

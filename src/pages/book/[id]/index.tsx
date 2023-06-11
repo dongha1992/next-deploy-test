@@ -1,4 +1,8 @@
 import Head from "next/head";
+import router from "next/router";
+import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 
 import {
   BOOK_DETAIL_QUERY_KEY,
@@ -6,19 +10,14 @@ import {
   useUpdateLike,
   usePostComment,
   useDeleteComment,
+  useGetBookDetail,
 } from "@/query/book";
-import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
-
 import Comment from "@/components/Common/Comment";
 import TextArea from "@/components/Common/TextArea";
 import Button from "@/components/Common/Button";
 import Lottie from "@/components/Common/Lottie";
 import Overlay from "@/components/Common/Overlay";
-import { getBookDetailApi } from "@/utils/api/book";
 import BookDetail from "@/components/Book/BookDetail";
-import router from "next/router";
-import { useSession } from "next-auth/react";
-import { getServerSession } from "next-auth/next";
 import { options } from "@/pages/api/auth/[...nextauth]";
 import useCheckAuth from "@/hooks/useCheckAuth";
 import { useRecoilState } from "recoil";
@@ -26,6 +25,7 @@ import { popupState } from "@/store/common";
 import Layout from "@/components/Layout";
 import { ReactElement } from "react";
 import { Header } from "@/components/Common/Header";
+import { getBookDetailApi } from "@/utils/api/book";
 
 export default function BookDetailPage({ id }: { id: number }) {
   const { status, data } = useSession();
@@ -33,16 +33,7 @@ export default function BookDetailPage({ id }: { id: number }) {
   const [popup, setPopup] = useRecoilState(popupState);
   const isUnauthenticated = status === "unauthenticated";
 
-  const {
-    data: book,
-    isLoading,
-    isError,
-  } = useQuery([BOOK_DETAIL_QUERY_KEY, id], () => getBookDetailApi(id), {
-    onError: () => {
-      router.push("/");
-    },
-  });
-
+  const { data: book, isLoading, isError } = useGetBookDetail(id);
   const { mutate: postLikeMutation, isLoading: isLikeLoading } = useUpdateLike({
     queryKey: [BOOK_DETAIL_QUERY_KEY, id],
     options: { id, totalLikes: book?.totalLikes, isLiked: book?.isLiked },
@@ -100,10 +91,7 @@ export default function BookDetailPage({ id }: { id: number }) {
 
   return (
     <div className="w-full bg-black">
-      {(isLoading ||
-        isCommentLoading ||
-        isLikeLoading ||
-        isLikeDeleteLoading) && (
+      {(isLoading || isCommentLoading) && (
         <Overlay>
           <Lottie
             src="https://assets8.lottiefiles.com/private_files/lf30_gqirhcr7.json"
@@ -188,6 +176,8 @@ export async function getServerSideProps(context: any) {
   //   };
   // }
 
+  /** TODO: prefetch 관련 좀 더 고민해봐야함 */
+
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([BOOK_DETAIL_QUERY_KEY, id], () =>
     getBookDetailApi(id)
@@ -196,4 +186,8 @@ export async function getServerSideProps(context: any) {
   return {
     props: { dehydratedProps: dehydrate(queryClient), id: id },
   };
+
+  // return {
+  //   props: { id: Number(id) },
+  // };
 }
