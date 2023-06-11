@@ -183,7 +183,7 @@ function BookPage() {
                 loop={true}
                 style={{
                   position: "absolute",
-                  bottom: 0,
+                  bottom: 15,
                 }}
               />
             </Overlay>
