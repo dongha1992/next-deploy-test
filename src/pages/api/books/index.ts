@@ -56,7 +56,7 @@ async function createBook(req: any, res: any) {
 
 async function getBooks(req: NextApiRequest, res: NextApiResponse) {
   const { search, page = 1, size = 5 } = req.query;
-  console.log(search, page, size);
+
   const skip = (Number(page) - 1) * Number(size);
   const take = Number(size);
 

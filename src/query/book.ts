@@ -77,7 +77,7 @@ const useGetInfiniteBooks = ({ page, size, query }: InfiniteParams) => {
       totalPage: pagination.totalPage,
     };
   };
-  return useBaseInfiniteScroll(["infiniteBooks"], fetchDatas);
+  return useBaseInfiniteScroll(["infiniteBooks", query], fetchDatas);
 };
 
 const useGetRecentBooks = ({ options }: any = {}) => {

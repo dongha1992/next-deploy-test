@@ -62,7 +62,6 @@ function BookPage() {
     status: queryStatus,
   } = useGetInfiniteBooks({ size: 5, page: 1, query: keyword });
 
-  console.log(data);
   const refetchPostSearchQuery = useRefetchPostSearchQuery();
 
   // const { mutate: postLikeMutation, isLoading: isLikeLoading } = useUpdateLike({
