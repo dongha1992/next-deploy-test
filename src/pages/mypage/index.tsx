@@ -97,7 +97,7 @@ function Mypage() {
               </Button>
             </div>
 
-            <Spacing size={20} />
+            <Spacing size={10} />
             <Border size={1} />
             <div className="mt-6">
               <ul>

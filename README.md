@@ -19,8 +19,8 @@ demo: https://the-scope.vercel.app/book
 - [x] 글 삭제
 - [x] 글 수정
 - [x] 좋아요
-  - [] 여러 번 호출 시 에러 뱉기
-  - [x] react-query로 refetch
+  - [x] 여러 번 호출 시 방어
+  - [x] react-query로 캐시
   - [] 특정 글 좋아요 했는지(list 일 때)
 - [] 해시태그
 - [x] 내 게시글만 보기
@@ -41,7 +41,7 @@ demo: https://the-scope.vercel.app/book
 #### 기타
 
 - [] 첫 글 빵빠레 로티 (렌더링 이슈 해결해야함)
-- [] SEO
+- [x] SEO
 
 #### 리팩토링
 

@@ -29,7 +29,7 @@ function BookInfo({
     setIsMore((prev) => !prev);
   };
 
-  const hasMoreButton = item?.description.length > MAX_DESCRIPTION_LENGTH;
+  const hasMoreButton = item?.description?.length > MAX_DESCRIPTION_LENGTH;
 
   return (
     <div

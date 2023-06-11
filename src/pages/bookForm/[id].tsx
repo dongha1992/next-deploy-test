@@ -75,6 +75,7 @@ export default function BookEditPage() {
     );
   }
 
+  const hasBookInfo = book?.author || book?.description;
   return (
     <>
       <Head>
@@ -85,7 +86,7 @@ export default function BookEditPage() {
           어떤 책을 읽으셨나요?
         </h1>
         <div className="mt-6">
-          <BookInfo item={book} />
+          {hasBookInfo && <BookInfo item={book} />}
           <div className="flex justify-end w-full my-2">
             {ratingGenerator({ width: 24, height: 24 })}
           </div>

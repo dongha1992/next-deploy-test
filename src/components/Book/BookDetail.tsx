@@ -106,10 +106,10 @@ export default function BookDetail({
         </span>
       </div>
       <Spacing size={20} />
-      <section className="overflow-x-scroll max-w-96 w-auto">
+      <section className="overflow-x-scroll">
         <div
           className="flex align-items-center gap-4"
-          style={{ width: "800px" }}
+          style={{ width: `${book?.userImages.length * 192}px` }}
         >
           {book?.userImages.length > 0 &&
             book?.userImages.map((src: string, index: number) => {
