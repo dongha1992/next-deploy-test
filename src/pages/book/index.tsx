@@ -59,7 +59,6 @@ function BookPage() {
     isFetchingNextPage,
     isSuccess,
     isLoading: isBooksLoading,
-    status: queryStatus,
   } = useGetInfiniteBooks({ size: 5, page: 1, query: keyword });
 
   const refetchPostSearchQuery = useRefetchPostSearchQuery();

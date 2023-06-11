@@ -51,7 +51,9 @@ function BookAnimation({ src }: { src: string }) {
   //     }
   //   };
   // }, []);
+
   const customSrc = src ?? "/img/scope-logo.jpeg";
+
   return (
     <section className="app" id="app" data-current-media="book" ref={sheetRef}>
       <article className="media-container">
@@ -66,6 +68,7 @@ function BookAnimation({ src }: { src: string }) {
                 src={customSrc}
                 alt="book cover"
                 fill
+                style={{ objectFit: "cover" }}
                 // onError={() => setImageSrc(IMAGE_ERROR)}
               />
             </div>

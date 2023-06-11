@@ -19,7 +19,6 @@ import Border from "@/components/Common/Border";
 export function BookPage() {
   const [keyword, setKeyword] = useState<string>("");
   const [isSearched, setIsSearched] = useState<boolean>(false);
-  const { status } = useSession();
 
   const isUnauthenticated = status === "unauthenticated";
   const router = useRouter();
