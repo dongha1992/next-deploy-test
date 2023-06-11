@@ -2,7 +2,7 @@ import Head from "next/head";
 import router from "next/router";
 import { useSession } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
 
 import {
   BOOK_DETAIL_QUERY_KEY,
@@ -89,9 +89,12 @@ export default function BookDetailPage({ id }: { id: number }) {
 
   if (isError) return <div>에러</div>;
 
+  const loadingCondition = isLikeLoading || isLikeDeleteLoading || isLoading;
+  isCommentLoading;
+
   return (
     <div className="w-full bg-black">
-      {(isLoading || isCommentLoading) && (
+      {loadingCondition && (
         <Overlay>
           <Lottie
             src="https://assets8.lottiefiles.com/private_files/lf30_gqirhcr7.json"

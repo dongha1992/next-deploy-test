@@ -1,4 +1,9 @@
-import { useMutation } from "@tanstack/react-query";
+import {
+  QueryFunction,
+  QueryKey,
+  useInfiniteQuery,
+  useMutation,
+} from "@tanstack/react-query";
 
 //TODO: LIST 일 때 커버못함
 interface Props {
@@ -41,4 +46,26 @@ const useSyncMutation = (mutationFn: any, options: any) => {
   };
 };
 
-export { useSyncMutation, setLikes };
+const useBaseInfiniteScroll = (
+  key: QueryKey,
+  fetchDatas: QueryFunction,
+  enabled?: string
+) => {
+  return useInfiniteQuery(key, fetchDatas, {
+    getNextPageParam: (lastPage: any, pages) => {
+      if (lastPage.totalPage >= lastPage.nextPage) {
+        return lastPage.nextPage;
+      } else {
+        return null;
+      }
+    },
+    onSettled: () => {},
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
+    retry: 1,
+    cacheTime: 0,
+    staleTime: 0,
+  });
+};
+export { useSyncMutation, setLikes, useBaseInfiniteScroll };

@@ -55,9 +55,12 @@ async function createBook(req: any, res: any) {
 }
 
 async function getBooks(req: NextApiRequest, res: NextApiResponse) {
-  const { search } = req.query;
+  const { search, page, size } = req.query;
+  const skip = (Number(page) - 1) * Number(size);
+  const take = Number(size);
 
   let books: any[] = [];
+
   // TODO: 중복...
 
   if (search) {
@@ -74,6 +77,8 @@ async function getBooks(req: NextApiRequest, res: NextApiResponse) {
       include: {
         user: true,
       },
+      skip,
+      take,
     });
   } else {
     books = await prisma.book.findMany({
@@ -83,6 +88,8 @@ async function getBooks(req: NextApiRequest, res: NextApiResponse) {
       include: {
         user: true,
       },
+      skip,
+      take,
     });
   }
 

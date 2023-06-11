@@ -21,7 +21,7 @@ function BookRecent({
 }: Props) {
   const formatTitle = (str: string) => str.replace(/\(.*\)/, "");
   const hasMoreButton = description?.length > MAX_RECENT_DESCRIPTION_LENGTH;
-  console.log(title);
+
   return (
     <div>
       <BookAnimation src={image} />
