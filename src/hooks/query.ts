@@ -1,29 +1,32 @@
 import { useMutation } from "@tanstack/react-query";
 
-// const useOnLike = () => {
-//   return prev?.map((preItem: any) => {
-//     if (preItem.id === id) {
-//       if (preItem.isLiked) {
-//         newLiked = false;
-//         if (prev.totalLikes > 0) {
-//           newLikeCount = prev.totalLikes - 1;
-//         } else {
-//           newLikeCount = 0;
-//         }
-//       } else {
-//         newLiked = true;
-//         newLikeCount = preItem.totalLikes + 1;
-//       }
-//       return {
-//         ...preItem,
-//         liked: newLiked,
-//         likeCount: newLikeCount,
-//       };
-//     } else {
-//       return preItem;
-//     }
-//   });
-// };
+//TODO: LIST 일 때 커버못함
+interface Props {
+  prev: any;
+  id?: number;
+  totalLikes: number;
+  isLiked: boolean;
+}
+const setLikes = ({ prev, totalLikes, isLiked }: Props) => {
+  let newLiked, newLikeCount;
+
+  if (isLiked) {
+    newLiked = false;
+    if (totalLikes > 0) {
+      newLikeCount = totalLikes - 1;
+    } else {
+      newLikeCount = 0;
+    }
+  } else {
+    newLiked = true;
+    newLikeCount = totalLikes + 1;
+  }
+  return {
+    ...prev,
+    isLiked: newLiked,
+    totalLikes: newLikeCount,
+  };
+};
 
 const useSyncMutation = (mutationFn: any, options: any) => {
   const mutationResults = useMutation(mutationFn, options);
@@ -38,4 +41,4 @@ const useSyncMutation = (mutationFn: any, options: any) => {
   };
 };
 
-export { useSyncMutation };
+export { useSyncMutation, setLikes };

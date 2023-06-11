@@ -58,7 +58,7 @@ async function updateNovelLike(res: NextApiResponse, req: NextApiRequest) {
     },
   });
 
-  res.status(200).json({ message: "성공" });
+  res.status(200).json({ message: "성공", id });
 }
 
 async function deleteNovelLike(res: NextApiResponse, req: NextApiRequest) {
@@ -114,7 +114,7 @@ async function deleteNovelLike(res: NextApiResponse, req: NextApiRequest) {
     },
   });
 
-  res.status(200).json({ message: "성공" });
+  res.status(200).json({ message: "성공", id });
 }
 
 export default async function handler(

@@ -59,7 +59,7 @@ async function updateBookLike(res: NextApiResponse, req: NextApiRequest) {
     },
   });
 
-  res.status(200).json({ message: "성공" });
+  res.status(200).json({ message: "성공", id });
 }
 
 async function deleteBookLike(res: NextApiResponse, req: NextApiRequest) {
@@ -115,7 +115,7 @@ async function deleteBookLike(res: NextApiResponse, req: NextApiRequest) {
     },
   });
 
-  res.status(200).json({ message: "성공" });
+  res.status(200).json({ message: "성공", id });
 }
 
 export default async function handler(

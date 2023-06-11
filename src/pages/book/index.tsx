@@ -47,18 +47,18 @@ function BookPage() {
 
   const refetchPostSearchQuery = useRefetchPostSearchQuery();
 
-  const { mutate: postLikeMutation, isLoading: isLikeLoading } = useUpdateLike({
-    queryKey: [BOOK_QUERY_KEY],
-  });
+  // const { mutate: postLikeMutation, isLoading: isLikeLoading } = useUpdateLike({
+  //   queryKey: [BOOK_QUERY_KEY],
+  // });
 
-  const { mutate: deleteLikeMutation, isLoading: isDeleteLikeLoading } =
-    useDeleteLike({
-      queryKey: [BOOK_QUERY_KEY],
-    });
+  // const { mutate: deleteLikeMutation, isLoading: isDeleteLikeLoading } =
+  //   useDeleteLike({
+  //     queryKey: [BOOK_QUERY_KEY],
+  //   });
 
-  function onMutateLikeHandler(isLiked: boolean, id: number) {
-    isLiked ? deleteLikeMutation(id) : postLikeMutation(id);
-  }
+  // const onMutateLikeHandler = (isLiked: boolean, id: number) => {
+  //   isLiked ? deleteLikeMutation(id) : postLikeMutation(id);
+  // };
 
   const onSubmitSearch = (e: any) => {
     e.preventDefault();
@@ -91,7 +91,7 @@ function BookPage() {
               }
             />
           </form>
-          {(isLikeLoading || isDeleteLikeLoading || isBooksLoading) && (
+          {isBooksLoading && (
             <Overlay>
               <Lottie
                 className="w-56"

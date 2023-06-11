@@ -1,6 +1,6 @@
 // TODO: post query랑 중복 제거
 
-import { useSyncMutation } from "@/hooks/query";
+import { setLikes, useSyncMutation } from "@/hooks/query";
 import {
   deleteBookApi,
   deleteBookCommentApi,
@@ -17,7 +17,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import router from "next/router";
 import { useCallback } from "react";
 
-export const BOOK_DETAIL_QUERY_KEY = "getBookDetaill";
+export const BOOK_DETAIL_QUERY_KEY = "getBookDetail";
 export const BOOK_QUERY_KEY = "getBooks";
 export const BOOK_RECENT_KEY = "getRecentBooks";
 
@@ -87,7 +87,17 @@ function useUpdateLike({ options = {}, queryKey }: Props) {
 
   return useSyncMutation((id: number) => postLikeApi(id), {
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKey);
+      // queryClient.invalidateQueries(queryKey);
+      const { id, totalLikes, isLiked } = options;
+      queryClient.setQueryData([BOOK_DETAIL_QUERY_KEY, id], (prev: any) => {
+        if (prev) {
+          return setLikes({
+            prev,
+            totalLikes,
+            isLiked,
+          });
+        }
+      });
     },
     onError: (error: any) => {
       console.error(error);
@@ -100,7 +110,17 @@ function useDeleteLike({ options = {}, queryKey }: Props) {
   const queryClient = useQueryClient();
   return useSyncMutation((id: number) => deleteLikeApi(id), {
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKey);
+      // queryClient.invalidateQueries(queryKey);
+      const { id, totalLikes, isLiked } = options;
+      queryClient.setQueryData([BOOK_DETAIL_QUERY_KEY, id], (prev: any) => {
+        if (prev) {
+          return setLikes({
+            prev,
+            totalLikes,
+            isLiked,
+          });
+        }
+      });
     },
     onError: (error: any) => {
       console.error(error);

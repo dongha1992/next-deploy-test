@@ -45,10 +45,13 @@ export default function BookDetailPage({ id }: { id: number }) {
 
   const { mutate: postLikeMutation, isLoading: isLikeLoading } = useUpdateLike({
     queryKey: [BOOK_DETAIL_QUERY_KEY, id],
+    options: { id, totalLikes: book?.totalLikes, isLiked: book?.isLiked },
   });
+
   const { mutate: deleteLikeMutation, isLoading: isLikeDeleteLoading } =
     useDeleteLike({
       queryKey: [BOOK_DETAIL_QUERY_KEY, id],
+      options: { id, totalLikes: book?.totalLikes, isLiked: book?.isLiked },
     });
 
   const { mutate: postCommentMutation, isLoading: isCommentLoading } =
