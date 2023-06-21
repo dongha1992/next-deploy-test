@@ -10,7 +10,7 @@ import {
   TalkUnActiveIcon,
 } from "@/utils/svg";
 import { useRouter } from "next/router";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 
 const NAVIGATION = [
   {
@@ -57,10 +57,14 @@ function Navigation() {
       className="max-w-[540px] fixed bottom-0 right-0 mx-auto left-0 flex justify-center text-black w-100"
       style={{ zIndex: getZIndex("fixedBottom") }}
     >
-      <div className="h-12 bg-white flex justify-between w-full px-10">
+      <div
+        className="h-12 bg-white flex justify-between w-full px-10"
+        role="navigation"
+      >
         {NAVIGATION.map((item, index) => {
           return (
             <div
+              test-id={item.name}
               role="button"
               aria-label="클릭하면 메뉴 이동합니다."
               key={index}

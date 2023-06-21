@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import { NextPage } from "next";
-import { ReactElement, ReactNode, useRef } from "react";
+import { ReactElement, ReactNode, useRef, useState } from "react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { DefaultSeo } from "next-seo";
 
@@ -34,30 +34,31 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>);
-  const queryClient = useRef<QueryClient>();
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: false,
+            refetchOnWindowFocus: false,
+          },
+        },
+      })
+  );
   useKakao();
 
-  if (!queryClient.current) {
-    queryClient.current = new QueryClient({
-      defaultOptions: {
-        queries: {
-          retry: false,
-          refetchOnWindowFocus: false,
-        },
-      },
-    });
-  }
-
   return (
-    <QueryClientProvider client={queryClient.current}>
-      <Hydrate state={pageProps.dehydratedProps}>
-        <SessionProvider session={pageProps.session}>
-          <DefaultSeo {...DEFAULT_SEO} />
-          <RecoilRoot>{getLayout(<Component {...pageProps} />)}</RecoilRoot>
-          <Analytics />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </SessionProvider>
-      </Hydrate>
-    </QueryClientProvider>
+    <>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedProps}>
+          <SessionProvider session={pageProps.session}>
+            <DefaultSeo {...DEFAULT_SEO} />
+            <RecoilRoot>{getLayout(<Component {...pageProps} />)}</RecoilRoot>
+            <Analytics />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </SessionProvider>
+        </Hydrate>
+      </QueryClientProvider>
+    </>
   );
 }
