@@ -120,11 +120,11 @@ function useAsync<D, E>(initialState?: AsyncState<D, E>) {
 
     setData,
     setError,
+    setReset,
     error,
     status,
     data,
     run,
-    setReset,
   };
 }
 

@@ -6,6 +6,8 @@ function Overlay({ children }: PropsWithChildren) {
     <div
       className="fixed h-screen w-full h-full top-0 left-0 flex justify-center items-center text-center text-lg text-black overflow-hidden"
       style={{ zIndex: getZIndex("lottie") }}
+      data-testid="overlay"
+      role="overlay"
     >
       {children}
     </div>

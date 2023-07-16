@@ -4,6 +4,7 @@ import lottie, { AnimationItem } from "lottie-web";
 interface Props {
   src: string;
   loop?: boolean;
+  testId?: string;
   autoplay?: boolean;
   controller?: MutableRefObject<AnimationItem | null>;
   style?: any;
@@ -51,7 +52,15 @@ const Lottie = memo(
       };
     }, [assetsPath, autoplay, controller, loop, name, src]);
 
-    return <div className={className} ref={container} style={style} />;
+    return (
+      <div
+        className={className}
+        ref={container}
+        style={style}
+        data-testid="loading"
+        role="loading"
+      />
+    );
   },
   (prev, next) => {
     return (

@@ -27,10 +27,13 @@ export default function Home() {
         )}
         <div className="flex">
           {data?.map(
-            ({ image, author, title, description, id, body }: UserBook) => {
+            (
+              { image, author, title, description, id, body }: UserBook,
+              index: number
+            ) => {
               return (
                 <BookRecent
-                  key={id}
+                  key={index}
                   author={author}
                   image={image}
                   title={title}
