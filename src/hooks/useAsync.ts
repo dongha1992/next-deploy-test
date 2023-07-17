@@ -22,10 +22,12 @@ type RejectedAction<E> = {
   error: E;
 };
 
+export type StatusType = "idle" | "pending" | "resolved" | "rejected";
+
 export type AsyncState<D, E> = {
-  status: "idle" | "pending" | "resolved" | "rejected";
+  status: StatusType;
   data: D | null;
-  error: E | null;
+  error?: E | null;
 };
 
 export type AsyncAction<D, E> =
@@ -89,11 +91,11 @@ function useAsync<D, E>(initialState?: AsyncState<D, E>) {
   );
 
   const setReset = useCallback(() => {
-    return () => safeSetState(initialStateRef.current as AsyncAction<D, E>);
+    return safeSetState(initialStateRef.current as AsyncAction<D, E>);
   }, [safeSetState]);
 
   const run = useCallback(
-    (promise: Promise<D>) => {
+    (promise?: Promise<D>) => {
       if (!promise || !promise.then) {
         throw new Error("promise가 아닙니다.");
       }
